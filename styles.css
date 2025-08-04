@@ -735,6 +735,33 @@ section {
     box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.1);
 }
 
+/* Form validation styles */
+.form-group input.error,
+.form-group textarea.error {
+    border-color: var(--apple-error);
+    box-shadow: 0 0 0 3px rgba(255, 59, 48, 0.1);
+}
+
+.error-message {
+    color: var(--apple-error);
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    display: none;
+    font-weight: 500;
+}
+
+/* Security notification styles */
+.notification-warning {
+    background: var(--apple-warning) !important;
+}
+
+/* Disabled state for rate limiting */
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
 .form-group textarea {
     resize: vertical;
     min-height: 120px;
