@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
-    <!-- Security Headers (simplified for static hosting) -->
+    <!-- Enhanced Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data:; connect-src 'self' https://formspree.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
     <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=(), usb=()">
+    <meta http-equiv="Cross-Origin-Embedder-Policy" content="require-corp">
+    <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin">
     
     <!-- Additional Security -->
     <meta name="robots" content="noindex, nofollow">
@@ -413,6 +416,13 @@
                         <textarea id="message" name="message" placeholder="Your Message" rows="5" required maxlength="1000" aria-label="Your message"></textarea>
                         <div class="error-message" id="messageError"></div>
                     </div>
+                    
+                    <!-- Honeypot field for bot detection (hidden from humans) -->
+                    <div style="position: absolute; left: -9999px; opacity: 0; pointer-events: none;" aria-hidden="true">
+                        <input type="text" name="website" tabindex="-1" autocomplete="off">
+                        <input type="email" name="email_confirm" tabindex="-1" autocomplete="off">
+                    </div>
+                    
                     <!-- Hidden fields for better form handling -->
                     <input type="hidden" name="_next" value="https://mirdujanah.github.io/portfolio-website/">
                     <input type="hidden" name="_subject" value="New Contact Form Submission">
