@@ -1,0 +1,23 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Modern logo with Apple-inspired design -->
+  <defs>
+    <linearGradient id="modernGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0071e3;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e3a8a;stop-opacity:1" />
+    </linearGradient>
+    <filter id="modernShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="rgba(0,113,227,0.3)"/>
+    </filter>
+  </defs>
+  
+  <!-- Rounded rectangle background -->
+  <rect x="4" y="4" width="32" height="32" rx="8" fill="url(#modernGradient)" filter="url(#modernShadow)"/>
+  
+  <!-- Stylized MD letters -->
+  <path d="M12 16L16 24L20 16L24 24L28 16" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M28 16V24" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Modern accent line -->
+  <path d="M10 28L30 28" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+</svg> 

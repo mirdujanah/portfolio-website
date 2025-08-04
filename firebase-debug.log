@@ -1,0 +1,28 @@
+[debug] [2025-08-04T21:09:35.942Z] ----------------------------------------------------------------------
+[debug] [2025-08-04T21:09:35.943Z] Command:       /opt/homebrew/Cellar/node/24.5.0/bin/node /opt/homebrew/bin/firebase projects:create mirdujanah-portfolio-2024
+[debug] [2025-08-04T21:09:35.943Z] CLI Version:   14.11.2
+[debug] [2025-08-04T21:09:35.943Z] Platform:      darwin
+[debug] [2025-08-04T21:09:35.943Z] Node Version:  v24.5.0
+[debug] [2025-08-04T21:09:35.943Z] Time:          Tue Aug 05 2025 02:39:35 GMT+0530 (India Standard Time)
+[debug] [2025-08-04T21:09:35.943Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-08-04T21:09:35.945Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-08-04T21:09:35.945Z] > authorizing via signed-in user (dmir7186@gmail.com)
+[debug] [2025-08-04T21:09:50.250Z] Checked if tokens are valid: true, expires at: 1754345199413
+[debug] [2025-08-04T21:09:50.250Z] Checked if tokens are valid: true, expires at: 1754345199413
+[debug] [2025-08-04T21:09:50.250Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects [none]
+[debug] [2025-08-04T21:09:50.250Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"projectId":"mirdujanah-portfolio-2024","name":"mirdujanah-portfolio-2024"}
+[debug] [2025-08-04T21:09:51.874Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects 200
+[debug] [2025-08-04T21:09:51.874Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"name":"operations/create_project.global.8146685558325701406"}
+[debug] [2025-08-04T21:09:51.875Z] Checked if tokens are valid: true, expires at: 1754345199413
+[debug] [2025-08-04T21:09:51.875Z] Checked if tokens are valid: true, expires at: 1754345199413
+[debug] [2025-08-04T21:09:51.875Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.8146685558325701406 [none]
+[debug] [2025-08-04T21:09:53.284Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.8146685558325701406 200
+[debug] [2025-08-04T21:09:53.284Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.8146685558325701406 {"name":"operations/create_project.global.8146685558325701406","metadata":{"@type":"type.googleapis.com/google.cloudresourcemanager.v1.ProjectCreationStatus","ready":true},"done":true,"error":{"code":9,"message":"Callers must accept Terms of Service","details":[{"@type":"type.googleapis.com/google.rpc.PreconditionFailure","violations":[{"type":"TOS","subject":"cloud","description":"Callers must accept Terms of Service"}]}]}}
+[debug] [2025-08-04T21:09:53.408Z] FirebaseError: Callers must accept Terms of Service
+    at OperationPoller.poll (/opt/homebrew/lib/node_modules/firebase-tools/lib/operation-poller.js:24:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async createCloudProject (/opt/homebrew/lib/node_modules/firebase-tools/lib/management/projects.js:215:29)
+    at async createFirebaseProjectAndLog (/opt/homebrew/lib/node_modules/firebase-tools/lib/management/projects.js:83:9)
+[error] 
+[error] Error: Failed to create project. See firebase-debug.log for more info.
