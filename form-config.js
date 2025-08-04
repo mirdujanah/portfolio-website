@@ -8,8 +8,8 @@ const FORM_CONFIG = {
     // Formspree Configuration (Primary method)
     formspree: {
         // Get your form endpoint from https://formspree.io/
-        // Replace 'YOUR_ACTUAL_FORM_ID' with your actual form ID
-        endpoint: 'https://formspree.io/f/YOUR_ACTUAL_FORM_ID',
+        // Form ID: manbpqba
+        endpoint: 'https://formspree.io/f/manbpqba',
         enabled: true
     },
     
