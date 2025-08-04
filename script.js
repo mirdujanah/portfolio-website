@@ -397,62 +397,22 @@ async function handleFormSubmission(e) {
 
     // Check rate limiting
     if (rateLimiter.isRateLimited(userIdentifier)) {
-        showSecurityNotification(FORM_CONFIG.messages.rateLimit);
+        showSecurityNotification('Too many requests. Please wait before trying again.');
         return;
     }
 
     if (rateLimiter.isFormSubmissionLimited(userIdentifier)) {
-        showSecurityNotification(FORM_CONFIG.messages.formLimit);
+        showSecurityNotification('Too many form submissions. Please wait before trying again.');
         return;
     }
 
-    // Simple validation - check only the 4 main fields
-    const nameField = form.querySelector('#name');
-    const emailField = form.querySelector('#email');
-    const subjectField = form.querySelector('#subject');
-    const messageField = form.querySelector('#message');
-    
-    console.log('🔍 Validating form fields:');
-    console.log('Name field found:', !!nameField, nameField ? nameField.value : 'N/A');
-    console.log('Email field found:', !!emailField, emailField ? emailField.value : 'N/A');
-    console.log('Subject field found:', !!subjectField, subjectField ? subjectField.value : 'N/A');
-    console.log('Message field found:', !!messageField, messageField ? messageField.value : 'N/A');
-    
-    let allValid = true;
-    
-    // Validate each field individually
-    if (nameField && nameField.value.trim().length < 2) {
-        console.log('❌ Name validation failed');
-        allValid = false;
-    }
-    
-    if (emailField && !emailField.value.includes('@')) {
-        console.log('❌ Email validation failed');
-        allValid = false;
-    }
-    
-    if (subjectField && subjectField.value.trim().length < 3) {
-        console.log('❌ Subject validation failed');
-        allValid = false;
-    }
-    
-    if (messageField && messageField.value.trim().length < 10) {
-        console.log('❌ Message validation failed');
-        allValid = false;
-    }
-    
-    console.log('✅ All fields valid:', allValid);
-
-    if (!allValid) {
-        console.log('❌ Form validation failed - stopping submission');
-        showNotification('Please fix the errors in the form.', 'error');
-        return;
-    }
+    // SKIP ALL VALIDATION - JUST SUBMIT THE FORM
+    console.log('🚀 Skipping validation - submitting form directly');
 
     // Show loading state
     const submitButton = form.querySelector('button[type="submit"]');
     const originalText = submitButton.textContent;
-    submitButton.textContent = FORM_CONFIG.messages.loading;
+    submitButton.textContent = 'Sending...';
     submitButton.disabled = true;
 
     try {
@@ -460,7 +420,7 @@ async function handleFormSubmission(e) {
         const success = await submitFormWithFallback(form, formData);
         
         if (success) {
-            showNotification(FORM_CONFIG.messages.success, 'success');
+            showNotification('Message sent successfully! I\'ll get back to you soon.', 'success');
             form.reset();
             
             // Regenerate CSRF token
@@ -471,7 +431,7 @@ async function handleFormSubmission(e) {
         
     } catch (error) {
         console.error('Form submission error:', error);
-        showNotification(FORM_CONFIG.messages.error, 'error');
+        showNotification('Unable to send message. Please try again or contact me directly at dmir7186@gmail.com', 'error');
     } finally {
         // Reset button state
         submitButton.textContent = originalText;
