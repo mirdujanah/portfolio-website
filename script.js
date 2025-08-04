@@ -29,10 +29,7 @@ class SecurityUtils {
 
     static validateEmail(email) {
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (!emailRegex.test(email)) return false;
-        
-        const domain = email.split('@')[1];
-        return SECURITY_CONFIG.allowedEmailDomains.includes(domain);
+        return emailRegex.test(email);
     }
 
     static validateName(name) {
@@ -333,36 +330,41 @@ function validateField(field) {
     const fieldName = field.name;
     const errorElement = document.getElementById(fieldName + 'Error');
     
-    if (!errorElement) return;
+    if (!errorElement) return true;
 
     let isValid = true;
     let errorMessage = '';
 
-    switch (fieldName) {
-        case 'name':
-            if (!SecurityUtils.validateName(value)) {
-                isValid = false;
-                errorMessage = 'Please enter a valid name (letters and spaces only, 2-100 characters).';
-            }
-            break;
-        case 'email':
-            if (!SecurityUtils.validateEmail(value)) {
-                isValid = false;
-                errorMessage = 'Please enter a valid email address from a trusted domain.';
-            }
-            break;
-        case 'subject':
-            if (!SecurityUtils.validateSubject(value)) {
-                isValid = false;
-                errorMessage = 'Subject must be between 3 and 200 characters.';
-            }
-            break;
-        case 'message':
-            if (!SecurityUtils.validateMessage(value)) {
-                isValid = false;
-                errorMessage = 'Message must be between 10 and 1000 characters.';
-            }
-            break;
+    // Skip validation for empty non-required fields
+    if (!field.hasAttribute('required') && value === '') {
+        isValid = true;
+    } else {
+        switch (fieldName) {
+            case 'name':
+                if (value === '' || !SecurityUtils.validateName(value)) {
+                    isValid = false;
+                    errorMessage = 'Please enter a valid name (letters and spaces only, 2-100 characters).';
+                }
+                break;
+            case 'email':
+                if (value === '' || !SecurityUtils.validateEmail(value)) {
+                    isValid = false;
+                    errorMessage = 'Please enter a valid email address.';
+                }
+                break;
+            case 'subject':
+                if (value === '' || !SecurityUtils.validateSubject(value)) {
+                    isValid = false;
+                    errorMessage = 'Subject must be between 3 and 200 characters.';
+                }
+                break;
+            case 'message':
+                if (value === '' || !SecurityUtils.validateMessage(value)) {
+                    isValid = false;
+                    errorMessage = 'Message must be between 10 and 1000 characters.';
+                }
+                break;
+        }
     }
 
     if (isValid) {
@@ -401,17 +403,24 @@ async function handleFormSubmission(e) {
         return;
     }
 
-    // Validate all fields
-    const inputs = form.querySelectorAll('input, textarea');
+    // Validate all fields (skip hidden fields)
+    const inputs = form.querySelectorAll('input:not([type="hidden"]), textarea');
     let allValid = true;
     
     inputs.forEach(input => {
-        if (!validateField(input)) {
+        if (input.hasAttribute('required') && !validateField(input)) {
             allValid = false;
         }
     });
 
     if (!allValid) {
+        // Log validation errors for debugging
+        console.log('Form validation failed. Checking individual fields:');
+        inputs.forEach(input => {
+            const isFieldValid = validateField(input);
+            console.log(`${input.name}: ${isFieldValid ? 'valid' : 'invalid'} (value: "${input.value}")`);
+        });
+        
         showNotification(FORM_CONFIG.messages.validation, 'error');
         return;
     }
