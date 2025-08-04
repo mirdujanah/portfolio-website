@@ -384,6 +384,9 @@ function validateField(field) {
 async function handleFormSubmission(e) {
     e.preventDefault();
     
+    console.log('🚀 Form submission started');
+    console.log('📝 FORM_CONFIG loaded:', !!window.FORM_CONFIG);
+    
     const form = e.target;
     const formData = new FormData(form);
     
@@ -405,6 +408,13 @@ async function handleFormSubmission(e) {
 
     // Validate all fields (skip hidden fields)
     const inputs = form.querySelectorAll('input:not([type="hidden"]), textarea');
+    console.log(`🔍 Found ${inputs.length} form fields to validate:`);
+    inputs.forEach(input => {
+        const fieldName = input.name || input.id || 'unknown';
+        const isRequired = input.hasAttribute('required');
+        console.log(`  - ${fieldName} (${input.type || 'text'}) - Required: ${isRequired}`);
+    });
+    
     let allValid = true;
     
     inputs.forEach(input => {
@@ -414,14 +424,40 @@ async function handleFormSubmission(e) {
     });
 
     if (!allValid) {
-        // Log validation errors for debugging
-        console.log('Form validation failed. Checking individual fields:');
+        // Detailed validation debugging
+        console.log('❌ Form validation failed. Checking individual fields:');
         inputs.forEach(input => {
             const isFieldValid = validateField(input);
-            console.log(`${input.name}: ${isFieldValid ? 'valid' : 'invalid'} (value: "${input.value}")`);
+            const fieldName = input.name || input.id || 'unknown';
+            const fieldType = input.type || 'text';
+            const isRequired = input.hasAttribute('required');
+            console.log(`Field: ${fieldName} (${fieldType}) - Required: ${isRequired} - Valid: ${isFieldValid ? '✅' : '❌'} - Value: "${input.value}"`);
+            
+            if (!isFieldValid) {
+                console.log(`  ❌ Validation failed for ${fieldName}`);
+                // Check specific validation
+                const value = input.value.trim();
+                switch (fieldName) {
+                    case 'name':
+                        console.log(`  Name validation: length=${value.length}, regex test=${/^[A-Za-z\s]{2,100}$/.test(value)}`);
+                        break;
+                    case 'email':
+                        console.log(`  Email validation: regex test=${/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value)}`);
+                        break;
+                    case 'subject':
+                        console.log(`  Subject validation: length=${value.length}, min=3, max=200`);
+                        break;
+                    case 'message':
+                        console.log(`  Message validation: length=${value.length}, min=10, max=1000`);
+                        break;
+                }
+            }
         });
         
-        showNotification(FORM_CONFIG.messages.validation, 'error');
+        const errorMessage = (window.FORM_CONFIG && window.FORM_CONFIG.messages) 
+            ? FORM_CONFIG.messages.validation 
+            : 'Please fix the errors in the form.';
+        showNotification(errorMessage, 'error');
         return;
     }
 
