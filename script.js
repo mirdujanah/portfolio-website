@@ -205,6 +205,7 @@ if (skillsSection) {
 // Typing effect for hero title
 function typeWriter(element, text, speed = 100) {
     let i = 0;
+    const originalHTML = element.innerHTML;
     element.innerHTML = '';
     
     function type() {
@@ -212,23 +213,28 @@ function typeWriter(element, text, speed = 100) {
             element.innerHTML += text.charAt(i);
             i++;
             setTimeout(type, speed);
+        } else {
+            // Restore the original HTML structure after typing is complete
+            setTimeout(() => {
+                element.innerHTML = originalHTML;
+            }, 1000);
         }
     }
     
     type();
 }
 
-// Initialize typing effect when page loads
+// Initialize typing effect when page loads (disabled for now)
 document.addEventListener('DOMContentLoaded', () => {
-    const heroTitle = document.querySelector('.hero-title');
-    if (heroTitle) {
-        const originalText = heroTitle.innerHTML;
-        // Only apply typing effect if it's the first visit
-        if (!sessionStorage.getItem('visited')) {
-            typeWriter(heroTitle, originalText, 50);
-            sessionStorage.setItem('visited', 'true');
-        }
-    }
+    // Typing effect temporarily disabled to fix rendering issues
+    // const heroTitle = document.querySelector('.hero-title');
+    // if (heroTitle) {
+    //     const originalText = heroTitle.textContent;
+    //     if (!sessionStorage.getItem('visited')) {
+    //         typeWriter(heroTitle, originalText, 50);
+    //         sessionStorage.setItem('visited', 'true');
+    //     }
+    // }
 });
 
 // Parallax effect for hero section
