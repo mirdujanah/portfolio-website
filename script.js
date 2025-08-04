@@ -276,7 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Add CSS for loading state
+// Add CSS for Apple-style loading state
 const loadingStyles = document.createElement('style');
 loadingStyles.textContent = `
     body:not(.loaded) {
@@ -290,7 +290,7 @@ loadingStyles.textContent = `
         left: 0;
         width: 100%;
         height: 100%;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #fbfbfd;
         z-index: 9999;
         display: flex;
         align-items: center;
@@ -298,14 +298,17 @@ loadingStyles.textContent = `
     }
     
     body:not(.loaded)::after {
-        content: 'Loading...';
+        content: '';
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        color: white;
-        font-size: 1.5rem;
-        font-weight: 600;
+        width: 40px;
+        height: 40px;
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid #0071e3;
+        border-radius: 50%;
+        animation: appleSpin 1s linear infinite;
         z-index: 10000;
     }
     
@@ -327,11 +330,27 @@ loadingStyles.textContent = `
     }
     
     .nav-link.active {
-        color: #2563eb;
+        color: #0071e3;
     }
     
     .nav-link.active::after {
         width: 100%;
+    }
+    
+    /* Apple-style smooth scrolling */
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    /* Apple-style focus states */
+    *:focus {
+        outline: none;
+    }
+    
+    /* Apple-style selection */
+    ::selection {
+        background: rgba(0, 113, 227, 0.2);
+        color: #1d1d1f;
     }
 `;
 
