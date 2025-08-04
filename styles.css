@@ -231,6 +231,26 @@ body {
     height: 100%;
     object-fit: cover;
     object-position: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.profile-img.loaded {
+    opacity: 1;
+}
+
+.profile-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 2rem;
+    z-index: 2;
+}
+
+.profile-image {
+    position: relative;
 }
 
 .profile-placeholder {

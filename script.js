@@ -252,6 +252,27 @@ window.addEventListener('load', () => {
     document.body.classList.add('loaded');
 });
 
+// Handle profile image loading
+document.addEventListener('DOMContentLoaded', () => {
+    const profileImg = document.querySelector('.profile-img');
+    const profileLoading = document.querySelector('.profile-loading');
+    
+    if (profileImg) {
+        profileImg.addEventListener('load', () => {
+            profileImg.classList.add('loaded');
+            if (profileLoading) {
+                profileLoading.style.display = 'none';
+            }
+        });
+        
+        profileImg.addEventListener('error', () => {
+            if (profileLoading) {
+                profileLoading.style.display = 'none';
+            }
+        });
+    }
+});
+
 // Add CSS for loading state
 const loadingStyles = document.createElement('style');
 loadingStyles.textContent = `
