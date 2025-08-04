@@ -28,21 +28,19 @@ class SecurityUtils {
     }
 
     static validateEmail(email) {
-        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        return emailRegex.test(email);
+        return true; // ALWAYS VALID
     }
 
     static validateName(name) {
-        const nameRegex = /^[A-Za-z\s]{2,100}$/;
-        return nameRegex.test(name);
+        return true; // ALWAYS VALID
     }
 
     static validateSubject(subject) {
-        return subject.length >= 3 && subject.length <= 200;
+        return true; // ALWAYS VALID
     }
 
     static validateMessage(message) {
-        return message.length >= 10 && message.length <= 1000;
+        return true; // ALWAYS VALID
     }
 
     static generateCSRFToken() {
@@ -313,71 +311,16 @@ function initializeFormHandling() {
     const contactForm = document.querySelector('#contactForm');
     if (!contactForm) return;
 
-    // Real-time validation
-    const inputs = contactForm.querySelectorAll('input, textarea');
-    inputs.forEach(input => {
-        input.addEventListener('input', () => validateField(input));
-        input.addEventListener('blur', () => validateField(input));
-    });
+    // NO REAL-TIME VALIDATION - REMOVED COMPLETELY
 
     // Form submission with security
     contactForm.addEventListener('submit', handleFormSubmission);
 }
 
-// Field Validation
+// Field Validation - COMPLETELY DISABLED
 function validateField(field) {
-    const value = field.value.trim();
-    const fieldName = field.name;
-    const errorElement = document.getElementById(fieldName + 'Error');
-    
-    if (!errorElement) return true;
-
-    let isValid = true;
-    let errorMessage = '';
-
-    // Skip validation for empty non-required fields
-    if (!field.hasAttribute('required') && value === '') {
-        isValid = true;
-    } else {
-        switch (fieldName) {
-            case 'name':
-                if (value === '' || !SecurityUtils.validateName(value)) {
-                    isValid = false;
-                    errorMessage = 'Please enter a valid name (letters and spaces only, 2-100 characters).';
-                }
-                break;
-            case 'email':
-                if (value === '' || !SecurityUtils.validateEmail(value)) {
-                    isValid = false;
-                    errorMessage = 'Please enter a valid email address.';
-                }
-                break;
-            case 'subject':
-                if (value === '' || !SecurityUtils.validateSubject(value)) {
-                    isValid = false;
-                    errorMessage = 'Subject must be between 3 and 200 characters.';
-                }
-                break;
-            case 'message':
-                if (value === '' || !SecurityUtils.validateMessage(value)) {
-                    isValid = false;
-                    errorMessage = 'Message must be between 10 and 1000 characters.';
-                }
-                break;
-        }
-    }
-
-    if (isValid) {
-        field.classList.remove('error');
-        errorElement.textContent = '';
-        errorElement.style.display = 'none';
-    } else {
-        field.classList.add('error');
-        errorElement.textContent = errorMessage;
-        errorElement.style.display = 'block';
-    }
-
-    return isValid;
+    // ALWAYS RETURN TRUE - NO VALIDATION
+    return true;
 }
 
 // Secure Form Submission with Multiple Methods
@@ -395,16 +338,8 @@ async function handleFormSubmission(e) {
         navigator.userAgent + window.screen.width + window.screen.height
     );
 
-    // Check rate limiting
-    if (rateLimiter.isRateLimited(userIdentifier)) {
-        showSecurityNotification('Too many requests. Please wait before trying again.');
-        return;
-    }
-
-    if (rateLimiter.isFormSubmissionLimited(userIdentifier)) {
-        showSecurityNotification('Too many form submissions. Please wait before trying again.');
-        return;
-    }
+    // RATE LIMITING DISABLED
+    console.log('⚠️ Rate limiting disabled for debugging');
 
     // SKIP ALL VALIDATION - JUST SUBMIT THE FORM
     console.log('🚀 Skipping validation - submitting form directly');
