@@ -263,6 +263,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (profileLoading) {
                 profileLoading.style.display = 'none';
             }
+            
+            // Ensure face is properly centered
+            profileImg.style.objectPosition = 'center 25%';
         });
         
         profileImg.addEventListener('error', () => {

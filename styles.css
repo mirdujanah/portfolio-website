@@ -230,13 +230,18 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
+    object-position: center top;
     opacity: 0;
     transition: opacity 0.3s ease;
 }
 
 .profile-img.loaded {
     opacity: 1;
+}
+
+/* Face-focused positioning for portrait photos */
+.profile-img.face-focused {
+    object-position: center 25%;
 }
 
 .profile-loading {
