@@ -378,7 +378,7 @@ function validateField(field) {
     return isValid;
 }
 
-// Secure Form Submission
+// Secure Form Submission with Multiple Methods
 async function handleFormSubmission(e) {
     e.preventDefault();
     
@@ -392,12 +392,12 @@ async function handleFormSubmission(e) {
 
     // Check rate limiting
     if (rateLimiter.isRateLimited(userIdentifier)) {
-        showSecurityNotification('Too many requests. Please wait before trying again.');
+        showSecurityNotification(FORM_CONFIG.messages.rateLimit);
         return;
     }
 
     if (rateLimiter.isFormSubmissionLimited(userIdentifier)) {
-        showSecurityNotification('Too many form submissions. Please wait before trying again.');
+        showSecurityNotification(FORM_CONFIG.messages.formLimit);
         return;
     }
 
@@ -412,47 +412,129 @@ async function handleFormSubmission(e) {
     });
 
     if (!allValid) {
-        showNotification('Please fix the errors in the form.', 'error');
+        showNotification(FORM_CONFIG.messages.validation, 'error');
         return;
     }
 
-    // Sanitize all inputs
-    const sanitizedData = {};
-    for (let [key, value] of formData.entries()) {
-        sanitizedData[key] = SecurityUtils.sanitizeInput(value);
-    }
-
-    // Add CSRF token
-    sanitizedData.csrf = csrfToken;
+    // Show loading state
+    const submitButton = form.querySelector('button[type="submit"]');
+    const originalText = submitButton.textContent;
+    submitButton.textContent = FORM_CONFIG.messages.loading;
+    submitButton.disabled = true;
 
     try {
-        // Simulate form submission (in real app, this would be an API call)
-        await simulateFormSubmission(sanitizedData);
+        // Try multiple submission methods for reliability
+        const success = await submitFormWithFallback(form, formData);
         
-        showNotification('Message sent successfully! I\'ll get back to you soon.', 'success');
-        form.reset();
-        
-        // Regenerate CSRF token
-        csrfToken = SecurityUtils.generateCSRFToken();
+        if (success) {
+            showNotification(FORM_CONFIG.messages.success, 'success');
+            form.reset();
+            
+            // Regenerate CSRF token
+            csrfToken = SecurityUtils.generateCSRFToken();
+        } else {
+            throw new Error('All submission methods failed');
+        }
         
     } catch (error) {
         console.error('Form submission error:', error);
-        showNotification('An error occurred. Please try again later.', 'error');
+        showNotification(FORM_CONFIG.messages.error, 'error');
+    } finally {
+        // Reset button state
+        submitButton.textContent = originalText;
+        submitButton.disabled = false;
     }
 }
 
-// Simulate Form Submission
-async function simulateFormSubmission(data) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            // Simulate server processing
-            if (Math.random() > 0.1) { // 90% success rate
-                resolve();
-            } else {
-                reject(new Error('Simulated server error'));
+// Form Submission with Multiple Methods
+async function submitFormWithFallback(form, formData) {
+    // Method 1: Try Formspree (Primary)
+    try {
+        const success = await submitToFormspree(form, formData);
+        if (success) return true;
+    } catch (error) {
+        console.warn('Formspree submission failed:', error);
+    }
+
+    // Method 2: Try EmailJS (Fallback)
+    try {
+        const success = await submitWithEmailJS(formData);
+        if (success) return true;
+    } catch (error) {
+        console.warn('EmailJS submission failed:', error);
+    }
+
+    // Method 3: Try direct email link (Last resort)
+    return submitViaEmailLink(formData);
+}
+
+// Primary method: Formspree
+async function submitToFormspree(form, formData) {
+    try {
+        const response = await fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
             }
-        }, 1000);
-    });
+        });
+
+        if (response.ok) {
+            return true;
+        } else {
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Formspree submission failed');
+        }
+    } catch (error) {
+        throw error;
+    }
+}
+
+// Fallback method: EmailJS
+async function submitWithEmailJS(formData) {
+    const config = FORM_CONFIG.emailjs;
+
+    // Only try EmailJS if enabled and configured
+    if (config.enabled && typeof emailjs !== 'undefined' && config.publicKey !== 'YOUR_EMAILJS_PUBLIC_KEY') {
+        try {
+            const templateParams = {
+                from_name: formData.get('name'),
+                from_email: formData.get('email'),
+                subject: formData.get('subject'),
+                message: formData.get('message'),
+                to_email: FORM_CONFIG.recipientEmail
+            };
+
+            const response = await emailjs.send(
+                config.serviceID,
+                config.templateID,
+                templateParams,
+                config.publicKey
+            );
+
+            return response.status === 200;
+        } catch (error) {
+            throw error;
+        }
+    }
+    return false;
+}
+
+// Last resort: Open email client
+function submitViaEmailLink(formData) {
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const subject = formData.get('subject');
+    const message = formData.get('message');
+
+    const emailBody = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+    const mailtoLink = `mailto:${FORM_CONFIG.recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+    
+    // Open email client
+    window.location.href = mailtoLink;
+    
+    // Return true as we've initiated the email process
+    return true;
 }
 
 // Skill bars animation
