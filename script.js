@@ -480,6 +480,9 @@ async function submitFormWithFallback(form, formData) {
 // Primary method: Formspree
 async function submitToFormspree(form, formData) {
     try {
+        console.log('Submitting to Formspree:', form.action);
+        console.log('Form data:', Object.fromEntries(formData.entries()));
+        
         const response = await fetch(form.action, {
             method: 'POST',
             body: formData,
@@ -490,9 +493,20 @@ async function submitToFormspree(form, formData) {
 
         if (response.ok) {
             return true;
+        } else if (response.status === 400) {
+            // Handle Formspree validation errors
+            try {
+                const errorData = await response.json();
+                console.error('Formspree validation error:', errorData);
+                throw new Error(errorData.error || 'Form validation failed on server');
+            } catch (jsonError) {
+                // If we can't parse the error, it might be first-time setup
+                console.warn('Formspree 400 error - might need email verification');
+                throw new Error('Form submission failed. Please check your email for a verification link from Formspree.');
+            }
         } else {
-            const errorData = await response.json();
-            throw new Error(errorData.error || 'Formspree submission failed');
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.error || `Formspree error: ${response.status}`);
         }
     } catch (error) {
         throw error;
