@@ -406,58 +406,46 @@ async function handleFormSubmission(e) {
         return;
     }
 
-    // Validate all fields (skip hidden fields)
-    const inputs = form.querySelectorAll('input:not([type="hidden"]), textarea');
-    console.log(`🔍 Found ${inputs.length} form fields to validate:`);
-    inputs.forEach(input => {
-        const fieldName = input.name || input.id || 'unknown';
-        const isRequired = input.hasAttribute('required');
-        console.log(`  - ${fieldName} (${input.type || 'text'}) - Required: ${isRequired}`);
-    });
+    // Simple validation - check only the 4 main fields
+    const nameField = form.querySelector('#name');
+    const emailField = form.querySelector('#email');
+    const subjectField = form.querySelector('#subject');
+    const messageField = form.querySelector('#message');
+    
+    console.log('🔍 Validating form fields:');
+    console.log('Name field found:', !!nameField, nameField ? nameField.value : 'N/A');
+    console.log('Email field found:', !!emailField, emailField ? emailField.value : 'N/A');
+    console.log('Subject field found:', !!subjectField, subjectField ? subjectField.value : 'N/A');
+    console.log('Message field found:', !!messageField, messageField ? messageField.value : 'N/A');
     
     let allValid = true;
     
-    inputs.forEach(input => {
-        if (input.hasAttribute('required') && !validateField(input)) {
-            allValid = false;
-        }
-    });
+    // Validate each field individually
+    if (nameField && nameField.value.trim().length < 2) {
+        console.log('❌ Name validation failed');
+        allValid = false;
+    }
+    
+    if (emailField && !emailField.value.includes('@')) {
+        console.log('❌ Email validation failed');
+        allValid = false;
+    }
+    
+    if (subjectField && subjectField.value.trim().length < 3) {
+        console.log('❌ Subject validation failed');
+        allValid = false;
+    }
+    
+    if (messageField && messageField.value.trim().length < 10) {
+        console.log('❌ Message validation failed');
+        allValid = false;
+    }
+    
+    console.log('✅ All fields valid:', allValid);
 
     if (!allValid) {
-        // Detailed validation debugging
-        console.log('❌ Form validation failed. Checking individual fields:');
-        inputs.forEach(input => {
-            const isFieldValid = validateField(input);
-            const fieldName = input.name || input.id || 'unknown';
-            const fieldType = input.type || 'text';
-            const isRequired = input.hasAttribute('required');
-            console.log(`Field: ${fieldName} (${fieldType}) - Required: ${isRequired} - Valid: ${isFieldValid ? '✅' : '❌'} - Value: "${input.value}"`);
-            
-            if (!isFieldValid) {
-                console.log(`  ❌ Validation failed for ${fieldName}`);
-                // Check specific validation
-                const value = input.value.trim();
-                switch (fieldName) {
-                    case 'name':
-                        console.log(`  Name validation: length=${value.length}, regex test=${/^[A-Za-z\s]{2,100}$/.test(value)}`);
-                        break;
-                    case 'email':
-                        console.log(`  Email validation: regex test=${/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value)}`);
-                        break;
-                    case 'subject':
-                        console.log(`  Subject validation: length=${value.length}, min=3, max=200`);
-                        break;
-                    case 'message':
-                        console.log(`  Message validation: length=${value.length}, min=10, max=1000`);
-                        break;
-                }
-            }
-        });
-        
-        const errorMessage = (window.FORM_CONFIG && window.FORM_CONFIG.messages) 
-            ? FORM_CONFIG.messages.validation 
-            : 'Please fix the errors in the form.';
-        showNotification(errorMessage, 'error');
+        console.log('❌ Form validation failed - stopping submission');
+        showNotification('Please fix the errors in the form.', 'error');
         return;
     }
 
