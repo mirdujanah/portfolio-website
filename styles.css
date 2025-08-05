@@ -313,10 +313,11 @@ body {
 
 .profile-image-container {
     position: relative;
-    width: 350px;
-    height: 350px;
-    animation: floatAnimation 8s ease-in-out infinite;
+    width: 400px;
+    height: 400px;
+    animation: floatAnimation 12s ease-in-out infinite;
     transform-style: preserve-3d;
+    filter: drop-shadow(0 20px 50px rgba(102, 126, 234, 0.3));
 }
 
 .profile-image {
@@ -324,8 +325,8 @@ body {
     height: 100%;
     position: relative;
     transform-style: preserve-3d;
-    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    animation: profilePulse 6s ease-in-out infinite;
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: profilePulse 8s ease-in-out infinite;
 }
 
 .profile-orb-ring {
@@ -372,17 +373,18 @@ body {
     border-radius: 50%;
     position: relative;
     transform-style: preserve-3d;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    background: conic-gradient(
-        from 0deg,
-        var(--apple-blue),
-        rgba(102, 126, 234, 0.8),
-        rgba(118, 75, 162, 0.8),
-        var(--apple-blue)
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(
+        135deg,
+        rgba(102, 126, 234, 0.8) 0%,
+        rgba(118, 75, 162, 0.8) 50%,
+        rgba(102, 126, 234, 0.8) 100%
     );
     padding: 4px;
-    animation: gradientSpin 15s linear infinite;
-    backdrop-filter: blur(5px);
+    animation: gradientSpin 20s linear infinite;
+    box-shadow: 
+        0 0 50px rgba(102, 126, 234, 0.3),
+        0 0 100px rgba(118, 75, 162, 0.2);
 }
 
 .profile-image-wrapper::before,
@@ -416,10 +418,12 @@ body {
     background: var(--apple-background);
     transform: translateZ(0);
     box-shadow: 
-        0 15px 35px rgba(0, 0, 0, 0.2),
-        0 5px 15px rgba(0, 0, 0, 0.1);
+        0 25px 50px rgba(0, 0, 0, 0.25),
+        0 10px 25px rgba(0, 0, 0, 0.15),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1);
     transform-style: preserve-3d;
-    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(5px);
 }
 
 /* Dynamic Image States */
@@ -428,7 +432,7 @@ body {
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
-    transition: opacity 0.6s ease-in-out;
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .profile-img-state.state-professional {
@@ -465,12 +469,11 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 25%;
+    object-position: center 20%;
     opacity: 0;
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    transform: scale(1.1);
-    filter: contrast(1.2) saturate(1.3) brightness(1.1);
-    mix-blend-mode: luminosity;
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: scale(1.05);
+    filter: contrast(1.1) saturate(1.2) brightness(1.05);
 }
 
 .profile-img.loaded {
@@ -1241,15 +1244,15 @@ section {
 /* Animations - Apple Style */
 @keyframes profilePulse {
     0% { 
-        transform: scale(1);
+        transform: scale(1) translateZ(0);
         filter: brightness(1);
     }
     50% { 
-        transform: scale(1.02);
-        filter: brightness(1.2);
+        transform: scale(1.03) translateZ(50px);
+        filter: brightness(1.15);
     }
     100% { 
-        transform: scale(1);
+        transform: scale(1) translateZ(0);
         filter: brightness(1);
     }
 }
