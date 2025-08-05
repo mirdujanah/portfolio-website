@@ -62,14 +62,6 @@
       }
     }
     </script>
-<<<<<<< HEAD
-
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Text:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-=======
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -77,7 +69,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
->>>>>>> design-updates
 
     <!-- Preload critical resources -->
     <link rel="preload" href="styles.css" as="style">
@@ -140,10 +131,19 @@
                 </div>
             </div>
             <div class="hero-image">
-                <div class="profile-image">
-                    <img src="images/profile-photo.jpg" alt="Mir Dujanah Ali Hussaini" class="profile-img face-focused" loading="lazy" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'profile-placeholder\'><i class=\'fas fa-user\'></i></div>';">
-                    <div class="profile-loading">
-                        <i class="fas fa-spinner fa-spin"></i>
+                <div class="profile-image-container">
+                    <div class="profile-image">
+                        <div class="profile-image-inner">
+                            <img src="images/profile-photo.jpg" alt="Mir Dujanah Ali Hussaini" class="profile-img face-focused" loading="lazy" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'profile-placeholder\'><i class=\'fas fa-user\'></i></div>';">
+                            <div class="profile-loading">
+                                <i class="fas fa-spinner fa-spin"></i>
+                            </div>
+                        </div>
+                        <div class="profile-image-glow"></div>
+                    </div>
+                    <div class="profile-particles">
+                        <span></span><span></span><span></span><span></span>
+                        <span></span><span></span><span></span><span></span>
                     </div>
                 </div>
             </div>

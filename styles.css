@@ -264,21 +264,60 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    perspective: 1000px;
+}
+
+.profile-image-container {
+    position: relative;
+    width: 350px;
+    height: 350px;
+    animation: floatAnimation 6s ease-in-out infinite;
 }
 
 .profile-image {
-    width: 350px;
-    height: 350px;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+}
+
+.profile-image::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 50%;
+    background: linear-gradient(
+        45deg,
+        var(--apple-blue) 0%,
+        rgba(102, 126, 234, 0.5) 25%,
+        rgba(118, 75, 162, 0.5) 50%,
+        var(--apple-blue) 100%
+    );
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: xor;
+    -webkit-mask-composite: xor;
+    padding: 3px;
+    animation: borderRotate 4s linear infinite;
+}
+
+.profile-image-inner {
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
     overflow: hidden;
-    border: 3px solid rgba(255, 255, 255, 0.8);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-    transition: transform 0.3s ease;
     position: relative;
+    background: var(--apple-background);
+    transform: translateZ(0);
+    box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.2),
+        0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .profile-image:hover {
-    transform: scale(1.05);
+    transform: translateZ(20px) rotateX(10deg) rotateY(-10deg);
 }
 
 .profile-img {
@@ -287,11 +326,13 @@ body {
     object-fit: cover;
     object-position: center 25%;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: all 0.5s ease;
+    transform: scale(1.1);
 }
 
 .profile-img.loaded {
     opacity: 1;
+    transform: scale(1);
 }
 
 .profile-img.face-focused {
@@ -303,10 +344,67 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: var(--apple-gray);
+    color: var(--apple-blue);
     font-size: 2rem;
     z-index: 2;
 }
+
+.profile-image-glow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        circle at 50% 50%,
+        rgba(102, 126, 234, 0.2),
+        transparent 70%
+    );
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.profile-image:hover .profile-image-glow {
+    opacity: 1;
+}
+
+.profile-particles span {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--apple-blue);
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.profile-particles span:nth-child(1) { top: 20%; left: 20%; animation: particle1 4s infinite; }
+.profile-particles span:nth-child(2) { top: 80%; left: 80%; animation: particle2 4s infinite; }
+.profile-particles span:nth-child(3) { top: 50%; left: 10%; animation: particle3 4s infinite; }
+.profile-particles span:nth-child(4) { top: 30%; left: 90%; animation: particle4 4s infinite; }
+.profile-particles span:nth-child(5) { top: 10%; left: 50%; animation: particle5 4s infinite; }
+.profile-particles span:nth-child(6) { top: 90%; left: 30%; animation: particle6 4s infinite; }
+.profile-particles span:nth-child(7) { top: 40%; left: 40%; animation: particle7 4s infinite; }
+.profile-particles span:nth-child(8) { top: 60%; left: 60%; animation: particle8 4s infinite; }
+
+@keyframes floatAnimation {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes borderRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes particle1 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(10px, 10px); } }
+@keyframes particle2 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-10px, -10px); } }
+@keyframes particle3 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(15px, -5px); } }
+@keyframes particle4 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-15px, 5px); } }
+@keyframes particle5 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(5px, 15px); } }
+@keyframes particle6 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-5px, -15px); } }
+@keyframes particle7 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(12px, -12px); } }
+@keyframes particle8 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-12px, 12px); } }
 
 .profile-placeholder {
     width: 350px;
