@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
-    <!-- Security Headers -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none';">
+    <!-- Enhanced Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data: https://ka-f.fontawesome.com https://*.fontawesome.com; img-src 'self' data:; connect-src 'self' https://formspree.io https://ka-f.fontawesome.com https://*.fontawesome.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
     <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
     <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
@@ -63,12 +62,22 @@
       }
     }
     </script>
+<<<<<<< HEAD
 
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Text:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+=======
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+>>>>>>> design-updates
 
     <!-- Preload critical resources -->
     <link rel="preload" href="styles.css" as="style">
@@ -80,7 +89,10 @@
         <div class="nav-container">
             <div class="nav-logo">
                 <a href="#home" aria-label="Home">
-                    <img src="logo-modern.svg" alt="MD Logo" class="nav-logo-img">
+                    <svg class="nav-logo-img" width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" fill="#2563eb" opacity="0.9"/>
+                        <text x="50" y="65" text-anchor="middle" fill="white" font-size="40" font-family="Inter, sans-serif" font-weight="bold">MD</text>
+                    </svg>
                     <span class="nav-logo-text">Mir Dujanah</span>
                 </a>
             </div>
@@ -437,13 +449,13 @@
 
                     <div class="social-links">
                         <a href="https://www.linkedin.com/in/mirdujanah" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn profile"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="social-link" aria-label="GitHub profile"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social-link" aria-label="Twitter profile"><i class="fab fa-twitter"></i></a>
+                        <a href="https://github.com/mirdujanah" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub profile"><i class="fab fa-github"></i></a>
+                        <a href="https://twitter.com/mir74799" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Twitter profile"><i class="fab fa-twitter"></i></a>
                         <a href="#" class="social-link" aria-label="Instagram profile"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
 
-                <form class="contact-form" id="contactForm" novalidate>
+                <form class="contact-form" id="contactForm" action="https://formspree.io/f/manbpqba" method="POST" novalidate>
                     <div class="form-group">
                         <input type="text" id="name" name="name" placeholder="Your Name" required maxlength="100" pattern="[A-Za-z\s]+" aria-label="Your name">
                         <div class="error-message" id="nameError"></div>
@@ -460,6 +472,17 @@
                         <textarea id="message" name="message" placeholder="Your Message" rows="5" required maxlength="1000" aria-label="Your message"></textarea>
                         <div class="error-message" id="messageError"></div>
                     </div>
+                    
+                    <!-- Honeypot field for bot detection (hidden from humans) -->
+                    <div style="position: absolute; left: -9999px; opacity: 0; pointer-events: none;" aria-hidden="true">
+                        <input type="text" name="website" tabindex="-1" autocomplete="off">
+                        <input type="email" name="email_confirm" tabindex="-1" autocomplete="off">
+                    </div>
+                    
+                    <!-- Hidden fields for better form handling -->
+                    <input type="hidden" name="_next" value="https://mirdujanah.github.io/portfolio-website/">
+                    <input type="hidden" name="_subject" value="New Contact Form Submission">
+                    <input type="hidden" name="_captcha" value="false">
                     <button type="submit" class="btn btn-primary" aria-label="Send message">Send Message</button>
                 </form>
             </div>
@@ -473,6 +496,7 @@
         </div>
     </footer>
 
+    <script src="form-config.js"></script>
     <script src="script.js"></script>
 </body>
 </html> 

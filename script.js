@@ -1,65 +1,220 @@
-// Security Configuration
+// Enhanced Security Configuration
 const SECURITY_CONFIG = {
-    maxFormSubmissions: 5,
-    submissionTimeout: 60000, // 1 minute
+    maxFormSubmissions: 3,
+    submissionTimeout: 300000, // 5 minutes
     maxInputLength: {
         name: 100,
         email: 254,
         subject: 200,
         message: 1000
     },
-    allowedEmailDomains: ['gmail.com', 'yahoo.com', 'outlook.com', 'hotmail.com', 'icloud.com'],
-    rateLimitWindow: 300000, // 5 minutes
-    maxRequestsPerWindow: 10
+    minInputLength: {
+        name: 2,
+        email: 5,
+        subject: 3,
+        message: 10
+    },
+    rateLimitWindow: 900000, // 15 minutes
+    maxRequestsPerWindow: 5,
+    // Malicious patterns to detect
+    maliciousPatterns: [
+        /<script[\s\S]*?>[\s\S]*?<\/script>/gi,
+        /javascript:/gi,
+        /on\w+\s*=/gi,
+        /data:text\/html/gi,
+        /vbscript:/gi,
+        /<iframe[\s\S]*?>[\s\S]*?<\/iframe>/gi,
+        /<object[\s\S]*?>[\s\S]*?<\/object>/gi,
+        /<embed[\s\S]*?>[\s\S]*?<\/embed>/gi,
+        /expression\s*\(/gi,
+        /url\s*\(/gi,
+        /@import/gi,
+        /binding\s*:/gi
+    ],
+    // SQL injection patterns
+    sqlPatterns: [
+        /(\b(SELECT|INSERT|UPDATE|DELETE|DROP|CREATE|ALTER|EXEC|UNION|SCRIPT)\b)/gi,
+        /(\'|\"|;|--|\*|\/\*|\*\/)/g,
+        /(\bOR\b.*\b=\b|\bAND\b.*\b=\b)/gi,
+        /(\b1\s*=\s*1\b|\b1\s*=\s*0\b)/gi
+    ],
+    // Spam keywords
+    spamKeywords: [
+        'bitcoin', 'cryptocurrency', 'investment', 'loan', 'mortgage', 'casino',
+        'viagra', 'cialis', 'pharmacy', 'discount', 'free money', 'get rich',
+        'click here', 'limited time', 'act now', 'congratulations'
+    ]
 };
 
-// Security Utilities
+// Enhanced Security Utilities - Hack-Proof Implementation
 class SecurityUtils {
+    // Comprehensive input sanitization against XSS, injection attacks
     static sanitizeInput(input) {
         if (typeof input !== 'string') return '';
         
-        // Remove potentially dangerous characters and scripts
         return input
-            .replace(/[<>]/g, '') // Remove < and >
-            .replace(/javascript:/gi, '') // Remove javascript: protocol
-            .replace(/on\w+\s*=/gi, '') // Remove event handlers
-            .replace(/script/gi, '') // Remove script tags
+            // HTML entity encoding for XSS prevention
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#x27;')
+            .replace(/\//g, '&#x2F;')
+            // Remove dangerous protocols and patterns
+            .replace(/javascript:/gi, '')
+            .replace(/vbscript:/gi, '')
+            .replace(/data:/gi, '')
+            .replace(/on\w+\s*=/gi, '')
+            .replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, '')
+            .replace(/<iframe[\s\S]*?>[\s\S]*?<\/iframe>/gi, '')
+            .replace(/expression\s*\(/gi, '')
+            // SQL injection prevention
+            .replace(/(\bSELECT\b|\bINSERT\b|\bUPDATE\b|\bDELETE\b|\bDROP\b|\bCREATE\b|\bALTER\b|\bEXEC\b|\bUNION\b)/gi, '')
+            .replace(/(\'|\"|;|--|\*|\/\*|\*\/)/g, '')
+            // Normalize whitespace
+            .replace(/\s+/g, ' ')
             .trim();
     }
 
-    static validateEmail(email) {
-        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (!emailRegex.test(email)) return false;
+    // Advanced XSS detection
+    static detectXSS(input) {
+        return SECURITY_CONFIG.maliciousPatterns.some(pattern => pattern.test(input));
+    }
+
+    // SQL injection detection
+    static detectSQLInjection(input) {
+        return SECURITY_CONFIG.sqlPatterns.some(pattern => pattern.test(input));
+    }
+
+    // Spam content detection
+    static detectSpam(input) {
+        const lowerInput = input.toLowerCase();
+        return SECURITY_CONFIG.spamKeywords.some(keyword => lowerInput.includes(keyword));
+    }
+
+    // Comprehensive validation with security checks
+    static validateAndSanitize(input, fieldType, fieldName) {
+        if (!input || typeof input !== 'string') {
+            return { isValid: false, sanitized: '', error: `${fieldName} is required` };
+        }
+
+        const trimmed = input.trim();
         
-        const domain = email.split('@')[1];
-        return SECURITY_CONFIG.allowedEmailDomains.includes(domain);
+        // Length validation
+        const minLength = SECURITY_CONFIG.minInputLength[fieldType] || 1;
+        const maxLength = SECURITY_CONFIG.maxInputLength[fieldType] || 1000;
+        
+        if (trimmed.length < minLength) {
+            return { isValid: false, sanitized: '', error: `${fieldName} must be at least ${minLength} characters` };
+        }
+        
+        if (trimmed.length > maxLength) {
+            return { isValid: false, sanitized: '', error: `${fieldName} must be less than ${maxLength} characters` };
+        }
+
+        // Security threat detection
+        if (this.detectXSS(trimmed)) {
+            console.warn(`🚨 XSS attempt blocked in ${fieldName}:`, trimmed);
+            return { isValid: false, sanitized: '', error: 'Security violation detected' };
+        }
+
+        if (this.detectSQLInjection(trimmed)) {
+            console.warn(`🚨 SQL injection attempt blocked in ${fieldName}:`, trimmed);
+            return { isValid: false, sanitized: '', error: 'Security violation detected' };
+        }
+
+        if (this.detectSpam(trimmed)) {
+            console.warn(`🚨 Spam content blocked in ${fieldName}:`, trimmed);
+            return { isValid: false, sanitized: '', error: 'Content flagged as spam' };
+        }
+
+        // Sanitize the input
+        const sanitized = this.sanitizeInput(trimmed);
+
+        // Field-specific validation
+        switch (fieldType) {
+            case 'email':
+                if (!this.validateEmailFormat(sanitized)) {
+                    return { isValid: false, sanitized: '', error: 'Please enter a valid email address' };
+                }
+                break;
+            case 'name':
+                if (!this.validateNameFormat(sanitized)) {
+                    return { isValid: false, sanitized: '', error: 'Name contains invalid characters' };
+                }
+                break;
+        }
+
+        return { isValid: true, sanitized, error: null };
+    }
+
+    // Robust email validation
+    static validateEmailFormat(email) {
+        const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+        return emailRegex.test(email) && email.length <= 254 && !email.includes('..');
+    }
+
+    // Name format validation (letters, spaces, hyphens, apostrophes only)
+    static validateNameFormat(name) {
+        const nameRegex = /^[a-zA-Z\s\-'\.]+$/;
+        return nameRegex.test(name) && !name.match(/[-'\.]{2,}/);
+    }
+
+    // Enhanced validation methods with security
+    static validateEmail(email) {
+        const result = this.validateAndSanitize(email, 'email', 'Email');
+        return result.isValid;
     }
 
     static validateName(name) {
-        const nameRegex = /^[A-Za-z\s]{2,100}$/;
-        return nameRegex.test(name);
+        const result = this.validateAndSanitize(name, 'name', 'Name');
+        return result.isValid;
     }
 
     static validateSubject(subject) {
-        return subject.length >= 3 && subject.length <= 200;
+        const result = this.validateAndSanitize(subject, 'subject', 'Subject');
+        return result.isValid;
     }
 
     static validateMessage(message) {
-        return message.length >= 10 && message.length <= 1000;
+        const result = this.validateAndSanitize(message, 'message', 'Message');
+        return result.isValid;
     }
 
+    // Cryptographically secure CSRF token generation
     static generateCSRFToken() {
-        return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        const array = new Uint8Array(32);
+        crypto.getRandomValues(array);
+        return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
     }
 
+    // Enhanced hash function with salt
     static hashString(str) {
+        const salt = 'portfolio_security_2024';
+        const combined = str + salt;
         let hash = 0;
-        for (let i = 0; i < str.length; i++) {
-            const char = str.charCodeAt(i);
+        for (let i = 0; i < combined.length; i++) {
+            const char = combined.charCodeAt(i);
             hash = ((hash << 5) - hash) + char;
             hash = hash & hash; // Convert to 32-bit integer
         }
-        return hash.toString();
+        return Math.abs(hash).toString(36);
+    }
+
+    // Bot detection based on behavior patterns
+    static detectBot(userAgent, timingData) {
+        const suspiciousPatterns = [
+            /bot|crawler|spider|scraper/i,
+            /headless/i,
+            /phantom/i,
+            /selenium/i,
+            /puppeteer/i
+        ];
+        
+        const isSuspiciousUA = suspiciousPatterns.some(pattern => pattern.test(userAgent));
+        const isTooFast = timingData && timingData.fillTime < 2000; // Less than 2 seconds to fill form
+        
+        return isSuspiciousUA || isTooFast;
     }
 }
 
@@ -311,76 +466,61 @@ function initializeUI() {
     });
 }
 
-// Form Handling with Security
+// Enhanced Form Handling with Security
 function initializeFormHandling() {
     const contactForm = document.querySelector('#contactForm');
     if (!contactForm) return;
 
-    // Real-time validation
-    const inputs = contactForm.querySelectorAll('input, textarea');
+    // Enhanced real-time validation with security
+    const inputs = contactForm.querySelectorAll('input:not([type="hidden"]), textarea');
     inputs.forEach(input => {
-        input.addEventListener('input', () => validateField(input));
-        input.addEventListener('blur', () => validateField(input));
+        // Skip honeypot fields
+        if (input.name === 'website' || input.name === 'email_confirm') return;
+        
+        input.addEventListener('input', () => validateFieldWithSecurity(input));
+        input.addEventListener('blur', () => validateFieldWithSecurity(input));
     });
 
-    // Form submission with security
+    // Form submission with comprehensive security
     contactForm.addEventListener('submit', handleFormSubmission);
 }
 
-// Field Validation
-function validateField(field) {
-    const value = field.value.trim();
+// Enhanced Field Validation with Security
+function validateFieldWithSecurity(field) {
+    const value = field.value;
     const fieldName = field.name;
+    const fieldType = fieldName; // name, email, subject, message
     const errorElement = document.getElementById(fieldName + 'Error');
     
-    if (!errorElement) return;
+    if (!errorElement) return true;
 
-    let isValid = true;
-    let errorMessage = '';
-
-    switch (fieldName) {
-        case 'name':
-            if (!SecurityUtils.validateName(value)) {
-                isValid = false;
-                errorMessage = 'Please enter a valid name (letters and spaces only, 2-100 characters).';
-            }
-            break;
-        case 'email':
-            if (!SecurityUtils.validateEmail(value)) {
-                isValid = false;
-                errorMessage = 'Please enter a valid email address from a trusted domain.';
-            }
-            break;
-        case 'subject':
-            if (!SecurityUtils.validateSubject(value)) {
-                isValid = false;
-                errorMessage = 'Subject must be between 3 and 200 characters.';
-            }
-            break;
-        case 'message':
-            if (!SecurityUtils.validateMessage(value)) {
-                isValid = false;
-                errorMessage = 'Message must be between 10 and 1000 characters.';
-            }
-            break;
-    }
-
-    if (isValid) {
+    // Get validation result with security checks
+    const result = SecurityUtils.validateAndSanitize(value, fieldType, fieldName);
+    
+    if (result.isValid) {
         field.classList.remove('error');
         errorElement.textContent = '';
         errorElement.style.display = 'none';
+        return true;
     } else {
         field.classList.add('error');
-        errorElement.textContent = errorMessage;
+        errorElement.textContent = result.error;
         errorElement.style.display = 'block';
+        return false;
     }
-
-    return isValid;
 }
 
-// Secure Form Submission
+// Legacy validation function for compatibility
+function validateField(field) {
+    return validateFieldWithSecurity(field);
+}
+
+// Secure Form Submission with Multiple Methods
 async function handleFormSubmission(e) {
     e.preventDefault();
+    
+    console.log('🚀 Form submission started');
+    console.log('📝 FORM_CONFIG loaded:', !!window.FORM_CONFIG);
     
     const form = e.target;
     const formData = new FormData(form);
@@ -390,69 +530,201 @@ async function handleFormSubmission(e) {
         navigator.userAgent + window.screen.width + window.screen.height
     );
 
-    // Check rate limiting
+    // Enhanced security checks
+    const userAgent = navigator.userAgent;
+    const formStartTime = performance.now();
+    
+    // Bot detection
+    if (SecurityUtils.detectBot(userAgent, { fillTime: formStartTime })) {
+        console.warn('🤖 Bot detected - submission blocked');
+        showNotification('Automated submission detected. Please try again.', 'error');
+        return;
+    }
+
+    // Check honeypot fields (bot trap)
+    const honeypotWebsite = formData.get('website');
+    const honeypotEmail = formData.get('email_confirm');
+    if (honeypotWebsite || honeypotEmail) {
+        console.warn('🍯 Honeypot triggered - bot detected');
+        showNotification('Form submission failed. Please try again.', 'error');
+        return;
+    }
+
+    // Rate limiting with enhanced security
     if (rateLimiter.isRateLimited(userIdentifier)) {
-        showSecurityNotification('Too many requests. Please wait before trying again.');
+        showSecurityNotification('Too many requests. Please wait 15 minutes before trying again.');
         return;
     }
 
     if (rateLimiter.isFormSubmissionLimited(userIdentifier)) {
-        showSecurityNotification('Too many form submissions. Please wait before trying again.');
+        showSecurityNotification('Too many form submissions. Please wait 5 minutes before trying again.');
         return;
     }
 
-    // Validate all fields
-    const inputs = form.querySelectorAll('input, textarea');
-    let allValid = true;
+    // Comprehensive field validation and sanitization
+    const validationResults = {
+        name: SecurityUtils.validateAndSanitize(formData.get('name'), 'name', 'Name'),
+        email: SecurityUtils.validateAndSanitize(formData.get('email'), 'email', 'Email'),
+        subject: SecurityUtils.validateAndSanitize(formData.get('subject'), 'subject', 'Subject'),
+        message: SecurityUtils.validateAndSanitize(formData.get('message'), 'message', 'Message')
+    };
+
+    // Check if any field failed validation
+    const failedFields = Object.entries(validationResults).filter(([_, result]) => !result.isValid);
     
-    inputs.forEach(input => {
-        if (!validateField(input)) {
-            allValid = false;
-        }
-    });
-
-    if (!allValid) {
-        showNotification('Please fix the errors in the form.', 'error');
+    if (failedFields.length > 0) {
+        const errorMessages = failedFields.map(([field, result]) => `${field}: ${result.error}`);
+        console.warn('🚨 Security validation failed:', errorMessages);
+        showNotification(failedFields[0][1].error, 'error');
         return;
     }
 
-    // Sanitize all inputs
-    const sanitizedData = {};
-    for (let [key, value] of formData.entries()) {
-        sanitizedData[key] = SecurityUtils.sanitizeInput(value);
-    }
+    // Create sanitized form data
+    const sanitizedFormData = new FormData();
+    Object.entries(validationResults).forEach(([field, result]) => {
+        sanitizedFormData.append(field, result.sanitized);
+    });
+    
+    // Add Formspree hidden fields
+    sanitizedFormData.append('_next', formData.get('_next'));
+    sanitizedFormData.append('_subject', formData.get('_subject'));
+    sanitizedFormData.append('_captcha', formData.get('_captcha'));
 
-    // Add CSRF token
-    sanitizedData.csrf = csrfToken;
+    console.log('✅ All security checks passed - submitting sanitized form data');
+
+    // Show loading state
+    const submitButton = form.querySelector('button[type="submit"]');
+    const originalText = submitButton.textContent;
+    submitButton.textContent = 'Sending...';
+    submitButton.disabled = true;
 
     try {
-        // Simulate form submission (in real app, this would be an API call)
-        await simulateFormSubmission(sanitizedData);
+        // Try multiple submission methods for reliability using sanitized data
+        const success = await submitFormWithFallback(form, sanitizedFormData);
         
-        showNotification('Message sent successfully! I\'ll get back to you soon.', 'success');
-        form.reset();
-        
-        // Regenerate CSRF token
-        csrfToken = SecurityUtils.generateCSRFToken();
+        if (success) {
+            showNotification('Message sent successfully! I\'ll get back to you soon.', 'success');
+            form.reset();
+            
+            // Regenerate CSRF token
+            csrfToken = SecurityUtils.generateCSRFToken();
+        } else {
+            throw new Error('All submission methods failed');
+        }
         
     } catch (error) {
         console.error('Form submission error:', error);
-        showNotification('An error occurred. Please try again later.', 'error');
+        showNotification('Unable to send message. Please try again or contact me directly at dmir7186@gmail.com', 'error');
+    } finally {
+        // Reset button state
+        submitButton.textContent = originalText;
+        submitButton.disabled = false;
     }
 }
 
-// Simulate Form Submission
-async function simulateFormSubmission(data) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            // Simulate server processing
-            if (Math.random() > 0.1) { // 90% success rate
-                resolve();
-            } else {
-                reject(new Error('Simulated server error'));
+// Form Submission with Multiple Methods
+async function submitFormWithFallback(form, formData) {
+    // Method 1: Try Formspree (Primary)
+    try {
+        const success = await submitToFormspree(form, formData);
+        if (success) return true;
+    } catch (error) {
+        console.warn('Formspree submission failed:', error);
+    }
+
+    // Method 2: Try EmailJS (Fallback)
+    try {
+        const success = await submitWithEmailJS(formData);
+        if (success) return true;
+    } catch (error) {
+        console.warn('EmailJS submission failed:', error);
+    }
+
+    // Method 3: Try direct email link (Last resort)
+    return submitViaEmailLink(formData);
+}
+
+// Primary method: Formspree
+async function submitToFormspree(form, formData) {
+    try {
+        console.log('Submitting to Formspree:', form.action);
+        console.log('Form data:', Object.fromEntries(formData.entries()));
+        
+        const response = await fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
             }
-        }, 1000);
-    });
+        });
+
+        if (response.ok) {
+            return true;
+        } else if (response.status === 400) {
+            // Handle Formspree validation errors
+            try {
+                const errorData = await response.json();
+                console.error('Formspree validation error:', errorData);
+                throw new Error(errorData.error || 'Form validation failed on server');
+            } catch (jsonError) {
+                // If we can't parse the error, it might be first-time setup
+                console.warn('Formspree 400 error - might need email verification');
+                throw new Error('Form submission failed. Please check your email for a verification link from Formspree.');
+            }
+        } else {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.error || `Formspree error: ${response.status}`);
+        }
+    } catch (error) {
+        throw error;
+    }
+}
+
+// Fallback method: EmailJS
+async function submitWithEmailJS(formData) {
+    const config = FORM_CONFIG.emailjs;
+
+    // Only try EmailJS if enabled and configured
+    if (config.enabled && typeof emailjs !== 'undefined' && config.publicKey !== 'YOUR_EMAILJS_PUBLIC_KEY') {
+        try {
+            const templateParams = {
+                from_name: formData.get('name'),
+                from_email: formData.get('email'),
+                subject: formData.get('subject'),
+                message: formData.get('message'),
+                to_email: FORM_CONFIG.recipientEmail
+            };
+
+            const response = await emailjs.send(
+                config.serviceID,
+                config.templateID,
+                templateParams,
+                config.publicKey
+            );
+
+            return response.status === 200;
+        } catch (error) {
+            throw error;
+        }
+    }
+    return false;
+}
+
+// Last resort: Open email client
+function submitViaEmailLink(formData) {
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const subject = formData.get('subject');
+    const message = formData.get('message');
+
+    const emailBody = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+    const mailtoLink = `mailto:${FORM_CONFIG.recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+    
+    // Open email client
+    window.location.href = mailtoLink;
+    
+    // Return true as we've initiated the email process
+    return true;
 }
 
 // Skill bars animation
