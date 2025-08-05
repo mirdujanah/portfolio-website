@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://mirdujanah.github.io/portfolio-website/sitemap.xml
