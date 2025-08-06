@@ -72,7 +72,6 @@
 
     <!-- Preload critical resources -->
     <link rel="preload" href="styles.css" as="style">
-    <link rel="preload" href="script.js" as="script">
 </head>
 <body>
     <!-- Navigation -->
@@ -131,42 +130,8 @@
                 </div>
             </div>
             <div class="hero-image">
-                <div class="profile-image-container">
-                    <div class="profile-image">
-                        <div class="profile-orb-ring"></div>
-                        <div class="profile-orb-ring-2"></div>
-                        <div class="profile-image-wrapper">
-                            <div class="profile-image-inner">
-                                <img src="images/profile-photo.jpg" alt="Mir Dujanah Ali Hussaini" class="profile-img face-focused" loading="lazy" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'profile-placeholder\'><i class=\'fas fa-user\'></i></div>';">
-                                <div class="profile-loading">
-                                    <i class="fas fa-spinner fa-spin"></i>
-                                </div>
-                            </div>
-                            <div class="profile-image-glow"></div>
-                            <div class="profile-image-overlay"></div>
-                        </div>
-                        <div class="profile-particles">
-                            <span></span><span></span><span></span><span></span>
-                            <span></span><span></span><span></span><span></span>
-                            <span></span><span></span><span></span><span></span>
-                        </div>
-                        <div class="profile-constellation">
-                            <div class="constellation-line"></div>
-                            <div class="constellation-line"></div>
-                            <div class="constellation-line"></div>
-                            <div class="constellation-dot"></div>
-                            <div class="constellation-dot"></div>
-                            <div class="constellation-dot"></div>
-                            <div class="constellation-dot"></div>
-                        </div>
-                        <div class="profile-tech-symbols">
-                            <i class="fab fa-python"></i>
-                            <i class="fab fa-java"></i>
-                            <i class="fas fa-shield-alt"></i>
-                            <i class="fas fa-code"></i>
-                        </div>
-                    </div>
-                    <div class="profile-aura"></div>
+                <div class="profile-image-simple">
+                    <i class="fas fa-user"></i>
                 </div>
             </div>
         </div>
@@ -477,36 +442,21 @@
                     </div>
                 </div>
 
-                <form class="contact-form" id="contactForm" action="https://formspree.io/f/manbpqba" method="POST" novalidate>
+                <div class="contact-form">
                     <div class="form-group">
-                        <input type="text" id="name" name="name" placeholder="Your Name" required maxlength="100" pattern="[A-Za-z\s]+" aria-label="Your name">
-                        <div class="error-message" id="nameError"></div>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" id="email" name="email" placeholder="Your Email" required maxlength="254" aria-label="Your email address">
-                        <div class="error-message" id="emailError"></div>
+                        <input type="text" placeholder="Your Name" disabled>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="subject" name="subject" placeholder="Subject" required maxlength="200" aria-label="Message subject">
-                        <div class="error-message" id="subjectError"></div>
+                        <input type="email" placeholder="Your Email" disabled>
                     </div>
                     <div class="form-group">
-                        <textarea id="message" name="message" placeholder="Your Message" rows="5" required maxlength="1000" aria-label="Your message"></textarea>
-                        <div class="error-message" id="messageError"></div>
+                        <input type="text" placeholder="Subject" disabled>
                     </div>
-                    
-                    <!-- Honeypot field for bot detection (hidden from humans) -->
-                    <div style="position: absolute; left: -9999px; opacity: 0; pointer-events: none;" aria-hidden="true">
-                        <input type="text" name="website" tabindex="-1" autocomplete="off">
-                        <input type="email" name="email_confirm" tabindex="-1" autocomplete="off">
+                    <div class="form-group">
+                        <textarea placeholder="Your Message" rows="5" disabled></textarea>
                     </div>
-                    
-                    <!-- Hidden fields for better form handling -->
-                    <input type="hidden" name="_next" value="https://mirdujanah.github.io/portfolio-website/">
-                    <input type="hidden" name="_subject" value="New Contact Form Submission">
-                    <input type="hidden" name="_captcha" value="false">
-                    <button type="submit" class="btn btn-primary" aria-label="Send message">Send Message</button>
-                </form>
+                    <a href="mailto:dmir7186@gmail.com" class="btn btn-primary">Send Email</a>
+                </div>
             </div>
         </div>
     </section>
@@ -518,7 +468,6 @@
         </div>
     </footer>
 
-    <script src="form-config.js"></script>
-    <script src="script.js"></script>
+
 </body>
 </html> 
