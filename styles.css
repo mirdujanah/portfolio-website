@@ -311,8 +311,8 @@ body {
 }
 
 .profile-image-simple {
-    width: 300px;
-    height: 300px;
+    width: 250px;
+    height: 250px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -327,7 +327,7 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
+    object-position: center top;
     border-radius: 50%;
 }
 
@@ -1209,6 +1209,11 @@ section {
         height: 250px;
     }
 
+    .profile-image-simple {
+        width: 200px;
+        height: 200px;
+    }
+
     .profile-placeholder {
         width: 250px;
         height: 250px;
@@ -1239,6 +1244,11 @@ section {
     .profile-image {
         width: 200px;
         height: 200px;
+    }
+
+    .profile-image-simple {
+        width: 180px;
+        height: 180px;
     }
 
     .profile-placeholder {
