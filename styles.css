@@ -320,8 +320,8 @@ body {
 }
 
 .profile-image-simple {
-    width: 320px;
-    height: 320px;
+    width: 480px;
+    height: 480px;
     border-radius: 50%;
     margin: 0 auto;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
