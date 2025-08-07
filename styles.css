@@ -1138,20 +1138,28 @@ section {
     100% { transform: translateX(100%); }
 }
 
-/* Optimize animations for 60fps */
-@media (prefers-reduced-motion: no-preference) {
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+/* Resource loading optimization */
+.hero-image img {
+    content-visibility: auto;
+    contain-intrinsic-size: 480px 480px;
+}
+
+/* Critical path optimization */
+@media (max-width: 768px) {
+    .profile-image-simple {
+        width: 280px;
+        height: 280px;
+        contain-intrinsic-size: 280px 280px;
     }
 }
 
+/* Reduce motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
-    * {
+    *, *::before, *::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 }
 
