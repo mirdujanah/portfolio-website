@@ -1,36 +1,54 @@
-// Performance optimized JavaScript
-document.addEventListener('DOMContentLoaded', function() {
-    // Lazy load images
-    const images = document.querySelectorAll('img[data-src]');
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.classList.remove('lazy');
-                observer.unobserve(img);
-            }
-        });
+// Apple-style scroll animations
+let ticking = false;
+
+function updateScrollAnimations() {
+    const scrolled = window.pageYOffset;
+    const rate = scrolled * -0.5;
+    const heroContent = document.querySelector('.hero-content');
+    const profileImage = document.querySelector('.profile-image-simple');
+    
+    if (heroContent) {
+        heroContent.style.transform = `translateY(${rate * 0.3}px)`;
+    }
+    if (profileImage) {
+        profileImage.style.transform = `translateY(${rate * 0.2}px) scale(${1 + scrolled * 0.0002})`;
+    }
+    
+    const sections = document.querySelectorAll('section');
+    sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        const inView = rect.top < window.innerHeight && rect.bottom > 0;
+        
+        if (inView) {
+            const progress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / window.innerHeight));
+            section.style.opacity = progress;
+            section.style.transform = `translateY(${(1 - progress) * 30}px)`;
+        }
     });
     
-    images.forEach(img => imageObserver.observe(img));
-    
-    // Smooth scrolling optimization
+    ticking = false;
+}
+
+function requestScrollUpdate() {
+    if (!ticking) {
+        requestAnimationFrame(updateScrollAnimations);
+        ticking = true;
+    }
+}
+
+// Performance optimized JavaScript
+document.addEventListener('DOMContentLoaded', function() {
     const links = document.querySelectorAll('a[href^="#"]');
     links.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         });
     });
     
-    // Mobile menu optimization
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
     
@@ -41,21 +59,33 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Optimize animations on scroll
-    const animatedElements = document.querySelectorAll('.fade-in-up');
-    const animationObserver = new IntersectionObserver((entries) => {
+    window.addEventListener('scroll', requestScrollUpdate, { passive: true });
+    updateScrollAnimations();
+    
+    const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.animationPlayState = 'running';
+                entry.target.classList.add('revealed');
             }
         });
     }, { threshold: 0.1 });
     
-    animatedElements.forEach(el => {
-        el.style.animationPlayState = 'paused';
-        animationObserver.observe(el);
+    document.querySelectorAll('.project-card, .stat, .education-card').forEach(el => {
+        el.classList.add('reveal-element');
+        revealObserver.observe(el);
     });
 });
+
+window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 100) {
+        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+        navbar.style.backdropFilter = 'blur(30px)';
+    } else {
+        navbar.style.background = 'rgba(255, 255, 255, 0.8)';
+        navbar.style.backdropFilter = 'blur(20px)';
+    }
+}, { passive: true });
 
 // Service Worker registration for caching
 if ('serviceWorker' in navigator) {
