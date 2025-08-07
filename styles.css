@@ -96,7 +96,7 @@ body {
     font-weight: 600;
     color: var(--apple-black);
     text-decoration: none;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     letter-spacing: -0.02em;
     display: flex;
     align-items: center;
@@ -133,7 +133,7 @@ body {
 .nav-logo-img {
     width: 40px;
     height: 40px;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     overflow: visible;
     vertical-align: middle;
     position: relative;
@@ -142,8 +142,8 @@ body {
 }
 
 .nav-logo a:hover .nav-logo-img {
-    transform: scale(1.2) rotate(5deg);
-    filter: drop-shadow(0 8px 20px rgba(102, 126, 234, 0.5));
+    transform: scale(1.1) rotate(2deg);
+    filter: drop-shadow(0 6px 16px rgba(102, 126, 234, 0.4));
 }
 
 .nav-logo-img circle {
@@ -169,7 +169,7 @@ body {
     -webkit-text-fill-color: transparent;
     opacity: 0;
     transform: translateX(-10px);
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .nav-logo a:hover .nav-logo-text {
@@ -351,7 +351,7 @@ body {
     border: 6px solid white;
     overflow: hidden;
     position: relative;
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.6s ease;
+    transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     cursor: pointer;
     background: linear-gradient(135deg, var(--apple-blue) 0%, var(--apple-blue-dark) 100%);
     display: flex;
@@ -386,9 +386,9 @@ body {
 }
 
 .profile-image-simple:hover {
-    transform: scale(1.25) rotate(8deg);
-    box-shadow: 0 50px 100px rgba(102, 126, 234, 0.6), 0 0 80px rgba(118, 75, 162, 0.4);
-    border: 12px solid rgba(255, 255, 255, 0.9);
+    transform: scale(1.15) rotate(3deg);
+    box-shadow: 0 30px 60px rgba(102, 126, 234, 0.4), 0 0 40px rgba(118, 75, 162, 0.3);
+    border: 8px solid rgba(255, 255, 255, 0.9);
 }
 
 .profile-image-simple:hover::after {
@@ -402,13 +402,13 @@ body {
     object-fit: cover;
     object-position: center 20%;
     display: block;
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     filter: brightness(1) contrast(1.1) saturate(1.1);
 }
 
 .profile-image-simple:hover .profile-img-static {
-    transform: scale(1.2) rotate(-3deg);
-    filter: brightness(1.1) contrast(1.1) saturate(1.1);
+    transform: scale(1.08) rotate(-1deg);
+    filter: brightness(1.05) contrast(1.05) saturate(1.05);
 }
 
 .profile-image-simple .fas {
