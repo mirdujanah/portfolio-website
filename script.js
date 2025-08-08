@@ -100,12 +100,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     document.getElementById('acceptCookies').addEventListener('click', () => {
         setCookie('cookieConsent', 'accepted', 365);
-        document.getElementById('cookieConsent').classList.remove('show');
+        const banner = document.getElementById('cookieConsent');
+        banner.style.display = 'none';
     });
     
     document.getElementById('declineCookies').addEventListener('click', () => {
         setCookie('cookieConsent', 'declined', 365);
-        document.getElementById('cookieConsent').classList.remove('show');
+        const banner = document.getElementById('cookieConsent');
+        banner.style.display = 'none';
         // Disable Google Analytics if declined
         window['ga-disable-G-9J7MJXMGGW'] = true;
     });
