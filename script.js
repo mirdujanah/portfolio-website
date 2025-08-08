@@ -36,6 +36,26 @@ function requestScrollUpdate() {
     }
 }
 
+// Cookie Management
+function setCookie(name, value, days) {
+    const expires = new Date(Date.now() + days * 864e5).toUTCString();
+    document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/';
+}
+
+function getCookie(name) {
+    return document.cookie.split('; ').reduce((r, v) => {
+        const parts = v.split('=');
+        return parts[0] === name ? decodeURIComponent(parts[1]) : r;
+    }, '');
+}
+
+function showCookieConsent() {
+    const consent = getCookie('cookieConsent');
+    if (!consent) {
+        document.getElementById('cookieConsent').classList.add('show');
+    }
+}
+
 // Performance optimized JavaScript
 document.addEventListener('DOMContentLoaded', function() {
     const links = document.querySelectorAll('a[href^="#"]');
@@ -73,6 +93,21 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.project-card, .stat, .education-card').forEach(el => {
         el.classList.add('reveal-element');
         revealObserver.observe(el);
+    });
+    
+    // Cookie consent handling
+    showCookieConsent();
+    
+    document.getElementById('acceptCookies').addEventListener('click', () => {
+        setCookie('cookieConsent', 'accepted', 365);
+        document.getElementById('cookieConsent').classList.remove('show');
+    });
+    
+    document.getElementById('declineCookies').addEventListener('click', () => {
+        setCookie('cookieConsent', 'declined', 365);
+        document.getElementById('cookieConsent').classList.remove('show');
+        // Disable Google Analytics if declined
+        window['ga-disable-G-9J7MJXMGGW'] = true;
     });
 });
 
