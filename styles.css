@@ -2354,4 +2354,33 @@ section {
 
 .nav-link.active::after {
     width: 100%;
+}
+
+/* FINAL DARK MODE FIX - MAXIMUM PRIORITY */
+html[data-theme="dark"] * {
+    color: #ffffff !important;
+}
+
+html[data-theme="dark"] input,
+html[data-theme="dark"] textarea {
+    color: #333333 !important;
+    background: #f0f0f0 !important;
+}
+
+html[data-theme="dark"] .btn-primary {
+    color: #ffffff !important;
+    background: #2563eb !important;
+}
+
+html[data-theme="dark"] .tech-tag {
+    color: #333333 !important;
+    background: #cccccc !important;
+}
+
+html[data-theme="dark"] .social-link {
+    color: #ffffff !important;
+}
+
+html[data-theme="dark"] .hero-title .highlight {
+    color: #667eea !important;
 } 
