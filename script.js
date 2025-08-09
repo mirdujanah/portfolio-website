@@ -56,25 +56,33 @@ function showCookieConsent() {
     }
 }
 
-// Force scroll to top on page reload
+// Safari-compatible scroll to top on page reload
 if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
 }
 
-window.addEventListener('beforeunload', () => {
-    window.scrollTo(0, 0);
+// Safari needs this on pageshow event
+window.addEventListener('pageshow', (event) => {
+    if (event.persisted) {
+        window.scrollTo(0, 0);
+    }
+    setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 200);
 });
 
 window.addEventListener('load', () => {
-    window.scrollTo(0, 0);
     setTimeout(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 100);
+    }, 300);
 });
 
 // Performance optimized JavaScript
 document.addEventListener('DOMContentLoaded', function() {
     window.scrollTo(0, 0);
+    setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 100);
     const links = document.querySelectorAll('a[href^="#"]');
     const navMenu = document.querySelector('.nav-menu');
     const hamburger = document.querySelector('.hamburger');
