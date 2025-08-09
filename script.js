@@ -212,32 +212,37 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Simple skill bar animation on scroll
+    // Force skill bar animation
     function animateSkillBars() {
-        const skillsSection = document.getElementById('skills');
         const progressBars = document.querySelectorAll('.skill-progress');
         
-        if (skillsSection && progressBars.length > 0) {
-            const rect = skillsSection.getBoundingClientRect();
-            const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-            
-            if (isVisible) {
-                for (let i = 0; i < progressBars.length; i++) {
-                    const bar = progressBars[i];
-                    const width = bar.getAttribute('data-width');
-                    if (width && bar.style.width === '0%') {
-                        setTimeout(function() {
-                            bar.style.width = width + '%';
-                        }, i * 100);
-                    }
-                }
+        for (let i = 0; i < progressBars.length; i++) {
+            const bar = progressBars[i];
+            const width = bar.getAttribute('data-width');
+            if (width) {
+                setTimeout(function() {
+                    bar.style.width = width + '%';
+                    bar.style.transition = 'width 2s ease-in-out';
+                }, i * 200);
             }
         }
     }
     
-    // Trigger animation on scroll and page load
-    window.addEventListener('scroll', animateSkillBars, { passive: true });
-    setTimeout(animateSkillBars, 1000);
+    // Trigger on scroll to skills section
+    window.addEventListener('scroll', function() {
+        const skillsSection = document.getElementById('skills');
+        if (skillsSection) {
+            const rect = skillsSection.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                animateSkillBars();
+            }
+        }
+    });
+    
+    // Also trigger after page load
+    setTimeout(function() {
+        animateSkillBars();
+    }, 2000);
     
 
     const links = document.querySelectorAll('a[href^="#"]');

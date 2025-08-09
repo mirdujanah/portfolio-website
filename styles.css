@@ -713,9 +713,12 @@ body {
 
 /* Safari-Compatible Animated Skill Bars */
 .skill-progress {
-    width: 0% !important;
+    width: 0%;
     -webkit-transition: width 2s ease-in-out;
     transition: width 2s ease-in-out;
+    background: var(--apple-gradient);
+    height: 100%;
+    border-radius: 10px;
 }
 
 @keyframes fadeIn {
