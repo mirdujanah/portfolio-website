@@ -212,48 +212,63 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Simple and reliable skill bar animation
+    // Fixed skill bar animation
     function animateSkillBars() {
         const progressBars = document.querySelectorAll('.skill-progress');
+        console.log('Animating', progressBars.length, 'skill bars');
         
         for (let i = 0; i < progressBars.length; i++) {
             const bar = progressBars[i];
             const width = bar.getAttribute('data-width');
+            console.log('Bar', i, 'target width:', width + '%');
             
             if (width) {
-                // Reset to 0 first
+                // Force reset to 0
                 bar.style.width = '0%';
+                bar.style.transition = 'width 2s ease-in-out';
                 
-                // Animate to target width with delay
+                // Animate with delay
                 setTimeout(function() {
                     bar.style.width = width + '%';
-                }, i * 200 + 500);
+                    console.log('Animated bar to', width + '%');
+                }, i * 300 + 800);
             }
         }
     }
     
-    // Trigger on scroll to skills section
+    // Multiple triggers for skill animation
     let skillsAnimated = false;
-    window.addEventListener('scroll', function() {
+    
+    function checkAndAnimateSkills() {
         if (skillsAnimated) return;
         
         const skillsSection = document.getElementById('skills');
         if (skillsSection) {
             const rect = skillsSection.getBoundingClientRect();
-            if (rect.top < window.innerHeight && rect.bottom > 0) {
+            if (rect.top < window.innerHeight * 0.8) {
+                console.log('Skills section visible, animating...');
                 skillsAnimated = true;
                 animateSkillBars();
             }
         }
-    });
+    }
     
-    // Also trigger after page load as fallback
+    // Multiple event listeners
+    window.addEventListener('scroll', checkAndAnimateSkills);
+    
+    // Force animation after delay
     setTimeout(function() {
-        if (!skillsAnimated) {
-            animateSkillBars();
-            skillsAnimated = true;
+        console.log('Force animating skills after 3 seconds');
+        animateSkillBars();
+        skillsAnimated = true;
+    }, 3000);
+    
+    // Also try on page visibility
+    document.addEventListener('visibilitychange', function() {
+        if (!document.hidden && !skillsAnimated) {
+            setTimeout(animateSkillBars, 1000);
         }
-    }, 2000);
+    });
     
 
     const links = document.querySelectorAll('a[href^="#"]');
