@@ -588,33 +588,18 @@ body {
     border: 1px solid var(--border-color);
 }
 
-[data-theme="dark"] body,
-[data-theme="dark"] h1,
-[data-theme="dark"] h2,
-[data-theme="dark"] h3,
-[data-theme="dark"] h4,
-[data-theme="dark"] p,
-[data-theme="dark"] span,
-[data-theme="dark"] .hero-title,
-[data-theme="dark"] .hero-subtitle,
-[data-theme="dark"] .hero-description,
-[data-theme="dark"] .section-title,
-[data-theme="dark"] .about-text p,
-[data-theme="dark"] .skill-name,
-[data-theme="dark"] .skill-category h3,
-[data-theme="dark"] .project-content h3,
-[data-theme="dark"] .project-content p,
-[data-theme="dark"] .education-content h3,
-[data-theme="dark"] .education-content p,
-[data-theme="dark"] .education-content .description,
-[data-theme="dark"] .stat h3,
-[data-theme="dark"] .stat p,
-[data-theme="dark"] .contact-info h3,
-[data-theme="dark"] .contact-info p,
-[data-theme="dark"] .contact-method h4,
-[data-theme="dark"] .contact-method p,
-[data-theme="dark"] .contact-method div h4,
-[data-theme="dark"] .contact-method div p {
+[data-theme="dark"] *:not(input):not(textarea):not(button):not(.btn):not(.tech-tag) {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .contact-methods .contact-method h4,
+[data-theme="dark"] .contact-methods .contact-method p,
+[data-theme="dark"] .contact-method > div > h4,
+[data-theme="dark"] .contact-method > div > p,
+[data-theme="dark"] .stats .stat h3,
+[data-theme="dark"] .stats .stat p,
+[data-theme="dark"] .about-stats .stat h3,
+[data-theme="dark"] .about-stats .stat p {
     color: #ffffff !important;
 }
 
