@@ -117,10 +117,6 @@ The website uses a modern color scheme with:
 
 This project is open source and available under the [MIT License](LICENSE).
 
-## 🤝 Contributing
-
-Feel free to fork this project and submit pull requests for any improvements.
-
 ---
 
 **Built with ❤️ by Mir Dujanah Ali Hussaini** 

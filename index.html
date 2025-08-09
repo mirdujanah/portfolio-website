@@ -70,29 +70,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
 
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9J7MJXMGGW"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-9J7MJXMGGW');
-    </script>
-    
-    <!-- Critical CSS inline -->
-    <style>
-        *{margin:0;padding:0;box-sizing:border-box}body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;color:#1d1d1f;background:#fff}.navbar{position:fixed;top:0;width:100%;background:rgba(255,255,255,.8);backdrop-filter:blur(20px);z-index:1000;padding:.75rem 0}.hero{min-height:100vh;display:flex;align-items:center;background:#fbfbfd;padding-top:80px}.profile-image-simple{width:480px;height:480px;border-radius:50%;margin:0 auto;transform:translateZ(0)}
-    </style>
-    <!-- Performance optimizations -->
-    <link rel="preload" href="styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="styles.css"></noscript>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="dns-prefetch" href="//fonts.googleapis.com">
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-    <meta name="theme-color" content="#2563eb">
-    <link rel="manifest" href="manifest.json">
+    <!-- Preload critical resources -->
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="script.js" as="script">
 </head>
 <body>
     <!-- Navigation -->
@@ -101,12 +81,6 @@
             <div class="nav-logo">
                 <a href="#home" aria-label="Home">
                     <svg class="nav-logo-img" width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
-                            </linearGradient>
-                        </defs>
                         <circle cx="50" cy="50" r="45" fill="#2563eb" opacity="0.9"/>
                         <text x="50" y="65" text-anchor="middle" fill="white" font-size="40" font-family="Inter, sans-serif" font-weight="bold">MD</text>
                     </svg>
@@ -148,8 +122,8 @@
                 <h1 class="hero-title">Hi, I'm <span class="highlight">Mir Dujanah Ali Hussaini</span></h1>
                 <p class="hero-subtitle">Software Development Engineer</p>
                 <p class="hero-description">
-                    Fresh graduate with expertise in Java, Python, cybersecurity, and frontend development. 
-                    Skilled in HTML, CSS, JavaScript, and creating responsive web applications. Passionate about building secure, innovative solutions.
+                    Fresh graduate with expertise in Java, Python, and cybersecurity. 
+                    Passionate about creating secure, innovative solutions and eager to apply my skills in a dynamic team environment.
                 </p>
                 <div class="hero-buttons">
                     <a href="#projects" class="btn btn-primary" aria-label="View my projects">View My Work</a>
@@ -157,66 +131,15 @@
                 </div>
             </div>
             <div class="hero-image">
-                <div class="profile-image-simple">
-                    <img src="images/profile-professional.jpg" alt="Mir Dujanah Ali Hussaini" class="profile-img-static" loading="eager" decoding="async" width="480" height="480" onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fas fa-user\'></i>';">
+                <div class="profile-image-container">
                 </div>
-            </div>
-        </div>
     </section>
-
-    <!-- About Section -->
     <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>
-                        I'm a Computer Science graduate from the Institute of Aeronautical Engineering with a strong foundation in programming, cybersecurity, and artificial intelligence. My academic journey has equipped me with both theoretical knowledge and practical skills in developing secure, scalable applications.
-                    </p>
-                    <p>
-                        I specialize in Java development, Python programming, cybersecurity tools, and frontend technologies. Proficient in HTML, CSS, JavaScript, and modern web development practices. My projects demonstrate my ability to work with complex algorithms, responsive web design, and machine learning frameworks. I'm passionate about creating innovative, user-friendly solutions that address real-world challenges.
-                    </p>
-                    <div class="about-stats">
-                        <div class="stat">
-                            <h3>8.0</h3>
-                            <p>CGPA</p>
-                        </div>
-                        <div class="stat">
-                            <h3>3+</h3>
-                            <p>Major Projects</p>
-                        </div>
-                        <div class="stat">
-                            <h3>4+</h3>
-                            <p>Certifications</p>
                         </div>
                     </div>
                 </div>
                 <div class="about-image">
-                    <div class="about-placeholder">
-                        <i class="fas fa-code"></i>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <h2 class="section-title">My Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Sanitizable Access Control System Using AES Algorithm</h3>
-                        <p>Enhanced cloud storage security by protecting data from malicious Data Publishers. Utilizes AES encryption and sanitization process to validate data, ensuring only authorized users with valid keys can access decrypted content.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">AES Algorithm</span>
-                            <span class="tech-tag">HTML</span>
                             <span class="tech-tag">CSS</span>
                             <span class="tech-tag">Java</span>
                             <span class="tech-tag">JSP</span>
@@ -464,40 +387,44 @@
                     <div class="social-links">
                         <a href="https://www.linkedin.com/in/mirdujanah" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn profile"><i class="fab fa-linkedin"></i></a>
                         <a href="https://github.com/mirdujanah" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub profile"><i class="fab fa-github"></i></a>
-                        <a href="https://twitter.com/mir74799" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="X profile"><i class="fab fa-x-twitter"></i></a>
+                        <a href="https://twitter.com/mir74799" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Twitter profile"><i class="fab fa-twitter"></i></a>
                         <a href="#" class="social-link" aria-label="Instagram profile"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
 
-                <div class="contact-form">
+                <form class="contact-form" id="contactForm" action="https://formspree.io/f/manbpqba" method="POST" novalidate>
                     <div class="form-group">
-                        <input type="text" placeholder="Your Name" disabled>
+                        <input type="text" id="name" name="name" placeholder="Your Name" required maxlength="100" pattern="[A-Za-z\s]+" aria-label="Your name">
+                        <div class="error-message" id="nameError"></div>
                     </div>
                     <div class="form-group">
-                        <input type="email" placeholder="Your Email" disabled>
+                        <input type="email" id="email" name="email" placeholder="Your Email" required maxlength="254" aria-label="Your email address">
+                        <div class="error-message" id="emailError"></div>
                     </div>
                     <div class="form-group">
-                        <input type="text" placeholder="Subject" disabled>
+                        <input type="text" id="subject" name="subject" placeholder="Subject" required maxlength="200" aria-label="Message subject">
+                        <div class="error-message" id="subjectError"></div>
                     </div>
                     <div class="form-group">
-                        <textarea placeholder="Your Message" rows="5" disabled></textarea>
+                        <textarea id="message" name="message" placeholder="Your Message" rows="5" required maxlength="1000" aria-label="Your message"></textarea>
+                        <div class="error-message" id="messageError"></div>
                     </div>
-                    <a href="mailto:dmir7186@gmail.com" class="btn btn-primary">Send Email</a>
-                </div>
+                    
+                    <!-- Honeypot field for bot detection (hidden from humans) -->
+                    <div style="position: absolute; left: -9999px; opacity: 0; pointer-events: none;" aria-hidden="true">
+                        <input type="text" name="website" tabindex="-1" autocomplete="off">
+                        <input type="email" name="email_confirm" tabindex="-1" autocomplete="off">
+                    </div>
+                    
+                    <!-- Hidden fields for better form handling -->
+                    <input type="hidden" name="_next" value="https://mirdujanah.github.io/portfolio-website/">
+                    <input type="hidden" name="_subject" value="New Contact Form Submission">
+                    <input type="hidden" name="_captcha" value="false">
+                    <button type="submit" class="btn btn-primary" aria-label="Send message">Send Message</button>
+                </form>
             </div>
         </div>
     </section>
-
-    <!-- Cookie Consent Banner -->
-    <div id="cookieConsent" class="cookie-consent">
-        <div class="cookie-content">
-            <p>This website uses cookies to enhance your experience and analyze traffic.</p>
-            <div class="cookie-buttons">
-                <button id="acceptCookies" class="btn btn-primary">Accept All</button>
-                <button id="declineCookies" class="btn btn-secondary">Decline</button>
-            </div>
-        </div>
-    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -506,7 +433,7 @@
         </div>
     </footer>
 
-
+    <script src="form-config.js"></script>
     <script src="script.js"></script>
 </body>
 </html> 
