@@ -589,6 +589,12 @@ body {
 }
 
 [data-theme="dark"] body,
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] p,
+[data-theme="dark"] span,
 [data-theme="dark"] .hero-title,
 [data-theme="dark"] .hero-subtitle,
 [data-theme="dark"] .hero-description,
@@ -606,7 +612,9 @@ body {
 [data-theme="dark"] .contact-info h3,
 [data-theme="dark"] .contact-info p,
 [data-theme="dark"] .contact-method h4,
-[data-theme="dark"] .contact-method p {
+[data-theme="dark"] .contact-method p,
+[data-theme="dark"] .contact-method div h4,
+[data-theme="dark"] .contact-method div p {
     color: #ffffff !important;
 }
 
@@ -777,30 +785,7 @@ body {
     box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
 
-/* Skill Bar Styling */
-.skill-bar {
-    width: 100%;
-    height: 8px;
-    background: rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    overflow: hidden;
-    margin-top: 0.5rem;
-}
-
-[data-theme="dark"] .skill-bar {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.skill-progress {
-    width: 0%;
-    height: 100%;
-    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-    border-radius: 10px;
-    -webkit-transition: width 2s ease-in-out;
-    transition: width 2s ease-in-out;
-    position: relative;
-}
-
+/* Fixed Skill Bar Styling */
 .skill-item {
     margin-bottom: 1.5rem;
 }
@@ -809,7 +794,33 @@ body {
     display: block;
     font-weight: 500;
     margin-bottom: 0.5rem;
-    color: var(--text-color);
+    color: var(--apple-black);
+}
+
+[data-theme="dark"] .skill-name {
+    color: #ffffff !important;
+}
+
+.skill-bar {
+    width: 100%;
+    height: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+
+[data-theme="dark"] .skill-bar {
+    background-color: #333333;
+}
+
+.skill-progress {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    border-radius: 5px;
+    width: 0%;
+    transition: width 2s ease-in-out;
+    position: relative;
 }
 
 @keyframes fadeIn {
@@ -1690,40 +1701,7 @@ section {
     font-size: 0.95rem;
 }
 
-.skill-bar {
-    width: 100%;
-    height: 8px;
-    background: var(--apple-light-gray);
-    border-radius: 4px;
-    overflow: hidden;
-}
 
-.skill-progress {
-    height: 100%;
-    background: var(--apple-gradient);
-    border-radius: 4px;
-    transition: all 1s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.skill-progress::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-    animation: skillShimmer 2s ease-in-out infinite;
-    will-change: transform;
-}
-
-@keyframes skillShimmer {
-    0% { transform: translateX(-100%); }
-    50% { transform: translateX(100%); }
-    100% { transform: translateX(100%); }
-}
 
 /* Resource loading optimization */
 .hero-image img {
