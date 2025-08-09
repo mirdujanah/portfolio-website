@@ -655,6 +655,17 @@ body {
     border-color: #667eea !important;
 }
 
+/* Fix About Me stat cards */
+[data-theme="dark"] .stats .stat {
+    background: #2d2d2d !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme="dark"] .stats .stat h3,
+[data-theme="dark"] .stats .stat p {
+    color: #ffffff !important;
+}
+
 [data-theme="dark"] .tech-tag {
     color: #333333 !important;
     background: #cccccc !important;
