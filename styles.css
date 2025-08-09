@@ -588,18 +588,27 @@ body {
     border: 1px solid var(--border-color);
 }
 
-[data-theme="dark"] *:not(input):not(textarea):not(button):not(.btn):not(.tech-tag) {
+[data-theme="dark"] * {
     color: #ffffff !important;
 }
 
-[data-theme="dark"] .contact-methods .contact-method h4,
-[data-theme="dark"] .contact-methods .contact-method p,
-[data-theme="dark"] .contact-method > div > h4,
-[data-theme="dark"] .contact-method > div > p,
-[data-theme="dark"] .stats .stat h3,
-[data-theme="dark"] .stats .stat p,
-[data-theme="dark"] .about-stats .stat h3,
-[data-theme="dark"] .about-stats .stat p {
+[data-theme="dark"] input,
+[data-theme="dark"] textarea {
+    color: #333333 !important;
+    background: #f0f0f0 !important;
+}
+
+[data-theme="dark"] .btn-primary {
+    color: #ffffff !important;
+    background: #2563eb !important;
+}
+
+[data-theme="dark"] .tech-tag {
+    color: #333333 !important;
+    background: #cccccc !important;
+}
+
+[data-theme="dark"] .social-link {
     color: #ffffff !important;
 }
 
