@@ -480,6 +480,82 @@ body {
     text-decoration: underline;
 }
 
+/* Analytics Styles */
+.analytics-hero {
+    padding: 120px 0 60px;
+    background: var(--apple-background);
+    text-align: center;
+}
+
+.analytics-hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--apple-black);
+}
+
+.analytics-stats {
+    padding: 60px 0;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px var(--apple-shadow);
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--apple-gradient);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.stat-icon i {
+    font-size: 1.5rem;
+    color: white;
+}
+
+.stat-content h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--apple-black);
+}
+
+.stat-content p {
+    color: var(--apple-gray);
+    margin: 0;
+}
+
+.stat-content a {
+    color: var(--apple-blue);
+    text-decoration: none;
+}
+
+.stat-content a:hover {
+    text-decoration: underline;
+}
+
 .hero-image {
     display: flex;
     justify-content: center;
