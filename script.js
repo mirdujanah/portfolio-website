@@ -212,39 +212,32 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Safari-compatible animated skill bars
-    if ('IntersectionObserver' in window) {
-        const skillObserver = new IntersectionObserver(function(entries) {
-            for (let i = 0; i < entries.length; i++) {
-                const entry = entries[i];
-                if (entry.isIntersecting) {
-                    const progressBars = entry.target.querySelectorAll('.skill-progress');
-                    for (let j = 0; j < progressBars.length; j++) {
-                        const bar = progressBars[j];
-                        const width = bar.getAttribute('data-width');
+    // Simple skill bar animation on scroll
+    function animateSkillBars() {
+        const skillsSection = document.getElementById('skills');
+        const progressBars = document.querySelectorAll('.skill-progress');
+        
+        if (skillsSection && progressBars.length > 0) {
+            const rect = skillsSection.getBoundingClientRect();
+            const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+            
+            if (isVisible) {
+                for (let i = 0; i < progressBars.length; i++) {
+                    const bar = progressBars[i];
+                    const width = bar.getAttribute('data-width');
+                    if (width && bar.style.width === '0%') {
                         setTimeout(function() {
                             bar.style.width = width + '%';
-                        }, j * 100);
+                        }, i * 100);
                     }
                 }
             }
-        }, { threshold: 0.3 });
-        
-        const skillCategories = document.querySelectorAll('.skill-category');
-        for (let i = 0; i < skillCategories.length; i++) {
-            skillObserver.observe(skillCategories[i]);
         }
-    } else {
-        // Fallback for older Safari
-        setTimeout(function() {
-            const progressBars = document.querySelectorAll('.skill-progress');
-            for (let i = 0; i < progressBars.length; i++) {
-                const bar = progressBars[i];
-                const width = bar.getAttribute('data-width');
-                bar.style.width = width + '%';
-            }
-        }, 2000);
     }
+    
+    // Trigger animation on scroll and page load
+    window.addEventListener('scroll', animateSkillBars, { passive: true });
+    setTimeout(animateSkillBars, 1000);
     
 
     const links = document.querySelectorAll('a[href^="#"]');
