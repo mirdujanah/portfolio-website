@@ -56,14 +56,16 @@ function showCookieConsent() {
     }
 }
 
-// Scroll to top on page reload
+// Smooth scroll to top on page reload
 window.addEventListener('beforeunload', () => {
+    document.documentElement.style.scrollBehavior = 'auto';
     window.scrollTo(0, 0);
 });
 
 // Performance optimized JavaScript
 document.addEventListener('DOMContentLoaded', function() {
-    // Ensure page starts at top
+    // Ensure page starts at top with smooth behavior
+    document.documentElement.style.scrollBehavior = 'smooth';
     window.scrollTo(0, 0);
     const links = document.querySelectorAll('a[href^="#"]');
     const navMenu = document.querySelector('.nav-menu');
