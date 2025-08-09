@@ -564,6 +564,7 @@ body {
     --border-color: rgba(0, 0, 0, 0.1);
 }
 
+/* CLEAN DARK MODE IMPLEMENTATION */
 [data-theme="dark"] {
     --bg-color: #1a1a1a;
     --text-color: #ffffff;
@@ -576,83 +577,31 @@ body {
     --apple-shadow: rgba(255, 255, 255, 0.1);
 }
 
-body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.project-card, .education-card, .blog-card, .stat-card, .testimonial-card {
-    background: var(--card-bg) !important;
-    color: var(--text-color) !important;
-    border: 1px solid var(--border-color);
-}
-
-[data-theme="dark"] * {
+[data-theme="dark"] body {
+    background-color: #1a1a1a !important;
     color: #ffffff !important;
 }
 
-[data-theme="dark"] input,
-[data-theme="dark"] textarea {
-    color: #333333 !important;
-    background: #f0f0f0 !important;
+[data-theme="dark"] .hero,
+[data-theme="dark"] .about,
+[data-theme="dark"] .projects,
+[data-theme="dark"] .skills,
+[data-theme="dark"] .education,
+[data-theme="dark"] .contact {
+    background: #1a1a1a !important;
 }
 
-[data-theme="dark"] .btn-primary {
-    color: #ffffff !important;
-    background: #2563eb !important;
-}
-
-[data-theme="dark"] .tech-tag {
-    color: #333333 !important;
-    background: #cccccc !important;
-}
-
-[data-theme="dark"] .social-link {
-    color: #ffffff !important;
-}
-
-[data-theme="dark"] .hero-title .highlight {
-    color: #667eea !important;
-}
-
-[data-theme="dark"] .nav-link {
-    color: #cccccc !important;
-}
-
-[data-theme="dark"] .nav-link:hover {
-    color: #667eea !important;
-}
-
-[data-theme="dark"] .btn-primary {
-    color: #ffffff !important;
-}
-
-[data-theme="dark"] .btn-secondary {
-    color: #667eea !important;
-}
-
-[data-theme="dark"] .tech-tag {
-    color: #333333 !important;
-    background: #cccccc !important;
+[data-theme="dark"] .project-card,
+[data-theme="dark"] .education-card,
+[data-theme="dark"] .blog-card,
+[data-theme="dark"] .stat-card,
+[data-theme="dark"] .skill-items {
+    background: #2d2d2d !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
 [data-theme="dark"] .navbar {
     background: rgba(26, 26, 26, 0.95) !important;
-}
-
-[data-theme="dark"] .nav-link {
-    color: var(--apple-gray) !important;
-}
-
-[data-theme="dark"] .hero {
-    background: var(--bg-color) !important;
-}
-
-[data-theme="dark"] .about,
-[data-theme="dark"] .skills,
-[data-theme="dark"] .education {
-    background: var(--bg-color) !important;
 }
 
 /* Safari-Compatible Theme Toggle Switch */
@@ -2356,31 +2305,70 @@ section {
     width: 100%;
 }
 
-/* FINAL DARK MODE FIX - MAXIMUM PRIORITY */
-html[data-theme="dark"] * {
+/* COMPREHENSIVE DARK MODE TEXT RULES */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6,
+[data-theme="dark"] p,
+[data-theme="dark"] span,
+[data-theme="dark"] div,
+[data-theme="dark"] .hero-title,
+[data-theme="dark"] .hero-subtitle,
+[data-theme="dark"] .hero-description,
+[data-theme="dark"] .section-title,
+[data-theme="dark"] .about-text p,
+[data-theme="dark"] .skill-name,
+[data-theme="dark"] .skill-category h3,
+[data-theme="dark"] .project-content h3,
+[data-theme="dark"] .project-content p,
+[data-theme="dark"] .education-content h3,
+[data-theme="dark"] .education-content p,
+[data-theme="dark"] .education-content .description,
+[data-theme="dark"] .education-content .institution,
+[data-theme="dark"] .education-content .details,
+[data-theme="dark"] .stat h3,
+[data-theme="dark"] .stat p,
+[data-theme="dark"] .contact-info h3,
+[data-theme="dark"] .contact-info p,
+[data-theme="dark"] .contact-method h4,
+[data-theme="dark"] .contact-method p,
+[data-theme="dark"] .contact-method div h4,
+[data-theme="dark"] .contact-method div p,
+[data-theme="dark"] .nav-link {
     color: #ffffff !important;
 }
 
-html[data-theme="dark"] input,
-html[data-theme="dark"] textarea {
+[data-theme="dark"] .hero-title .highlight {
+    color: #667eea !important;
+}
+
+[data-theme="dark"] .nav-link:hover {
+    color: #667eea !important;
+}
+
+[data-theme="dark"] input,
+[data-theme="dark"] textarea {
     color: #333333 !important;
     background: #f0f0f0 !important;
 }
 
-html[data-theme="dark"] .btn-primary {
+[data-theme="dark"] .btn-primary {
     color: #ffffff !important;
     background: #2563eb !important;
 }
 
-html[data-theme="dark"] .tech-tag {
+[data-theme="dark"] .btn-secondary {
+    color: #667eea !important;
+}
+
+[data-theme="dark"] .tech-tag {
     color: #333333 !important;
     background: #cccccc !important;
 }
 
-html[data-theme="dark"] .social-link {
+[data-theme="dark"] .social-link {
     color: #ffffff !important;
-}
-
-html[data-theme="dark"] .hero-title .highlight {
-    color: #667eea !important;
 } 
