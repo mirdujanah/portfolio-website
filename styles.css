@@ -587,18 +587,23 @@ body {
     border: 1px solid var(--border-color);
 }
 
-/* Theme Toggle Switch */
+/* Safari-Compatible Theme Toggle Switch */
 .theme-switch {
     position: relative;
     display: inline-block;
     width: 50px;
     height: 24px;
+    -webkit-appearance: none;
+    appearance: none;
 }
 
 .theme-checkbox {
+    position: absolute;
     opacity: 0;
     width: 0;
     height: 0;
+    -webkit-appearance: none;
+    appearance: none;
 }
 
 .theme-label {
@@ -609,8 +614,10 @@ body {
     right: 0;
     bottom: 0;
     background-color: #ccc;
+    -webkit-transition: 0.3s;
     transition: 0.3s;
     border-radius: 24px;
+    -webkit-border-radius: 24px;
 }
 
 .theme-label:before {
@@ -621,8 +628,12 @@ body {
     left: 3px;
     bottom: 3px;
     background-color: white;
+    -webkit-transition: 0.3s;
     transition: 0.3s;
     border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
 }
 
 .theme-checkbox:checked + .theme-label {
@@ -630,6 +641,7 @@ body {
 }
 
 .theme-checkbox:checked + .theme-label:before {
+    -webkit-transform: translateX(26px);
     transform: translateX(26px);
 }
 
@@ -649,12 +661,20 @@ body {
     51%, 100% { opacity: 0; }
 }
 
-/* Project Filters */
+/* Safari-Compatible Project Filters */
 .project-filters {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
     justify-content: center;
     gap: 1rem;
     margin-bottom: 3rem;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
 }
 
@@ -665,27 +685,36 @@ body {
     border: 1px solid var(--apple-border);
     border-radius: 8px;
     cursor: pointer;
+    -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
     font-weight: 500;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .filter-btn:hover {
+    -webkit-transform: translateY(-2px);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .filter-btn.active {
-    background: var(--apple-blue);
-    color: white;
-    border-color: var(--apple-blue);
+    background: var(--apple-blue) !important;
+    color: white !important;
+    border-color: var(--apple-blue) !important;
+    -webkit-transform: translateY(-2px);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
 
-/* Animated Skill Bars */
+/* Safari-Compatible Animated Skill Bars */
 .skill-progress {
-    width: 0%;
+    width: 0% !important;
+    -webkit-transition: width 2s ease-in-out;
     transition: width 2s ease-in-out;
 }
 

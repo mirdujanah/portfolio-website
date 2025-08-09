@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Typing animation
+    // Safari-compatible typing animation
     const texts = ['Software Development Engineer', 'Cybersecurity Enthusiast', 'AI/ML Developer', 'Problem Solver'];
     let textIndex = 0;
     let charIndex = 0;
@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function typeText() {
         if (typingElement && charIndex < texts[textIndex].length) {
-            typingElement.textContent = texts[textIndex].substring(0, charIndex + 1);
+            typingElement.innerHTML = texts[textIndex].substring(0, charIndex + 1);
             charIndex++;
             setTimeout(typeText, 100);
         } else {
@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function eraseText() {
         if (typingElement && charIndex > 0) {
-            typingElement.textContent = texts[textIndex].substring(0, charIndex - 1);
+            typingElement.innerHTML = texts[textIndex].substring(0, charIndex - 1);
             charIndex--;
             setTimeout(eraseText, 50);
         } else {
@@ -174,48 +174,77 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     if (typingElement) {
-        typingElement.textContent = '';
-        setTimeout(typeText, 1000);
+        typingElement.innerHTML = '';
+        setTimeout(function() {
+            typeText();
+        }, 1000);
     }
     
-    // Project filtering
+    // Safari-compatible project filtering
     const filterBtns = document.querySelectorAll('.filter-btn');
     const projectCards = document.querySelectorAll('.project-card');
     
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
+    for (let i = 0; i < filterBtns.length; i++) {
+        const btn = filterBtns[i];
+        btn.addEventListener('click', function() {
             const filter = btn.getAttribute('data-filter');
             
-            filterBtns.forEach(b => b.classList.remove('active'));
+            for (let j = 0; j < filterBtns.length; j++) {
+                filterBtns[j].classList.remove('active');
+            }
             btn.classList.add('active');
             
-            projectCards.forEach(card => {
+            for (let k = 0; k < projectCards.length; k++) {
+                const card = projectCards[k];
                 if (filter === 'all' || card.getAttribute('data-category') === filter) {
                     card.style.display = 'block';
+                    card.style.webkitAnimation = 'fadeIn 0.5s ease';
                     card.style.animation = 'fadeIn 0.5s ease';
                 } else {
                     card.style.display = 'none';
                 }
-            });
-        });
-    });
-    
-    // Animated skill bars
-    const skillObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const progressBars = entry.target.querySelectorAll('.skill-progress');
-                progressBars.forEach(bar => {
-                    const width = bar.getAttribute('data-width');
-                    bar.style.width = width + '%';
-                });
             }
         });
-    }, { threshold: 0.5 });
+        
+        // Safari touch support
+        btn.addEventListener('touchstart', function() {
+            // Empty function for touch support
+        });
+    }
     
-    document.querySelectorAll('.skill-category').forEach(category => {
-        skillObserver.observe(category);
-    });
+    // Safari-compatible animated skill bars
+    if ('IntersectionObserver' in window) {
+        const skillObserver = new IntersectionObserver(function(entries) {
+            for (let i = 0; i < entries.length; i++) {
+                const entry = entries[i];
+                if (entry.isIntersecting) {
+                    const progressBars = entry.target.querySelectorAll('.skill-progress');
+                    for (let j = 0; j < progressBars.length; j++) {
+                        const bar = progressBars[j];
+                        const width = bar.getAttribute('data-width');
+                        setTimeout(function() {
+                            bar.style.width = width + '%';
+                        }, j * 100);
+                    }
+                }
+            }
+        }, { threshold: 0.3 });
+        
+        const skillCategories = document.querySelectorAll('.skill-category');
+        for (let i = 0; i < skillCategories.length; i++) {
+            skillObserver.observe(skillCategories[i]);
+        }
+    } else {
+        // Fallback for older Safari
+        setTimeout(function() {
+            const progressBars = document.querySelectorAll('.skill-progress');
+            for (let i = 0; i < progressBars.length; i++) {
+                const bar = progressBars[i];
+                const width = bar.getAttribute('data-width');
+                bar.style.width = width + '%';
+            }
+        }, 2000);
+    }
     
 
     const links = document.querySelectorAll('a[href^="#"]');
