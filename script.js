@@ -56,16 +56,18 @@ function showCookieConsent() {
     }
 }
 
-// Smooth scroll to top on page reload
-window.addEventListener('beforeunload', () => {
-    document.documentElement.style.scrollBehavior = 'auto';
-    window.scrollTo(0, 0);
+// Force scroll to top on page load with smooth animation
+window.addEventListener('load', () => {
+    history.scrollRestoration = 'manual';
+    setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 50);
 });
 
 // Performance optimized JavaScript
 document.addEventListener('DOMContentLoaded', function() {
-    // Ensure page starts at top with smooth behavior
-    document.documentElement.style.scrollBehavior = 'smooth';
+    // Disable browser scroll restoration
+    history.scrollRestoration = 'manual';
     window.scrollTo(0, 0);
     const links = document.querySelectorAll('a[href^="#"]');
     const navMenu = document.querySelector('.nav-menu');
