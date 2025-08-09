@@ -129,6 +129,120 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     
     window.addEventListener('scroll', updateScrollProgress, { passive: true });
+    
+    // Dark mode toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    
+    if (themeToggle) {
+        themeToggle.innerHTML = savedTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeToggle.innerHTML = newTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+    }
+    
+    // Typing animation
+    const texts = ['Software Development Engineer', 'Cybersecurity Enthusiast', 'AI/ML Developer', 'Problem Solver'];
+    let textIndex = 0;
+    let charIndex = 0;
+    const typingElement = document.getElementById('typingText');
+    
+    function typeText() {
+        if (typingElement && charIndex < texts[textIndex].length) {
+            typingElement.textContent += texts[textIndex].charAt(charIndex);
+            charIndex++;
+            setTimeout(typeText, 100);
+        } else {
+            setTimeout(eraseText, 2000);
+        }
+    }
+    
+    function eraseText() {
+        if (typingElement && charIndex > 0) {
+            typingElement.textContent = texts[textIndex].substring(0, charIndex - 1);
+            charIndex--;
+            setTimeout(eraseText, 50);
+        } else {
+            textIndex = (textIndex + 1) % texts.length;
+            setTimeout(typeText, 500);
+        }
+    }
+    
+    setTimeout(typeText, 1000);
+    
+    // Project filtering
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+    
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filter = btn.getAttribute('data-filter');
+            
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            projectCards.forEach(card => {
+                if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                    card.style.display = 'block';
+                    card.style.animation = 'fadeIn 0.5s ease';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+    
+    // Animated skill bars
+    const skillObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const progressBars = entry.target.querySelectorAll('.skill-progress');
+                progressBars.forEach(bar => {
+                    const width = bar.getAttribute('data-width');
+                    bar.style.width = width + '%';
+                });
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    document.querySelectorAll('.skill-category').forEach(category => {
+        skillObserver.observe(category);
+    });
+    
+    // Testimonials carousel
+    let currentSlide = 0;
+    const testimonialCards = document.querySelectorAll('.testimonial-card');
+    const dots = document.querySelectorAll('.dot');
+    
+    function showSlide(index) {
+        testimonialCards.forEach(card => card.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+        
+        if (testimonialCards[index]) {
+            testimonialCards[index].classList.add('active');
+            dots[index].classList.add('active');
+        }
+    }
+    
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            currentSlide = index;
+            showSlide(currentSlide);
+        });
+    });
+    
+    // Auto-rotate testimonials
+    setInterval(() => {
+        currentSlide = (currentSlide + 1) % testimonialCards.length;
+        showSlide(currentSlide);
+    }, 5000);
     const links = document.querySelectorAll('a[href^="#"]');
     const navMenu = document.querySelector('.nav-menu');
     const hamburger = document.querySelector('.hamburger');

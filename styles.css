@@ -556,6 +556,181 @@ body {
     text-decoration: underline;
 }
 
+/* Dark Mode */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --card-bg: #ffffff;
+    --border-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] {
+    --bg-color: #1a1a1a;
+    --text-color: #ffffff;
+    --card-bg: #2d2d2d;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --apple-background: #1a1a1a;
+    --apple-black: #ffffff;
+    --apple-gray: #cccccc;
+    --apple-light-gray: #333333;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.project-card, .education-card, .blog-card, .stat-card, .testimonial-card {
+    background: var(--card-bg) !important;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+/* Theme Toggle */
+.theme-toggle {
+    background: none;
+    border: none;
+    color: var(--apple-gray);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    background: var(--apple-light-gray);
+    transform: scale(1.1);
+}
+
+/* Typing Animation */
+.typing-text {
+    display: inline-block;
+}
+
+.cursor {
+    display: inline-block;
+    animation: blink 1s infinite;
+    color: var(--apple-blue);
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+/* Project Filters */
+.project-filters {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 0.75rem 1.5rem;
+    border: 2px solid var(--apple-border);
+    background: transparent;
+    color: var(--apple-gray);
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: var(--apple-blue);
+    color: white;
+    border-color: var(--apple-blue);
+    transform: translateY(-2px);
+}
+
+/* Animated Skill Bars */
+.skill-progress {
+    width: 0%;
+    transition: width 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Testimonials */
+.testimonials {
+    padding: 80px 0;
+    background: var(--apple-background);
+}
+
+.testimonials-carousel {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    height: 200px;
+}
+
+.testimonial-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateX(50px);
+    transition: all 0.5s ease;
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px var(--apple-shadow);
+}
+
+.testimonial-card.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.testimonial-content p {
+    font-size: 1.1rem;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+}
+
+.testimonial-author h4 {
+    margin: 0;
+    color: var(--apple-blue);
+    font-weight: 600;
+}
+
+.testimonial-author span {
+    color: var(--apple-gray);
+    font-size: 0.9rem;
+}
+
+.testimonial-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--apple-border);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot.active,
+.dot:hover {
+    background: var(--apple-blue);
+    transform: scale(1.2);
+}
+
 /* Scroll Progress Indicator */
 .scroll-progress {
     position: fixed;
@@ -643,6 +818,24 @@ body {
     
     .hamburger.active .bar:nth-child(3) {
         transform: rotate(-45deg) translate(7px, -6px);
+    }
+    
+    .project-filters {
+        gap: 0.5rem;
+    }
+    
+    .filter-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .testimonials-carousel {
+        height: 250px;
+    }
+    
+    .theme-toggle {
+        order: -1;
+        margin-right: 1rem;
     }
 }
 
