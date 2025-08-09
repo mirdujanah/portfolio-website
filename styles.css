@@ -588,22 +588,29 @@ body {
     border: 1px solid var(--border-color);
 }
 
-[data-theme="dark"] .about-text p,
-[data-theme="dark"] .hero-description,
-[data-theme="dark"] .section-title,
-[data-theme="dark"] h1, [data-theme="dark"] h2, [data-theme="dark"] h3, [data-theme="dark"] h4,
-[data-theme="dark"] .skill-name,
-[data-theme="dark"] .project-content h3,
-[data-theme="dark"] .project-content p,
-[data-theme="dark"] .education-content h3,
-[data-theme="dark"] .education-content p,
-[data-theme="dark"] .stat h3,
-[data-theme="dark"] .stat p,
-[data-theme="dark"] .contact-info h3,
-[data-theme="dark"] .contact-info p,
-[data-theme="dark"] .contact-method h4,
-[data-theme="dark"] .contact-method p {
-    color: var(--text-color) !important;
+[data-theme="dark"] * {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .hero-title .highlight {
+    color: #667eea !important;
+}
+
+[data-theme="dark"] .nav-link:hover {
+    color: #667eea !important;
+}
+
+[data-theme="dark"] .btn-primary {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .btn-secondary {
+    color: #667eea !important;
+}
+
+[data-theme="dark"] .tech-tag {
+    color: #333333 !important;
+    background: #cccccc !important;
 }
 
 [data-theme="dark"] .navbar {
