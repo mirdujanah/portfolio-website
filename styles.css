@@ -748,14 +748,39 @@ body {
     box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
 
-/* Safari-Compatible Animated Skill Bars */
+/* Skill Bar Styling */
+.skill-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 0.5rem;
+}
+
+[data-theme="dark"] .skill-bar {
+    background: rgba(255, 255, 255, 0.1);
+}
+
 .skill-progress {
     width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
     -webkit-transition: width 2s ease-in-out;
     transition: width 2s ease-in-out;
-    background: var(--apple-gradient);
-    height: 100%;
-    border-radius: 10px;
+    position: relative;
+}
+
+.skill-item {
+    margin-bottom: 1.5rem;
+}
+
+.skill-name {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
 }
 
 @keyframes fadeIn {

@@ -212,41 +212,48 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Direct skill bar animation - no complex logic
+    // Simple and reliable skill bar animation
     function animateSkillBars() {
         const progressBars = document.querySelectorAll('.skill-progress');
-        console.log('Found skill bars:', progressBars.length);
         
         for (let i = 0; i < progressBars.length; i++) {
             const bar = progressBars[i];
             const width = bar.getAttribute('data-width');
-            console.log('Animating bar', i, 'to width:', width + '%');
             
             if (width) {
-                bar.style.transition = 'width 2s ease-in-out';
-                bar.style.width = width + '%';
+                // Reset to 0 first
+                bar.style.width = '0%';
+                
+                // Animate to target width with delay
+                setTimeout(function() {
+                    bar.style.width = width + '%';
+                }, i * 200 + 500);
             }
         }
     }
     
-    // Trigger immediately when skills section is visible
+    // Trigger on scroll to skills section
     let skillsAnimated = false;
-    function checkSkillsSection() {
+    window.addEventListener('scroll', function() {
         if (skillsAnimated) return;
         
         const skillsSection = document.getElementById('skills');
         if (skillsSection) {
             const rect = skillsSection.getBoundingClientRect();
-            if (rect.top < window.innerHeight * 0.8) {
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
                 skillsAnimated = true;
                 animateSkillBars();
             }
         }
-    }
+    });
     
-    window.addEventListener('scroll', checkSkillsSection);
-    setTimeout(checkSkillsSection, 1000);
-    setTimeout(animateSkillBars, 3000); // Force animation after 3 seconds
+    // Also trigger after page load as fallback
+    setTimeout(function() {
+        if (!skillsAnimated) {
+            animateSkillBars();
+            skillsAnimated = true;
+        }
+    }, 2000);
     
 
     const links = document.querySelectorAll('a[href^="#"]');
