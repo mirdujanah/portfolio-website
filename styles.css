@@ -571,10 +571,11 @@ body {
     --card-bg: #2d2d2d;
     --border-color: rgba(255, 255, 255, 0.1);
     --apple-background: #1a1a1a;
-    --apple-black: #ffffff;
-    --apple-gray: #cccccc;
+    --apple-black: #ffffff !important;
+    --apple-gray: #ffffff !important;
     --apple-light-gray: #333333;
     --apple-shadow: rgba(255, 255, 255, 0.1);
+    --apple-blue: #667eea;
 }
 
 [data-theme="dark"] body {
@@ -604,18 +605,35 @@ body {
     background: rgba(26, 26, 26, 0.95) !important;
 }
 
-/* COMPREHENSIVE DARK MODE TEXT - FINAL SOLUTION */
-[data-theme="dark"] * {
+/* ULTIMATE DARK MODE SOLUTION - OVERRIDES EVERYTHING */
+[data-theme="dark"] *:not(input):not(textarea):not(.btn):not(.tech-tag) {
     color: #ffffff !important;
 }
 
-/* Exceptions for form elements and special cases */
+/* Specific overrides for problematic sections */
+[data-theme="dark"] .about-text p,
+[data-theme="dark"] .stat h3,
+[data-theme="dark"] .stat p,
+[data-theme="dark"] .filter-btn,
+[data-theme="dark"] .skill-name,
+[data-theme="dark"] .skill-category h3,
+[data-theme="dark"] .contact-info h3,
+[data-theme="dark"] .contact-info p,
+[data-theme="dark"] .contact-method h4,
+[data-theme="dark"] .contact-method p,
+[data-theme="dark"] .contact-method div h4,
+[data-theme="dark"] .contact-method div p {
+    color: #ffffff !important;
+}
+
+/* Form elements */
 [data-theme="dark"] input,
 [data-theme="dark"] textarea {
     color: #333333 !important;
     background: #f0f0f0 !important;
 }
 
+/* Buttons */
 [data-theme="dark"] .btn-primary {
     color: #ffffff !important;
     background: #2563eb !important;
@@ -623,6 +641,18 @@ body {
 
 [data-theme="dark"] .btn-secondary {
     color: #667eea !important;
+}
+
+[data-theme="dark"] .filter-btn {
+    color: #ffffff !important;
+    background: #333333 !important;
+    border-color: #555555 !important;
+}
+
+[data-theme="dark"] .filter-btn.active {
+    color: #ffffff !important;
+    background: #667eea !important;
+    border-color: #667eea !important;
 }
 
 [data-theme="dark"] .tech-tag {
