@@ -56,33 +56,45 @@ function showCookieConsent() {
     }
 }
 
-// Safari-compatible scroll to top on page reload
+// Cross-browser smooth scroll to top on page reload
 if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
 }
 
-// Safari needs this on pageshow event
-window.addEventListener('pageshow', (event) => {
-    if (event.persisted) {
-        window.scrollTo(0, 0);
-    }
-    setTimeout(() => {
+// Function for smooth scroll with fallback
+function smoothScrollToTop() {
+    if ('scrollBehavior' in document.documentElement.style) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 200);
+    } else {
+        // Fallback for older browsers
+        const scrollStep = -window.scrollY / (500 / 15);
+        const scrollInterval = setInterval(() => {
+            if (window.scrollY !== 0) {
+                window.scrollBy(0, scrollStep);
+            } else {
+                clearInterval(scrollInterval);
+            }
+        }, 15);
+    }
+}
+
+// Multiple event listeners for cross-browser compatibility
+window.addEventListener('beforeunload', () => {
+    window.scrollTo(0, 0);
+});
+
+window.addEventListener('pageshow', (event) => {
+    setTimeout(smoothScrollToTop, 100);
 });
 
 window.addEventListener('load', () => {
-    setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 300);
+    setTimeout(smoothScrollToTop, 200);
 });
 
 // Performance optimized JavaScript
 document.addEventListener('DOMContentLoaded', function() {
     window.scrollTo(0, 0);
-    setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 100);
+    setTimeout(smoothScrollToTop, 50);
     const links = document.querySelectorAll('a[href^="#"]');
     const navMenu = document.querySelector('.nav-menu');
     const hamburger = document.querySelector('.hamburger');

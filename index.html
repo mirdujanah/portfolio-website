@@ -74,7 +74,7 @@
     <link rel="preload" href="styles.css" as="style">
     <link rel="preload" href="script.js" as="script">
 </head>
-<body onload="setTimeout(() => window.scrollTo({top:0,behavior:'smooth'}), 50)">
+<body onload="setTimeout(() => { if('scrollBehavior' in document.documentElement.style) { window.scrollTo({top:0,behavior:'smooth'}); } else { window.scrollTo(0,0); } }, 50)">
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
