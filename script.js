@@ -56,8 +56,15 @@ function showCookieConsent() {
     }
 }
 
+// Scroll to top on page reload
+window.addEventListener('beforeunload', () => {
+    window.scrollTo(0, 0);
+});
+
 // Performance optimized JavaScript
 document.addEventListener('DOMContentLoaded', function() {
+    // Ensure page starts at top
+    window.scrollTo(0, 0);
     const links = document.querySelectorAll('a[href^="#"]');
     const navMenu = document.querySelector('.nav-menu');
     const hamburger = document.querySelector('.hamburger');
