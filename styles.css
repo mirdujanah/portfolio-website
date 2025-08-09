@@ -405,49 +405,35 @@ body {
 }
 
 .blog-grid {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: row;
-    flex-direction: row;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    gap: 2rem;
-    -webkit-box-pack: start;
-    -ms-flex-pack: start;
-    justify-content: flex-start;
-}
-
-@supports (display: grid) {
-    .blog-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-        gap: 2rem;
-    }
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-box-orient: horizontal !important;
+    -webkit-box-direction: normal !important;
+    -ms-flex-direction: row !important;
+    flex-direction: row !important;
+    -ms-flex-wrap: wrap !important;
+    flex-wrap: wrap !important;
+    gap: 2rem !important;
+    -webkit-box-pack: start !important;
+    -ms-flex-pack: start !important;
+    justify-content: flex-start !important;
+    width: 100% !important;
 }
 
 .blog-card {
-    background: white;
-    border-radius: 12px;
-    padding: 2rem;
-    box-shadow: 0 4px 20px var(--apple-shadow);
-    transition: transform 0.3s ease;
-    -webkit-box-flex: 1;
-    -ms-flex: 1 1 350px;
-    flex: 1 1 350px;
-    max-width: calc(50% - 1rem);
-    min-height: 280px;
-}
-
-@supports (display: grid) {
-    .blog-card {
-        -webkit-box-flex: initial;
-        -ms-flex: initial;
-        flex: initial;
-        max-width: none;
-    }
+    background: white !important;
+    border-radius: 12px !important;
+    padding: 2rem !important;
+    box-shadow: 0 4px 20px var(--apple-shadow) !important;
+    transition: transform 0.3s ease !important;
+    -webkit-box-flex: 0 !important;
+    -ms-flex: 0 1 calc(50% - 1rem) !important;
+    flex: 0 1 calc(50% - 1rem) !important;
+    width: calc(50% - 1rem) !important;
+    min-height: 280px !important;
+    margin-bottom: 2rem !important;
+    display: block !important;
 }
 
 .blog-card:hover {
