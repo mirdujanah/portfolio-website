@@ -604,6 +604,34 @@ body {
     background: rgba(26, 26, 26, 0.95) !important;
 }
 
+/* FORCE ALL TEXT TO BE WHITE IN DARK MODE */
+[data-theme="dark"] .nav-logo a,
+[data-theme="dark"] .nav-link,
+[data-theme="dark"] .hero-title,
+[data-theme="dark"] .hero-subtitle,
+[data-theme="dark"] .hero-description,
+[data-theme="dark"] .section-title,
+[data-theme="dark"] .about-text p,
+[data-theme="dark"] .skill-name,
+[data-theme="dark"] .skill-category h3,
+[data-theme="dark"] .project-content h3,
+[data-theme="dark"] .project-content p,
+[data-theme="dark"] .education-content h3,
+[data-theme="dark"] .education-content p,
+[data-theme="dark"] .education-content .description,
+[data-theme="dark"] .education-content .institution,
+[data-theme="dark"] .education-content .details,
+[data-theme="dark"] .stat h3,
+[data-theme="dark"] .stat p,
+[data-theme="dark"] .contact-info h3,
+[data-theme="dark"] .contact-info p,
+[data-theme="dark"] .contact-method h4,
+[data-theme="dark"] .contact-method p,
+[data-theme="dark"] .contact-method div h4,
+[data-theme="dark"] .contact-method div p {
+    color: #ffffff !important;
+}
+
 /* Safari-Compatible Theme Toggle Switch */
 .theme-switch {
     position: relative;
