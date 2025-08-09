@@ -136,15 +136,12 @@ document.addEventListener('DOMContentLoaded', function() {
     document.documentElement.setAttribute('data-theme', savedTheme);
     
     if (themeToggle) {
-        themeToggle.innerHTML = savedTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        themeToggle.checked = savedTheme === 'dark';
         
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
+        themeToggle.addEventListener('change', () => {
+            const newTheme = themeToggle.checked ? 'dark' : 'light';
             document.documentElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
-            themeToggle.innerHTML = newTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
         });
     }
     
@@ -156,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function typeText() {
         if (typingElement && charIndex < texts[textIndex].length) {
-            typingElement.textContent += texts[textIndex].charAt(charIndex);
+            typingElement.textContent = texts[textIndex].substring(0, charIndex + 1);
             charIndex++;
             setTimeout(typeText, 100);
         } else {
@@ -171,11 +168,15 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(eraseText, 50);
         } else {
             textIndex = (textIndex + 1) % texts.length;
+            charIndex = 0;
             setTimeout(typeText, 500);
         }
     }
     
-    setTimeout(typeText, 1000);
+    if (typingElement) {
+        typingElement.textContent = '';
+        setTimeout(typeText, 1000);
+    }
     
     // Project filtering
     const filterBtns = document.querySelectorAll('.filter-btn');
@@ -216,33 +217,7 @@ document.addEventListener('DOMContentLoaded', function() {
         skillObserver.observe(category);
     });
     
-    // Testimonials carousel
-    let currentSlide = 0;
-    const testimonialCards = document.querySelectorAll('.testimonial-card');
-    const dots = document.querySelectorAll('.dot');
-    
-    function showSlide(index) {
-        testimonialCards.forEach(card => card.classList.remove('active'));
-        dots.forEach(dot => dot.classList.remove('active'));
-        
-        if (testimonialCards[index]) {
-            testimonialCards[index].classList.add('active');
-            dots[index].classList.add('active');
-        }
-    }
-    
-    dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            currentSlide = index;
-            showSlide(currentSlide);
-        });
-    });
-    
-    // Auto-rotate testimonials
-    setInterval(() => {
-        currentSlide = (currentSlide + 1) % testimonialCards.length;
-        showSlide(currentSlide);
-    }, 5000);
+
     const links = document.querySelectorAll('a[href^="#"]');
     const navMenu = document.querySelector('.nav-menu');
     const hamburger = document.querySelector('.hamburger');

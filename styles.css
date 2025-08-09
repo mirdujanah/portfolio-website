@@ -587,21 +587,50 @@ body {
     border: 1px solid var(--border-color);
 }
 
-/* Theme Toggle */
-.theme-toggle {
-    background: none;
-    border: none;
-    color: var(--apple-gray);
-    font-size: 1.2rem;
-    cursor: pointer;
-    padding: 0.5rem;
-    border-radius: 50%;
-    transition: all 0.3s ease;
+/* Theme Toggle Switch */
+.theme-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
 }
 
-.theme-toggle:hover {
-    background: var(--apple-light-gray);
-    transform: scale(1.1);
+.theme-checkbox {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.theme-label {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.3s;
+    border-radius: 24px;
+}
+
+.theme-label:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+.theme-checkbox:checked + .theme-label {
+    background-color: var(--apple-blue);
+}
+
+.theme-checkbox:checked + .theme-label:before {
+    transform: translateX(26px);
 }
 
 /* Typing Animation */
@@ -631,21 +660,27 @@ body {
 
 .filter-btn {
     padding: 0.75rem 1.5rem;
-    border: 2px solid var(--apple-border);
-    background: transparent;
+    background: white;
     color: var(--apple-gray);
-    border-radius: 25px;
+    border: 1px solid var(--apple-border);
+    border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
     font-weight: 500;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.filter-btn:hover,
+.filter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
 .filter-btn.active {
     background: var(--apple-blue);
     color: white;
     border-color: var(--apple-blue);
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
 
 /* Animated Skill Bars */
@@ -659,77 +694,7 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Testimonials */
-.testimonials {
-    padding: 80px 0;
-    background: var(--apple-background);
-}
 
-.testimonials-carousel {
-    position: relative;
-    max-width: 800px;
-    margin: 0 auto;
-    height: 200px;
-}
-
-.testimonial-card {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    opacity: 0;
-    transform: translateX(50px);
-    transition: all 0.5s ease;
-    background: var(--card-bg);
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px var(--apple-shadow);
-}
-
-.testimonial-card.active {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.testimonial-content p {
-    font-size: 1.1rem;
-    font-style: italic;
-    margin-bottom: 1.5rem;
-    color: var(--text-color);
-}
-
-.testimonial-author h4 {
-    margin: 0;
-    color: var(--apple-blue);
-    font-weight: 600;
-}
-
-.testimonial-author span {
-    color: var(--apple-gray);
-    font-size: 0.9rem;
-}
-
-.testimonial-dots {
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-top: 2rem;
-}
-
-.dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: var(--apple-border);
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.dot.active,
-.dot:hover {
-    background: var(--apple-blue);
-    transform: scale(1.2);
-}
 
 /* Scroll Progress Indicator */
 .scroll-progress {
@@ -829,11 +794,7 @@ body {
         font-size: 0.9rem;
     }
     
-    .testimonials-carousel {
-        height: 250px;
-    }
-    
-    .theme-toggle {
+    .theme-switch {
         order: -1;
         margin-right: 1rem;
     }

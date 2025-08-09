@@ -119,9 +119,12 @@
                     <a href="blog.html" class="nav-link" aria-label="Blog section">Blog</a>
                 </li>
                 <li class="nav-item">
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                        <i class="fas fa-moon"></i>
-                    </button>
+                    <div class="theme-switch">
+                        <input type="checkbox" id="themeToggle" class="theme-checkbox">
+                        <label for="themeToggle" class="theme-label">
+                            <span class="theme-slider"></span>
+                        </label>
+                    </div>
                 </li>
             </ul>
             <div class="hamburger" aria-label="Menu" role="button" tabindex="0" id="hamburger">
@@ -139,7 +142,7 @@
             <div class="hero-content">
                 <h1 class="hero-title">Hi, I'm <span class="highlight">Mir Dujanah Ali Hussaini</span></h1>
                 <p class="hero-subtitle">
-                    <span class="typing-text" id="typingText"></span>
+                    <span class="typing-text" id="typingText">Software Development Engineer</span>
                     <span class="cursor">|</span>
                 </p>
                 <p class="hero-description">
@@ -202,10 +205,10 @@
         <div class="container">
             <h2 class="section-title">Featured Projects</h2>
             <div class="project-filters">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="security">Security</button>
-                <button class="filter-btn" data-filter="ai">AI/ML</button>
-                <button class="filter-btn" data-filter="web">Web</button>
+                <div class="filter-btn active" data-filter="all">All Projects</div>
+                <div class="filter-btn" data-filter="security">Security</div>
+                <div class="filter-btn" data-filter="ai">AI/ML</div>
+                <div class="filter-btn" data-filter="web">Web Dev</div>
             </div>
             <div class="projects-grid">
                 <div class="project-card" data-category="security">
@@ -292,19 +295,19 @@
                         <div class="skill-item">
                             <span class="skill-name">Java (DSA)</span>
                             <div class="skill-bar">
-                                <div class="skill-progress" data-width="90"></div>
+                                <div class="skill-progress" data-width="90" style="width: 0%"></div>
                             </div>
                         </div>
                         <div class="skill-item">
                             <span class="skill-name">Python</span>
                             <div class="skill-bar">
-                                <div class="skill-progress" data-width="85"></div>
+                                <div class="skill-progress" data-width="85" style="width: 0%"></div>
                             </div>
                         </div>
                         <div class="skill-item">
                             <span class="skill-name">C</span>
                             <div class="skill-bar">
-                                <div class="skill-progress" data-width="80"></div>
+                                <div class="skill-progress" data-width="80" style="width: 0%"></div>
                             </div>
                         </div>
                     </div>
@@ -316,31 +319,31 @@
                         <div class="skill-item">
                             <span class="skill-name">HTML</span>
                             <div class="skill-bar">
-                                <div class="skill-progress" data-width="90"></div>
+                                <div class="skill-progress" data-width="90" style="width: 0%"></div>
                             </div>
                         </div>
                         <div class="skill-item">
                             <span class="skill-name">CSS</span>
                             <div class="skill-bar">
-                                <div class="skill-progress" data-width="85"></div>
+                                <div class="skill-progress" data-width="85" style="width: 0%"></div>
                             </div>
                         </div>
                         <div class="skill-item">
                             <span class="skill-name">JavaScript</span>
                             <div class="skill-bar">
-                                <div class="skill-progress" data-width="80"></div>
+                                <div class="skill-progress" data-width="80" style="width: 0%"></div>
                             </div>
                         </div>
                         <div class="skill-item">
                             <span class="skill-name">React</span>
                             <div class="skill-bar">
-                                <div class="skill-progress" data-width="75"></div>
+                                <div class="skill-progress" data-width="75" style="width: 0%"></div>
                             </div>
                         </div>
                         <div class="skill-item">
                             <span class="skill-name">Node.js</span>
                             <div class="skill-bar">
-                                <div class="skill-progress" data-width="70"></div>
+                                <div class="skill-progress" data-width="70" style="width: 0%"></div>
                             </div>
                         </div>
                     </div>
@@ -352,31 +355,31 @@
                         <div class="skill-item">
                             <span class="skill-name">Oracle Database</span>
                             <div class="skill-bar">
-                                <div class="skill-progress" data-width="85"></div>
+                                <div class="skill-progress" data-width="85" style="width: 0%"></div>
                             </div>
                         </div>
                         <div class="skill-item">
                             <span class="skill-name">DBMS</span>
                             <div class="skill-bar">
-                                <div class="skill-progress" data-width="80"></div>
+                                <div class="skill-progress" data-width="80" style="width: 0%"></div>
                             </div>
                         </div>
                         <div class="skill-item">
                             <span class="skill-name">Burp Suite</span>
                             <div class="skill-bar">
-                                <div class="skill-progress" data-width="75"></div>
+                                <div class="skill-progress" data-width="75" style="width: 0%"></div>
                             </div>
                         </div>
                         <div class="skill-item">
                             <span class="skill-name">Wireshark</span>
                             <div class="skill-bar">
-                                <div class="skill-progress" data-width="75"></div>
+                                <div class="skill-progress" data-width="75" style="width: 0%"></div>
                             </div>
                         </div>
                         <div class="skill-item">
                             <span class="skill-name">Metasploit</span>
                             <div class="skill-bar">
-                                <div class="skill-progress" data-width="70"></div>
+                                <div class="skill-progress" data-width="70" style="width: 0%"></div>
                             </div>
                         </div>
                     </div>
@@ -437,47 +440,6 @@
                         <p class="description">Demonstrated strong English language proficiency</p>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials">
-        <div class="container">
-            <h2 class="section-title">What People Say</h2>
-            <div class="testimonials-carousel">
-                <div class="testimonial-card active">
-                    <div class="testimonial-content">
-                        <p>"Mir demonstrated exceptional problem-solving skills and deep understanding of cybersecurity principles during his academic projects. His work on the AES encryption system was particularly impressive."</p>
-                        <div class="testimonial-author">
-                            <h4>Dr. Rajesh Kumar</h4>
-                            <span>Professor, Computer Science</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"His dedication to learning AI and machine learning concepts is remarkable. The CNN project showed great attention to detail and thorough understanding of neural networks."</p>
-                        <div class="testimonial-author">
-                            <h4>Prof. Anita Sharma</h4>
-                            <span>AI Research Lab</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"Mir's ethical hacking skills and security mindset make him a valuable asset. His CEH certification reflects his commitment to cybersecurity excellence."</p>
-                        <div class="testimonial-author">
-                            <h4>Security Expert</h4>
-                            <span>Career Guidance Council</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-dots">
-                <span class="dot active" data-slide="0"></span>
-                <span class="dot" data-slide="1"></span>
-                <span class="dot" data-slide="2"></span>
             </div>
         </div>
     </section>
