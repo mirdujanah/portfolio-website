@@ -103,6 +103,32 @@ document.addEventListener('DOMContentLoaded', function() {
             homeLink.click();
         }, 100);
     }
+    
+    // Scroll progress indicator
+    function updateScrollProgress() {
+        const scrollTop = window.pageYOffset;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = (scrollTop / docHeight) * 100;
+        const progressBar = document.getElementById('scrollProgress');
+        if (progressBar) {
+            progressBar.style.width = scrollPercent + '%';
+        }
+    }
+    
+    // Resume download tracking
+    window.trackResumeDownload = function() {
+        gtag('event', 'download', {
+            'event_category': 'Resume',
+            'event_label': 'Mir_Dujanah_Resume.pdf'
+        });
+        
+        let downloads = localStorage.getItem('resumeDownloads') || 0;
+        downloads++;
+        localStorage.setItem('resumeDownloads', downloads);
+        console.log('Resume downloaded:', downloads, 'times');
+    };
+    
+    window.addEventListener('scroll', updateScrollProgress, { passive: true });
     const links = document.querySelectorAll('a[href^="#"]');
     const navMenu = document.querySelector('.nav-menu');
     const hamburger = document.querySelector('.hamburger');
@@ -122,10 +148,35 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // Enhanced mobile navigation
     if (hamburger && navMenu) {
+        const overlay = document.getElementById('mobileOverlay');
+        
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
+            if (overlay) overlay.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
+        });
+        
+        // Close menu when clicking overlay
+        if (overlay) {
+            overlay.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            });
+        }
+        
+        // Close menu when clicking nav links
+        navMenu.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                if (overlay) overlay.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            });
         });
     }
     

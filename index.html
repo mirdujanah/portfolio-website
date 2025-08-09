@@ -12,13 +12,18 @@
     <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
     <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
 
-    <!-- SEO Meta Tags -->
+    <!-- Enhanced SEO Meta Tags -->
     <title>Mir Dujanah Ali Hussaini | Software Engineer, Java, Python, Cybersecurity Portfolio</title>
     <meta name="description" content="Portfolio of Mir Dujanah Ali Hussaini, Software Development Engineer specializing in Java, Python, cybersecurity, and AI. Explore projects, skills, and contact information.">
-    <meta name="keywords" content="Mir Dujanah, portfolio, software engineer, Java, Python, cybersecurity, AI, projects, web developer, Hyderabad, India">
+    <meta name="keywords" content="Mir Dujanah, portfolio, software engineer, Java, Python, cybersecurity, AI, projects, web developer, Hyderabad, India, CEH, TensorFlow, CNN, NLP">
     <meta name="author" content="Mir Dujanah Ali Hussaini">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="msapplication-TileColor" content="#2563eb">
     <link rel="canonical" href="https://mirdujanah.github.io/portfolio-website/">
+    <link rel="preload" href="images/profile-professional.jpg" as="image">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -75,6 +80,10 @@
     <link rel="preload" href="script.js" as="script">
 </head>
 <body onload="setTimeout(() => { if('scrollBehavior' in document.documentElement.style) { window.scrollTo({top:0,behavior:'smooth'}); } else { window.scrollTo(0,0); } }, 50)">
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress">
+        <div class="scroll-progress-bar" id="scrollProgress"></div>
+    </div>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
@@ -110,11 +119,12 @@
                     <a href="blog.html" class="nav-link" aria-label="Blog section">Blog</a>
                 </li>
             </ul>
-            <div class="hamburger" aria-label="Menu" role="button" tabindex="0">
+            <div class="hamburger" aria-label="Menu" role="button" tabindex="0" id="hamburger">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
             </div>
+            <div class="mobile-menu-overlay" id="mobileOverlay"></div>
         </div>
     </nav>
 
@@ -131,7 +141,7 @@
                 <div class="hero-buttons">
                     <a href="#projects" class="btn btn-primary" aria-label="View my projects">View My Work</a>
                     <a href="#contact" class="btn btn-secondary" aria-label="Get in touch">Get In Touch</a>
-                    <a href="https://mirdujanah.github.io/portfolio-website/Mir_Dujanah_Resume.pdf" class="btn btn-outline" target="_blank" aria-label="Download resume"><i class="fas fa-download"></i> Resume</a>
+                    <a href="https://mirdujanah.github.io/portfolio-website/Mir_Dujanah_Resume.pdf" class="btn btn-outline" target="_blank" aria-label="Download resume" onclick="trackResumeDownload()"><i class="fas fa-download"></i> Resume</a>
                 </div>
             </div>
             <div class="hero-image">
