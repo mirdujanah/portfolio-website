@@ -604,31 +604,41 @@ body {
     background: rgba(26, 26, 26, 0.95) !important;
 }
 
-/* FORCE ALL TEXT TO BE WHITE IN DARK MODE */
-[data-theme="dark"] .nav-logo a,
-[data-theme="dark"] .nav-link,
-[data-theme="dark"] .hero-title,
-[data-theme="dark"] .hero-subtitle,
-[data-theme="dark"] .hero-description,
-[data-theme="dark"] .section-title,
-[data-theme="dark"] .about-text p,
-[data-theme="dark"] .skill-name,
-[data-theme="dark"] .skill-category h3,
-[data-theme="dark"] .project-content h3,
-[data-theme="dark"] .project-content p,
-[data-theme="dark"] .education-content h3,
-[data-theme="dark"] .education-content p,
-[data-theme="dark"] .education-content .description,
-[data-theme="dark"] .education-content .institution,
-[data-theme="dark"] .education-content .details,
-[data-theme="dark"] .stat h3,
-[data-theme="dark"] .stat p,
-[data-theme="dark"] .contact-info h3,
-[data-theme="dark"] .contact-info p,
-[data-theme="dark"] .contact-method h4,
-[data-theme="dark"] .contact-method p,
-[data-theme="dark"] .contact-method div h4,
-[data-theme="dark"] .contact-method div p {
+/* COMPREHENSIVE DARK MODE TEXT - FINAL SOLUTION */
+[data-theme="dark"] * {
+    color: #ffffff !important;
+}
+
+/* Exceptions for form elements and special cases */
+[data-theme="dark"] input,
+[data-theme="dark"] textarea {
+    color: #333333 !important;
+    background: #f0f0f0 !important;
+}
+
+[data-theme="dark"] .btn-primary {
+    color: #ffffff !important;
+    background: #2563eb !important;
+}
+
+[data-theme="dark"] .btn-secondary {
+    color: #667eea !important;
+}
+
+[data-theme="dark"] .tech-tag {
+    color: #333333 !important;
+    background: #cccccc !important;
+}
+
+[data-theme="dark"] .hero-title .highlight {
+    color: #667eea !important;
+}
+
+[data-theme="dark"] .nav-link:hover {
+    color: #667eea !important;
+}
+
+[data-theme="dark"] .social-link {
     color: #ffffff !important;
 }
 
@@ -2333,70 +2343,4 @@ section {
     width: 100%;
 }
 
-/* COMPREHENSIVE DARK MODE TEXT RULES */
-[data-theme="dark"] h1,
-[data-theme="dark"] h2,
-[data-theme="dark"] h3,
-[data-theme="dark"] h4,
-[data-theme="dark"] h5,
-[data-theme="dark"] h6,
-[data-theme="dark"] p,
-[data-theme="dark"] span,
-[data-theme="dark"] div,
-[data-theme="dark"] .hero-title,
-[data-theme="dark"] .hero-subtitle,
-[data-theme="dark"] .hero-description,
-[data-theme="dark"] .section-title,
-[data-theme="dark"] .about-text p,
-[data-theme="dark"] .skill-name,
-[data-theme="dark"] .skill-category h3,
-[data-theme="dark"] .project-content h3,
-[data-theme="dark"] .project-content p,
-[data-theme="dark"] .education-content h3,
-[data-theme="dark"] .education-content p,
-[data-theme="dark"] .education-content .description,
-[data-theme="dark"] .education-content .institution,
-[data-theme="dark"] .education-content .details,
-[data-theme="dark"] .stat h3,
-[data-theme="dark"] .stat p,
-[data-theme="dark"] .contact-info h3,
-[data-theme="dark"] .contact-info p,
-[data-theme="dark"] .contact-method h4,
-[data-theme="dark"] .contact-method p,
-[data-theme="dark"] .contact-method div h4,
-[data-theme="dark"] .contact-method div p,
-[data-theme="dark"] .nav-link {
-    color: #ffffff !important;
-}
-
-[data-theme="dark"] .hero-title .highlight {
-    color: #667eea !important;
-}
-
-[data-theme="dark"] .nav-link:hover {
-    color: #667eea !important;
-}
-
-[data-theme="dark"] input,
-[data-theme="dark"] textarea {
-    color: #333333 !important;
-    background: #f0f0f0 !important;
-}
-
-[data-theme="dark"] .btn-primary {
-    color: #ffffff !important;
-    background: #2563eb !important;
-}
-
-[data-theme="dark"] .btn-secondary {
-    color: #667eea !important;
-}
-
-[data-theme="dark"] .tech-tag {
-    color: #333333 !important;
-    background: #cccccc !important;
-}
-
-[data-theme="dark"] .social-link {
-    color: #ffffff !important;
-} 
+ 
