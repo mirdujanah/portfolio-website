@@ -573,6 +573,7 @@ body {
     --apple-black: #ffffff;
     --apple-gray: #cccccc;
     --apple-light-gray: #333333;
+    --apple-shadow: rgba(255, 255, 255, 0.1);
 }
 
 body {
@@ -583,8 +584,44 @@ body {
 
 .project-card, .education-card, .blog-card, .stat-card, .testimonial-card {
     background: var(--card-bg) !important;
-    color: var(--text-color);
+    color: var(--text-color) !important;
     border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .about-text p,
+[data-theme="dark"] .hero-description,
+[data-theme="dark"] .section-title,
+[data-theme="dark"] h1, [data-theme="dark"] h2, [data-theme="dark"] h3, [data-theme="dark"] h4,
+[data-theme="dark"] .skill-name,
+[data-theme="dark"] .project-content h3,
+[data-theme="dark"] .project-content p,
+[data-theme="dark"] .education-content h3,
+[data-theme="dark"] .education-content p,
+[data-theme="dark"] .stat h3,
+[data-theme="dark"] .stat p,
+[data-theme="dark"] .contact-info h3,
+[data-theme="dark"] .contact-info p,
+[data-theme="dark"] .contact-method h4,
+[data-theme="dark"] .contact-method p {
+    color: var(--text-color) !important;
+}
+
+[data-theme="dark"] .navbar {
+    background: rgba(26, 26, 26, 0.95) !important;
+}
+
+[data-theme="dark"] .nav-link {
+    color: var(--apple-gray) !important;
+}
+
+[data-theme="dark"] .hero {
+    background: var(--bg-color) !important;
+}
+
+[data-theme="dark"] .about,
+[data-theme="dark"] .skills,
+[data-theme="dark"] .education {
+    background: var(--bg-color) !important;
 }
 
 /* Safari-Compatible Theme Toggle Switch */
