@@ -95,6 +95,16 @@ window.addEventListener('load', () => {
 document.addEventListener('DOMContentLoaded', function() {
     window.scrollTo(0, 0);
     setTimeout(smoothScrollToTop, 50);
+    
+    // Auto-click home menu item on page load
+    const homeLink = document.querySelector('a[href="#home"]');
+    if (homeLink) {
+        homeLink.classList.add('active');
+        // Remove active from other nav links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if (link !== homeLink) link.classList.remove('active');
+        });
+    }
     const links = document.querySelectorAll('a[href^="#"]');
     const navMenu = document.querySelector('.nav-menu');
     const hamburger = document.querySelector('.hamburger');
