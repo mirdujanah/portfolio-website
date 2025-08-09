@@ -56,18 +56,24 @@ function showCookieConsent() {
     }
 }
 
-// Force scroll to top on page load with smooth animation
-window.addEventListener('load', () => {
+// Force scroll to top on page reload
+if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
+}
+
+window.addEventListener('beforeunload', () => {
+    window.scrollTo(0, 0);
+});
+
+window.addEventListener('load', () => {
+    window.scrollTo(0, 0);
     setTimeout(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 50);
+    }, 100);
 });
 
 // Performance optimized JavaScript
 document.addEventListener('DOMContentLoaded', function() {
-    // Disable browser scroll restoration
-    history.scrollRestoration = 'manual';
     window.scrollTo(0, 0);
     const links = document.querySelectorAll('a[href^="#"]');
     const navMenu = document.querySelector('.nav-menu');
