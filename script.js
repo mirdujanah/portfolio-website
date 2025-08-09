@@ -212,37 +212,41 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Force skill bar animation
+    // Direct skill bar animation - no complex logic
     function animateSkillBars() {
         const progressBars = document.querySelectorAll('.skill-progress');
+        console.log('Found skill bars:', progressBars.length);
         
         for (let i = 0; i < progressBars.length; i++) {
             const bar = progressBars[i];
             const width = bar.getAttribute('data-width');
+            console.log('Animating bar', i, 'to width:', width + '%');
+            
             if (width) {
-                setTimeout(function() {
-                    bar.style.width = width + '%';
-                    bar.style.transition = 'width 2s ease-in-out';
-                }, i * 200);
+                bar.style.transition = 'width 2s ease-in-out';
+                bar.style.width = width + '%';
             }
         }
     }
     
-    // Trigger on scroll to skills section
-    window.addEventListener('scroll', function() {
+    // Trigger immediately when skills section is visible
+    let skillsAnimated = false;
+    function checkSkillsSection() {
+        if (skillsAnimated) return;
+        
         const skillsSection = document.getElementById('skills');
         if (skillsSection) {
             const rect = skillsSection.getBoundingClientRect();
-            if (rect.top < window.innerHeight && rect.bottom > 0) {
+            if (rect.top < window.innerHeight * 0.8) {
+                skillsAnimated = true;
                 animateSkillBars();
             }
         }
-    });
+    }
     
-    // Also trigger after page load
-    setTimeout(function() {
-        animateSkillBars();
-    }, 2000);
+    window.addEventListener('scroll', checkSkillsSection);
+    setTimeout(checkSkillsSection, 1000);
+    setTimeout(animateSkillBars, 3000); // Force animation after 3 seconds
     
 
     const links = document.querySelectorAll('a[href^="#"]');
