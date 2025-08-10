@@ -2239,35 +2239,31 @@ section {
 
 /* Footer - Apple Style */
 .footer {
-    background: var(--apple-black);
-    color: var(--apple-gray);
+    background: #1d1d1f;
+    color: #86868b;
     text-align: center;
     padding: 3rem 0;
     font-size: 0.9rem;
 }
 
+.footer p {
+    color: #86868b;
+    margin: 0;
+}
+
+/* Dark mode footer */
 [data-theme="dark"] .footer,
 body[data-theme="dark"] .footer {
     background: #1a1a1a !important;
-    color: #ffffff !important;
 }
 
+[data-theme="dark"] .footer,
 [data-theme="dark"] .footer p,
 [data-theme="dark"] .footer *,
+body[data-theme="dark"] .footer,
 body[data-theme="dark"] .footer p,
 body[data-theme="dark"] .footer * {
     color: #ffffff !important;
-}
-
-/* Force footer text visibility in dark mode */
-[data-theme="dark"] footer,
-[data-theme="dark"] footer p,
-[data-theme="dark"] footer *,
-body[data-theme="dark"] footer,
-body[data-theme="dark"] footer p,
-body[data-theme="dark"] footer * {
-    color: #ffffff !important;
-    background: transparent !important;
 }
 
 /* Responsive Design - Apple Style */
