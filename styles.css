@@ -392,7 +392,7 @@ body {
 /* Blog Styles */
 .blog-hero {
     padding: 120px 0 60px;
-    background: var(--apple-background);
+    background: var(--bg-primary);
     text-align: center;
 }
 
@@ -400,7 +400,7 @@ body {
     font-size: 3rem;
     font-weight: 700;
     margin-bottom: 1rem;
-    color: var(--apple-black);
+    color: var(--text-primary);
 }
 
 .blog-posts {
@@ -425,7 +425,7 @@ body {
 }
 
 .blog-card {
-    background: white !important;
+    background: var(--card-bg) !important;
     border-radius: 12px !important;
     padding: 2rem !important;
     box-shadow: 0 4px 20px var(--apple-shadow) !important;
@@ -437,6 +437,7 @@ body {
     min-height: 280px !important;
     margin-bottom: 2rem !important;
     display: block !important;
+    border: 1px solid var(--border-color) !important;
 }
 
 .blog-card:hover {
@@ -463,12 +464,12 @@ body {
     font-size: 1.25rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
-    color: var(--apple-black);
+    color: var(--text-primary);
 }
 
 .blog-date {
     font-size: 0.875rem;
-    color: var(--apple-gray);
+    color: var(--text-secondary);
     margin-bottom: 1rem;
 }
 
@@ -559,113 +560,105 @@ body {
     text-decoration: underline;
 }
 
-/* Dark Mode */
+/* Clean Dark Mode Implementation */
 :root {
-    --bg-color-light: #ffffff;
-    --text-color-light: #1d1d1f;
-    --card-bg-light: #ffffff;
-    --border-color-light: rgba(0, 0, 0, 0.1);
-    --apple-gray-light: #86868b;
-
-    --bg-color-dark: #1a1a1a;
-    --text-color-dark: #ffffff;
-    --card-bg-dark: #2d2d2d;
-    --border-color-dark: rgba(255, 255, 255, 0.1);
-    --apple-gray-dark: #a1a1a6;
+    /* Light theme (default) */
+    --bg-primary: #ffffff;
+    --bg-secondary: #fbfbfd;
+    --text-primary: #1d1d1f;
+    --text-secondary: #86868b;
+    --card-bg: #ffffff;
+    --border-color: #d2d2d7;
+    --navbar-bg: rgba(255, 255, 255, 0.8);
 }
 
+[data-theme="dark"] {
+    /* Dark theme */
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --text-primary: #ffffff;
+    --text-secondary: #a1a1a6;
+    --card-bg: #2d2d2d;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --navbar-bg: rgba(26, 26, 26, 0.95);
+}
+
+/* Apply theme variables */
 body {
-    background-color: var(--bg-color-light);
-    color: var(--text-color-light);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
 }
 
 .navbar {
-    background: rgba(255, 255, 255, 0.8);
-    border-bottom: 1px solid var(--border-color-light);
+    background: var(--navbar-bg);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .nav-link {
-    color: var(--text-color-light);
+    color: var(--text-primary);
 }
 
 .hero, .about, .projects, .skills, .education, .contact {
-    background: var(--bg-color-light);
+    background: var(--bg-primary);
+}
+
+.about {
+    background: var(--bg-secondary);
+}
+
+.projects {
+    background: var(--bg-secondary);
+}
+
+.education {
+    background: var(--bg-secondary);
 }
 
 .hero-description, .about-text p, .project-content p, .education-content .details, .education-content .description, .contact-info p, .contact-method p {
-    color: var(--apple-gray-light);
+    color: var(--text-secondary);
 }
 
-.project-card, .education-card, .blog-card, .stat-card, .skill-items, .stat {
-    background: var(--card-bg-light);
-    border: 1px solid var(--border-color-light);
+.project-card, .education-card, .blog-card, .stat-card, .skill-items, .stat, .contact-form {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
 }
 
-/* SAFARI-COMPATIBLE DARK MODE */
-[data-theme="dark"] body {
-    --bg-color-light: var(--bg-color-dark);
-    --text-color-light: var(--text-color-dark);
-    --card-bg-light: var(--card-bg-dark);
-    --border-color-light: var(--border-color-dark);
-    --apple-gray-light: var(--apple-gray-dark);
+.section-title, .hero-title, .project-content h3, .education-content h3, .contact-info h3, .skill-category h3, .stat h3 {
+    color: var(--text-primary);
 }
 
-[data-theme="dark"] .navbar {
-    background: rgba(26, 26, 26, 0.95);
+.skill-name {
+    color: var(--text-primary);
 }
 
-[data-theme="dark"] .highlight {
-    -webkit-text-fill-color: transparent !important;
+.blog-hero, .blog-content h3 {
+    color: var(--text-primary);
 }
 
-[data-theme="dark"] .nav-logo-text {
-    -webkit-text-fill-color: transparent !important;
+.blog-date {
+    color: var(--text-secondary);
 }
 
-[data-theme="dark"] .btn-primary {
-    color: white !important;
-    background: #2563eb !important;
+.theme-label-text {
+    color: var(--text-primary);
 }
 
-[data-theme="dark"] .btn-secondary {
-    color: #667eea !important;
-    border-color: #667eea !important;
+.bar {
+    background-color: var(--text-primary);
 }
 
-[data-theme="dark"] .btn-secondary:hover {
-    color: white !important;
-    background: #667eea !important;
+.form-group input, .form-group textarea {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
 }
 
-[data-theme="dark"] .filter-btn {
-    color: var(--text-color-dark) !important;
-    background: #333333 !important;
-    border-color: #555555 !important;
+.contact-method h4 {
+    color: var(--text-primary);
 }
 
-[data-theme="dark"] .filter-btn.active {
-    color: white !important;
-    background: #667eea !important;
-    border-color: #667eea !important;
-}
-
-[data-theme="dark"] .tech-tag {
-    color: #1d1d1f !important;
-    background: #cccccc !important;
-}
-
-[data-theme="dark"] input,
-[data-theme="dark"] textarea {
-    color: #1d1d1f !important;
-    background-color: #f0f0f0 !important;
-    -webkit-text-fill-color: initial; /* Reset for input fields */
-}
-
-[data-theme="dark"] .social-link,
-[data-theme="dark"] .nav-link:hover,
-[data-theme="dark"] .project-link,
-[data-theme="dark"] .education-content .institution {
-    color: #667eea !important;
+.contact-method p {
+    color: var(--text-secondary);
 }
 
 
@@ -819,9 +812,7 @@ body {
     color: var(--apple-black);
 }
 
-[data-theme="dark"] .skill-name {
-    color: #ffffff !important;
-}
+
 
 .skill-bar {
     width: 100%;
