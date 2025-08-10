@@ -911,6 +911,7 @@ body {
         box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
         z-index: 999;
         overflow-y: auto;
+        display: flex;
     }
     
     [data-theme="dark"] .nav-menu {
@@ -2146,14 +2147,6 @@ section {
 @media (max-width: 768px) {
     .hamburger {
         display: flex !important;
-    }
-
-    .nav-menu {
-        display: none;
-    }
-    
-    .nav-menu.active {
-        display: flex;
     }
 
     .hero-container {
