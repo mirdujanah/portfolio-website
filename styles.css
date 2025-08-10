@@ -2219,64 +2219,69 @@ section {
     min-height: 120px;
 }
 
-/* Footer - Apple Style */
+/* NUCLEAR FOOTER FIX FOR SAFARI */
+footer,
 .footer {
-    background: #1d1d1f;
-    color: #86868b;
-    text-align: center;
-    padding: 3rem 0;
-    font-size: 0.9rem;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    background: #1d1d1f !important;
+    color: #86868b !important;
+    text-align: center !important;
+    padding: 3rem 0 !important;
+    font-size: 0.9rem !important;
+    position: relative !important;
+    z-index: 1 !important;
 }
 
+footer p,
 .footer p {
-    color: #86868b;
-    margin: 0;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: #86868b !important;
+    margin: 0 !important;
 }
 
-/* Dark mode footer */
+/* DARK MODE - NUCLEAR APPROACH */
+[data-theme="dark"] footer,
 [data-theme="dark"] .footer,
+body[data-theme="dark"] footer,
 body[data-theme="dark"] .footer {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
     background: #1a1a1a !important;
+    color: #ffffff !important;
 }
 
-[data-theme="dark"] .footer,
+[data-theme="dark"] footer p,
 [data-theme="dark"] .footer p,
-[data-theme="dark"] .footer *,
-body[data-theme="dark"] .footer,
-body[data-theme="dark"] .footer p,
-body[data-theme="dark"] .footer * {
-    color: #ffffff !important;
-}
-
-/* ULTIMATE SAFARI FOOTER FIX */
-[data-theme="dark"] .footer {
-    background: #1a1a1a !important;
-    color: #ffffff !important;
-}
-
-[data-theme="dark"] .footer p {
-    color: #ffffff !important;
-}
-
-body[data-theme="dark"] .footer {
-    background: #1a1a1a !important;
-    color: #ffffff !important;
-}
-
+body[data-theme="dark"] footer p,
 body[data-theme="dark"] .footer p {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
     color: #ffffff !important;
 }
 
-/* Safari-specific with highest specificity */
+/* SAFARI NUCLEAR OPTION */
 @supports (-webkit-appearance: none) {
-    html[data-theme="dark"] body .footer,
-    html body[data-theme="dark"] .footer {
+    [data-theme="dark"] footer,
+    [data-theme="dark"] .footer {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
         background-color: #1a1a1a !important;
         color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
     }
     
-    html[data-theme="dark"] body .footer p,
-    html body[data-theme="dark"] .footer p {
+    [data-theme="dark"] footer p,
+    [data-theme="dark"] .footer p {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
         color: #ffffff !important;
         -webkit-text-fill-color: #ffffff !important;
     }
