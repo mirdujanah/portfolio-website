@@ -869,7 +869,17 @@ body {
     height: 24px;
     -webkit-appearance: none;
     appearance: none;
-    outline: none;
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.theme-switch:focus,
+.theme-switch:focus-visible,
+.theme-switch:active {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
 }
 
 .desktop-theme {
@@ -893,7 +903,17 @@ body {
     height: 0;
     -webkit-appearance: none;
     appearance: none;
-    outline: none;
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.theme-checkbox:focus,
+.theme-checkbox:focus-visible,
+.theme-checkbox:active {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
 }
 
 .theme-label {
@@ -908,7 +928,17 @@ body {
     transition: 0.3s;
     border-radius: 24px;
     -webkit-border-radius: 24px;
-    outline: none;
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.theme-label:focus,
+.theme-label:focus-visible,
+.theme-label:active {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
 }
 
 .theme-label:before {
