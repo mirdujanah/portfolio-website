@@ -68,6 +68,16 @@
                 
                 <div class="stat-card">
                     <div class="stat-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="resumeDownloads">Loading...</h3>
+                        <p>Resume Downloads</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
                         <i class="fas fa-chart-line"></i>
                     </div>
                     <div class="stat-content">
@@ -83,12 +93,14 @@
         // Display visitor statistics
         document.addEventListener('DOMContentLoaded', function() {
             const totalVisits = localStorage.getItem('visitCount') || 0;
+            const resumeDownloads = localStorage.getItem('resumeDownloads') || 0;
             const today = new Date().toDateString();
             const todayKey = 'visits_' + today;
             const todayVisits = localStorage.getItem(todayKey) || 0;
             
             document.getElementById('totalVisits').textContent = totalVisits;
             document.getElementById('todayVisits').textContent = todayVisits;
+            document.getElementById('resumeDownloads').textContent = resumeDownloads;
             
             // Increment today's visits
             localStorage.setItem(todayKey, parseInt(todayVisits) + 1);
