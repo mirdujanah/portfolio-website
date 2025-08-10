@@ -1025,40 +1025,53 @@ body[data-theme="dark"] .social-link {
     overflow: hidden;
 }
 
-/* Mobile Navigation Improvements */
+/* Fixed Mobile Navigation */
 @media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+        z-index: 1001;
+    }
+    
     .nav-menu {
         position: fixed;
-        top: 80px;
-        right: -100%;
-        width: 280px;
-        height: calc(100vh - 80px);
-        background: rgba(255, 255, 255, 0.95);
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100vh;
+        background: rgba(255, 255, 255, 0.98);
         backdrop-filter: blur(20px);
         flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
+        justify-content: center;
+        align-items: center;
         padding: 2rem;
-        transition: right 0.3s ease;
-        box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
-        z-index: 999;
+        transition: left 0.3s ease;
+        z-index: 1000;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
     
     .nav-menu.active {
-        right: 0;
+        left: 0;
     }
     
     .nav-item {
         width: 100%;
-        margin-bottom: 1rem;
+        margin-bottom: 2rem;
+        text-align: center;
     }
     
     .nav-link {
         display: block;
-        padding: 1rem 0;
-        font-size: 1.1rem;
+        padding: 1.5rem 0;
+        font-size: 1.2rem;
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         width: 100%;
+        color: #1d1d1f;
+    }
+    
+    .theme-switch {
+        margin: 2rem 0;
+        transform: scale(1.5);
     }
     
     .hamburger.active .bar:nth-child(1) {
@@ -1073,18 +1086,28 @@ body[data-theme="dark"] .social-link {
         transform: rotate(-45deg) translate(7px, -6px);
     }
     
-    .project-filters {
-        gap: 0.5rem;
+    /* Dark mode mobile menu */
+    [data-theme="dark"] .nav-menu,
+    body[data-theme="dark"] .nav-menu {
+        background: rgba(26, 26, 26, 0.98) !important;
     }
     
-    .filter-btn {
-        padding: 0.5rem 1rem;
-        font-size: 0.9rem;
+    [data-theme="dark"] .nav-link,
+    body[data-theme="dark"] .nav-link {
+        color: #ffffff !important;
+        border-bottom-color: rgba(255, 255, 255, 0.1) !important;
     }
     
-    .theme-switch {
-        order: -1;
-        margin-right: 1rem;
+    [data-theme="dark"] .bar,
+    body[data-theme="dark"] .bar {
+        background-color: #ffffff !important;
+    }
+    
+    /* Prevent body scroll when menu is open */
+    body.menu-open {
+        overflow: hidden;
+        position: fixed;
+        width: 100%;
     }
 }
 
