@@ -141,40 +141,27 @@ document.addEventListener('DOMContentLoaded', function() {
     const themeToggle = document.getElementById('themeToggle');
     const savedTheme = localStorage.getItem('theme') || 'light';
     
-    // Aggressive Safari footer fix
+    // Simple Safari footer fix
     function forceFooterColor(theme) {
-        const footer = document.getElementById('footer');
-        const footerText = document.getElementById('footerText');
-        const allFooterElements = document.querySelectorAll('.footer, .footer *, footer, footer *');
+        const footer = document.getElementById('simpleFooter');
+        const footerText = document.getElementById('simpleFooterText');
         
         if (theme === 'dark') {
-            // Multiple approaches for Safari
             if (footer) {
-                footer.style.color = '#ffffff !important';
-                footer.style.setProperty('color', '#ffffff', 'important');
+                footer.style.backgroundColor = '#1a1a1a';
+                footer.style.color = '#ffffff';
             }
             if (footerText) {
-                footerText.style.color = '#ffffff !important';
-                footerText.style.setProperty('color', '#ffffff', 'important');
+                footerText.style.color = '#ffffff';
             }
-            // Force all footer elements
-            allFooterElements.forEach(el => {
-                el.style.color = '#ffffff !important';
-                el.style.setProperty('color', '#ffffff', 'important');
-            });
         } else {
             if (footer) {
-                footer.style.color = '#86868b !important';
-                footer.style.setProperty('color', '#86868b', 'important');
+                footer.style.backgroundColor = '#1d1d1f';
+                footer.style.color = '#86868b';
             }
             if (footerText) {
-                footerText.style.color = '#86868b !important';
-                footerText.style.setProperty('color', '#86868b', 'important');
+                footerText.style.color = '#86868b';
             }
-            allFooterElements.forEach(el => {
-                el.style.color = '#86868b !important';
-                el.style.setProperty('color', '#86868b', 'important');
-            });
         }
     }
     
