@@ -2246,6 +2246,17 @@ section {
     font-size: 0.9rem;
 }
 
+[data-theme="dark"] .footer,
+body[data-theme="dark"] .footer {
+    background: #1a1a1a !important;
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .footer p,
+body[data-theme="dark"] .footer p {
+    color: #ffffff !important;
+}
+
 /* Responsive Design - Apple Style */
 @media (max-width: 768px) {
     .hamburger {
