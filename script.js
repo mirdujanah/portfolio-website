@@ -130,18 +130,37 @@ document.addEventListener('DOMContentLoaded', function() {
     
     window.addEventListener('scroll', updateScrollProgress, { passive: true });
     
-    // Dark mode toggle
+    // Dark mode toggle - handle both desktop and mobile
     const themeToggle = document.getElementById('themeToggle');
+    const themeToggleMobile = document.getElementById('themeToggleMobile');
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
     
+    function updateTheme(newTheme) {
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        // Sync both toggles
+        if (themeToggle) themeToggle.checked = newTheme === 'dark';
+        if (themeToggleMobile) themeToggleMobile.checked = newTheme === 'dark';
+    }
+    
+    // Set initial state
+    if (themeToggle) themeToggle.checked = savedTheme === 'dark';
+    if (themeToggleMobile) themeToggleMobile.checked = savedTheme === 'dark';
+    
+    // Desktop toggle
     if (themeToggle) {
-        themeToggle.checked = savedTheme === 'dark';
-        
         themeToggle.addEventListener('change', () => {
             const newTheme = themeToggle.checked ? 'dark' : 'light';
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
+            updateTheme(newTheme);
+        });
+    }
+    
+    // Mobile toggle
+    if (themeToggleMobile) {
+        themeToggleMobile.addEventListener('change', () => {
+            const newTheme = themeToggleMobile.checked ? 'dark' : 'light';
+            updateTheme(newTheme);
         });
     }
     

@@ -31,8 +31,31 @@
             </div>
             <ul class="nav-menu">
                 <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+                <li class="nav-item"><a href="blog.html" class="nav-link active">Blog</a></li>
+                <li class="nav-item theme-item">
+                    <div class="theme-switch-mobile">
+                        <span class="theme-label-text">Dark Mode</span>
+                        <div class="theme-switch">
+                            <input type="checkbox" id="themeToggleMobile" class="theme-checkbox">
+                            <label for="themeToggleMobile" class="theme-label">
+                                <span class="theme-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </li>
             </ul>
+            <div class="theme-switch desktop-theme">
+                <input type="checkbox" id="themeToggle" class="theme-checkbox">
+                <label for="themeToggle" class="theme-label">
+                    <span class="theme-slider"></span>
+                </label>
+            </div>
+            <div class="hamburger" aria-label="Menu" role="button" tabindex="0" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <div class="mobile-menu-overlay" id="mobileOverlay"></div>
         </div>
     </nav>
 
@@ -102,5 +125,77 @@
             <p>&copy; 2024 Mir Dujanah Ali Hussaini. All rights reserved.</p>
         </div>
     </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Dark mode toggle - handle both desktop and mobile
+            const themeToggle = document.getElementById('themeToggle');
+            const themeToggleMobile = document.getElementById('themeToggleMobile');
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            
+            function updateTheme(newTheme) {
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                // Sync both toggles
+                if (themeToggle) themeToggle.checked = newTheme === 'dark';
+                if (themeToggleMobile) themeToggleMobile.checked = newTheme === 'dark';
+            }
+            
+            // Set initial state
+            if (themeToggle) themeToggle.checked = savedTheme === 'dark';
+            if (themeToggleMobile) themeToggleMobile.checked = savedTheme === 'dark';
+            
+            // Desktop toggle
+            if (themeToggle) {
+                themeToggle.addEventListener('change', () => {
+                    const newTheme = themeToggle.checked ? 'dark' : 'light';
+                    updateTheme(newTheme);
+                });
+            }
+            
+            // Mobile toggle
+            if (themeToggleMobile) {
+                themeToggleMobile.addEventListener('change', () => {
+                    const newTheme = themeToggleMobile.checked ? 'dark' : 'light';
+                    updateTheme(newTheme);
+                });
+            }
+            
+            // Mobile navigation
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            const overlay = document.getElementById('mobileOverlay');
+            
+            if (hamburger && navMenu) {
+                hamburger.addEventListener('click', () => {
+                    hamburger.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                    if (overlay) overlay.classList.toggle('active');
+                    document.body.classList.toggle('menu-open');
+                });
+                
+                // Close menu when clicking overlay
+                if (overlay) {
+                    overlay.addEventListener('click', () => {
+                        hamburger.classList.remove('active');
+                        navMenu.classList.remove('active');
+                        overlay.classList.remove('active');
+                        document.body.classList.remove('menu-open');
+                    });
+                }
+                
+                // Close menu when clicking nav links
+                navMenu.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', () => {
+                        hamburger.classList.remove('active');
+                        navMenu.classList.remove('active');
+                        if (overlay) overlay.classList.remove('active');
+                        document.body.classList.remove('menu-open');
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 </html>

@@ -118,15 +118,24 @@
                 <li class="nav-item">
                     <a href="blog.html" class="nav-link" aria-label="Blog section">Blog</a>
                 </li>
-                <li class="nav-item">
-                    <div class="theme-switch">
-                        <input type="checkbox" id="themeToggle" class="theme-checkbox">
-                        <label for="themeToggle" class="theme-label">
-                            <span class="theme-slider"></span>
-                        </label>
+                <li class="nav-item theme-item">
+                    <div class="theme-switch-mobile">
+                        <span class="theme-label-text">Dark Mode</span>
+                        <div class="theme-switch">
+                            <input type="checkbox" id="themeToggleMobile" class="theme-checkbox">
+                            <label for="themeToggleMobile" class="theme-label">
+                                <span class="theme-slider"></span>
+                            </label>
+                        </div>
                     </div>
                 </li>
             </ul>
+            <div class="theme-switch desktop-theme">
+                <input type="checkbox" id="themeToggle" class="theme-checkbox">
+                <label for="themeToggle" class="theme-label">
+                    <span class="theme-slider"></span>
+                </label>
+            </div>
             <div class="hamburger" aria-label="Menu" role="button" tabindex="0" id="hamburger">
                 <span class="bar"></span>
                 <span class="bar"></span>
