@@ -141,17 +141,40 @@ document.addEventListener('DOMContentLoaded', function() {
     const themeToggle = document.getElementById('themeToggle');
     const savedTheme = localStorage.getItem('theme') || 'light';
     
-    // Force Safari footer text color
+    // Aggressive Safari footer fix
     function forceFooterColor(theme) {
         const footer = document.getElementById('footer');
         const footerText = document.getElementById('footerText');
+        const allFooterElements = document.querySelectorAll('.footer, .footer *, footer, footer *');
         
         if (theme === 'dark') {
-            if (footer) footer.style.color = '#ffffff';
-            if (footerText) footerText.style.color = '#ffffff';
+            // Multiple approaches for Safari
+            if (footer) {
+                footer.style.color = '#ffffff !important';
+                footer.style.setProperty('color', '#ffffff', 'important');
+            }
+            if (footerText) {
+                footerText.style.color = '#ffffff !important';
+                footerText.style.setProperty('color', '#ffffff', 'important');
+            }
+            // Force all footer elements
+            allFooterElements.forEach(el => {
+                el.style.color = '#ffffff !important';
+                el.style.setProperty('color', '#ffffff', 'important');
+            });
         } else {
-            if (footer) footer.style.color = '#86868b';
-            if (footerText) footerText.style.color = '#86868b';
+            if (footer) {
+                footer.style.color = '#86868b !important';
+                footer.style.setProperty('color', '#86868b', 'important');
+            }
+            if (footerText) {
+                footerText.style.color = '#86868b !important';
+                footerText.style.setProperty('color', '#86868b', 'important');
+            }
+            allFooterElements.forEach(el => {
+                el.style.color = '#86868b !important';
+                el.style.setProperty('color', '#86868b', 'important');
+            });
         }
     }
     
@@ -172,6 +195,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     applyTheme(savedTheme);
+    
+    // Safari-specific: Force footer color after page load
+    setTimeout(() => forceFooterColor(savedTheme), 100);
+    setTimeout(() => forceFooterColor(savedTheme), 500);
+    setTimeout(() => forceFooterColor(savedTheme), 1000);
     
     if (themeToggle) {
         themeToggle.checked = savedTheme === 'dark';
