@@ -633,30 +633,12 @@ body[data-theme="dark"] .navbar {
     -webkit-backdrop-filter: blur(20px);
 }
 
-/* Safari text color fixes */
-[data-theme="dark"] h1,
-[data-theme="dark"] h2,
-[data-theme="dark"] h3,
-[data-theme="dark"] h4,
-[data-theme="dark"] h5,
-[data-theme="dark"] h6,
-[data-theme="dark"] p,
-[data-theme="dark"] span,
-[data-theme="dark"] div,
+/* Safari text color fixes - specific selectors only */
 [data-theme="dark"] .nav-link,
 [data-theme="dark"] .hero-title,
 [data-theme="dark"] .hero-subtitle,
 [data-theme="dark"] .hero-description,
 [data-theme="dark"] .section-title,
-body[data-theme="dark"] h1,
-body[data-theme="dark"] h2,
-body[data-theme="dark"] h3,
-body[data-theme="dark"] h4,
-body[data-theme="dark"] h5,
-body[data-theme="dark"] h6,
-body[data-theme="dark"] p,
-body[data-theme="dark"] span,
-body[data-theme="dark"] div,
 body[data-theme="dark"] .nav-link,
 body[data-theme="dark"] .hero-title,
 body[data-theme="dark"] .hero-subtitle,
@@ -2266,20 +2248,35 @@ body[data-theme="dark"] .footer * {
     color: #ffffff !important;
 }
 
-/* Safari-specific footer dark mode fixes */
+/* ULTIMATE SAFARI FOOTER FIX */
+[data-theme="dark"] .footer {
+    background: #1a1a1a !important;
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .footer p {
+    color: #ffffff !important;
+}
+
+body[data-theme="dark"] .footer {
+    background: #1a1a1a !important;
+    color: #ffffff !important;
+}
+
+body[data-theme="dark"] .footer p {
+    color: #ffffff !important;
+}
+
+/* Safari-specific with highest specificity */
 @supports (-webkit-appearance: none) {
-    [data-theme="dark"] .footer,
-    body[data-theme="dark"] .footer {
+    html[data-theme="dark"] body .footer,
+    html body[data-theme="dark"] .footer {
         background-color: #1a1a1a !important;
         color: #ffffff !important;
     }
     
-    [data-theme="dark"] .footer p,
-    [data-theme="dark"] .footer span,
-    [data-theme="dark"] .footer div,
-    body[data-theme="dark"] .footer p,
-    body[data-theme="dark"] .footer span,
-    body[data-theme="dark"] .footer div {
+    html[data-theme="dark"] body .footer p,
+    html body[data-theme="dark"] .footer p {
         color: #ffffff !important;
         -webkit-text-fill-color: #ffffff !important;
     }
