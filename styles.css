@@ -792,8 +792,13 @@ body[data-theme="dark"] .social-link {
     }
 }
 
-/* Safari-specific dark mode variable enforcement */
+/* Safari-specific smooth transitions */
 @supports (-webkit-appearance: none) {
+    * {
+        -webkit-transition: background-color 0.3s ease, color 0.3s ease !important;
+        transition: background-color 0.3s ease, color 0.3s ease !important;
+    }
+    
     [data-theme="dark"] *,
     body[data-theme="dark"] * {
         --apple-black: #ffffff !important;

@@ -141,10 +141,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const themeToggle = document.getElementById('themeToggle');
     const savedTheme = localStorage.getItem('theme') || 'light';
     
-    // Simple Safari footer fix
+    // Smooth Safari footer fix
     function forceFooterColor(theme) {
         const footer = document.getElementById('simpleFooter');
         const footerText = document.getElementById('simpleFooterText');
+        
+        // Add smooth transitions
+        if (footer) {
+            footer.style.transition = 'all 0.3s ease';
+        }
+        if (footerText) {
+            footerText.style.transition = 'color 0.3s ease';
+        }
         
         if (theme === 'dark') {
             if (footer) {
