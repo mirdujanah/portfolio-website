@@ -392,7 +392,7 @@ body {
 /* Blog Styles */
 .blog-hero {
     padding: 120px 0 60px;
-    background: var(--bg-primary);
+    background: var(--apple-background);
     text-align: center;
 }
 
@@ -400,7 +400,7 @@ body {
     font-size: 3rem;
     font-weight: 700;
     margin-bottom: 1rem;
-    color: var(--text-primary);
+    color: var(--apple-black);
 }
 
 .blog-posts {
@@ -425,7 +425,7 @@ body {
 }
 
 .blog-card {
-    background: var(--card-bg) !important;
+    background: white !important;
     border-radius: 12px !important;
     padding: 2rem !important;
     box-shadow: 0 4px 20px var(--apple-shadow) !important;
@@ -437,7 +437,6 @@ body {
     min-height: 280px !important;
     margin-bottom: 2rem !important;
     display: block !important;
-    border: 1px solid var(--border-color) !important;
 }
 
 .blog-card:hover {
@@ -464,12 +463,12 @@ body {
     font-size: 1.25rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
-    color: var(--text-primary);
+    color: var(--apple-black);
 }
 
 .blog-date {
     font-size: 0.875rem;
-    color: var(--text-secondary);
+    color: var(--apple-gray);
     margin-bottom: 1rem;
 }
 
@@ -560,105 +559,80 @@ body {
     text-decoration: underline;
 }
 
-/* Clean Dark Mode Implementation */
-:root {
-    /* Light theme (default) */
-    --bg-primary: #ffffff;
-    --bg-secondary: #fbfbfd;
-    --text-primary: #1d1d1f;
-    --text-secondary: #86868b;
-    --card-bg: #ffffff;
-    --border-color: #d2d2d7;
-    --navbar-bg: rgba(255, 255, 255, 0.8);
+/* Working Dark Mode */
+[data-theme="dark"] body {
+    background-color: #1a1a1a;
+    color: #ffffff;
 }
 
-[data-theme="dark"] {
-    /* Dark theme */
-    --bg-primary: #1a1a1a;
-    --bg-secondary: #2d2d2d;
-    --text-primary: #ffffff;
-    --text-secondary: #a1a1a6;
-    --card-bg: #2d2d2d;
-    --border-color: rgba(255, 255, 255, 0.1);
-    --navbar-bg: rgba(26, 26, 26, 0.95);
+[data-theme="dark"] .navbar {
+    background: rgba(26, 26, 26, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Apply theme variables */
-body {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
+[data-theme="dark"] .nav-link {
+    color: #ffffff;
 }
 
-.navbar {
-    background: var(--navbar-bg);
-    border-bottom: 1px solid var(--border-color);
+[data-theme="dark"] .hero,
+[data-theme="dark"] .about,
+[data-theme="dark"] .projects,
+[data-theme="dark"] .skills,
+[data-theme="dark"] .education,
+[data-theme="dark"] .contact {
+    background: #1a1a1a;
 }
 
-.nav-link {
-    color: var(--text-primary);
+[data-theme="dark"] .project-card,
+[data-theme="dark"] .education-card,
+[data-theme="dark"] .blog-card,
+[data-theme="dark"] .stat-card,
+[data-theme="dark"] .skill-items,
+[data-theme="dark"] .stat,
+[data-theme="dark"] .contact-form {
+    background: #2d2d2d;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.hero, .about, .projects, .skills, .education, .contact {
-    background: var(--bg-primary);
+[data-theme="dark"] .section-title,
+[data-theme="dark"] .hero-title,
+[data-theme="dark"] .project-content h3,
+[data-theme="dark"] .education-content h3,
+[data-theme="dark"] .contact-info h3,
+[data-theme="dark"] .skill-category h3,
+[data-theme="dark"] .stat h3,
+[data-theme="dark"] .skill-name,
+[data-theme="dark"] .blog-content h3,
+[data-theme="dark"] .blog-hero h1,
+[data-theme="dark"] .theme-label-text,
+[data-theme="dark"] .contact-method h4 {
+    color: #ffffff;
 }
 
-.about {
-    background: var(--bg-secondary);
+[data-theme="dark"] .hero-description,
+[data-theme="dark"] .about-text p,
+[data-theme="dark"] .project-content p,
+[data-theme="dark"] .education-content .details,
+[data-theme="dark"] .education-content .description,
+[data-theme="dark"] .contact-info p,
+[data-theme="dark"] .contact-method p,
+[data-theme="dark"] .blog-date {
+    color: #a1a1a6;
 }
 
-.projects {
-    background: var(--bg-secondary);
+[data-theme="dark"] .bar {
+    background-color: #ffffff;
 }
 
-.education {
-    background: var(--bg-secondary);
+[data-theme="dark"] .form-group input,
+[data-theme="dark"] .form-group textarea {
+    background: #2d2d2d;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.hero-description, .about-text p, .project-content p, .education-content .details, .education-content .description, .contact-info p, .contact-method p {
-    color: var(--text-secondary);
-}
-
-.project-card, .education-card, .blog-card, .stat-card, .skill-items, .stat, .contact-form {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-}
-
-.section-title, .hero-title, .project-content h3, .education-content h3, .contact-info h3, .skill-category h3, .stat h3 {
-    color: var(--text-primary);
-}
-
-.skill-name {
-    color: var(--text-primary);
-}
-
-.blog-hero, .blog-content h3 {
-    color: var(--text-primary);
-}
-
-.blog-date {
-    color: var(--text-secondary);
-}
-
-.theme-label-text {
-    color: var(--text-primary);
-}
-
-.bar {
-    background-color: var(--text-primary);
-}
-
-.form-group input, .form-group textarea {
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    border: 1px solid var(--border-color);
-}
-
-.contact-method h4 {
-    color: var(--text-primary);
-}
-
-.contact-method p {
-    color: var(--text-secondary);
+[data-theme="dark"] .blog-hero {
+    background: #1a1a1a;
 }
 
 
