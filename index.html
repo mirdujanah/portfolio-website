@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- Enhanced Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data: https://ka-f.fontawesome.com https://*.fontawesome.com; img-src 'self' data:; connect-src 'self' https://formspree.io https://ka-f.fontawesome.com https://*.fontawesome.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+
+    <!-- Enhanced SEO Meta Tags -->
+    <title>Mir Dujanah Ali Hussaini | Software Engineer, Java, Python, Cybersecurity Portfolio</title>
+    <meta name="description" content="Portfolio of Mir Dujanah Ali Hussaini, Software Development Engineer specializing in Java, Python, cybersecurity, and AI. Explore projects, skills, and contact information.">
+    <meta name="keywords" content="Mir Dujanah, portfolio, software engineer, Java, Python, cybersecurity, AI, projects, web developer, Hyderabad, India, CEH, TensorFlow, CNN, NLP">
+    <meta name="author" content="Mir Dujanah Ali Hussaini">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="msapplication-TileColor" content="#2563eb">
+    <link rel="canonical" href="https://mirdujanah.github.io/portfolio-website/">
+    <link rel="preload" href="images/profile-professional.jpg" as="image">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mirdujanah.github.io/portfolio-website/">
+    <meta property="og:title" content="Mir Dujanah Ali Hussaini | Software Engineer Portfolio">
+    <meta property="og:description" content="Portfolio of Mir Dujanah Ali Hussaini, Software Development Engineer specializing in Java, Python, cybersecurity, and AI.">
+    <meta property="og:image" content="https://mirdujanah.github.io/portfolio-website/images/profile-photo.jpg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://mirdujanah.github.io/portfolio-website/">
+    <meta name="twitter:title" content="Mir Dujanah Ali Hussaini | Software Engineer Portfolio">
+    <meta name="twitter:description" content="Portfolio of Mir Dujanah Ali Hussaini, Software Development Engineer specializing in Java, Python, cybersecurity, and AI.">
+    <meta name="twitter:image" content="https://mirdujanah.github.io/portfolio-website/images/profile-photo.jpg">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Mir Dujanah Ali Hussaini",
+      "url": "https://mirdujanah.github.io/portfolio-website/",
+      "image": "https://mirdujanah.github.io/portfolio-website/images/profile-photo.jpg",
+      "sameAs": [
+        "https://www.linkedin.com/in/mirdujanah",
+        "https://github.com/mirdujanah"
+      ],
+      "jobTitle": "Software Development Engineer",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Portfolio"
+      },
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "Institute of Aeronautical Engineering"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Hyderabad",
+        "addressCountry": "IN"
+      }
+    }
+    </script>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="script.js" as="script">
+</head>
+<body onload="setTimeout(() => { if('scrollBehavior' in document.documentElement.style) { window.scrollTo({top:0,behavior:'smooth'}); } else { window.scrollTo(0,0); } }, 50)">
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress">
+        <div class="scroll-progress-bar" id="scrollProgress"></div>
+    </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#home" aria-label="Home">
+                    <svg class="nav-logo-img" width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" fill="#2563eb" opacity="0.9"/>
+                        <text x="50" y="65" text-anchor="middle" fill="white" font-size="40" font-family="Inter, sans-serif" font-weight="bold">MD</text>
+                    </svg>
+                    <span class="nav-logo-text">Mir Dujanah</span>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link" aria-label="Home section">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link" aria-label="About section">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#projects" class="nav-link" aria-label="Projects section">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#skills" class="nav-link" aria-label="Skills section">Skills</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#education" class="nav-link" aria-label="Education section">Education</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link" aria-label="Contact section">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a href="blog.html" class="nav-link" aria-label="Blog section">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <div class="theme-switch">
+                        <input type="checkbox" id="themeToggle" class="theme-checkbox">
+                        <label for="themeToggle" class="theme-label">
+                            <span class="theme-slider"></span>
+                        </label>
+                    </div>
+                </li>
+            </ul>
+            <div class="hamburger" aria-label="Menu" role="button" tabindex="0" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <div class="mobile-menu-overlay" id="mobileOverlay"></div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Hi, I'm <span class="highlight">Mir Dujanah Ali Hussaini</span></h1>
+                <p class="hero-subtitle">
+                    <span class="typing-text" id="typingText">Software Development Engineer</span>
+                    <span class="cursor">|</span>
+                </p>
+                <p class="hero-description">
+                    Fresh graduate with expertise in Java, Python, and cybersecurity. 
+                    Passionate about creating secure, innovative solutions and eager to apply my skills in a dynamic team environment.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary" aria-label="View my projects">View My Work</a>
+                    <a href="#contact" class="btn btn-secondary" aria-label="Get in touch">Get In Touch</a>
+                    <a href="https://mirdujanah.github.io/portfolio-website/Mir_Dujanah_Resume.pdf" class="btn btn-outline" target="_blank" aria-label="Download resume" onclick="trackResumeDownload()"><i class="fas fa-download"></i> Resume</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="profile-image-simple">
+                    <img src="images/profile-professional.jpg" alt="Mir Dujanah Ali Hussaini" class="profile-img-static">
+                </div>
+            </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-container">
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>I'm a passionate Software Development Engineer with a strong foundation in programming and cybersecurity. Fresh graduate from Institute of Aeronautical Engineering with expertise in Java, Python, and various security tools.</p>
+                        <p>My journey in technology has been driven by curiosity and a desire to create secure, innovative solutions. I specialize in developing robust applications and have hands-on experience with cybersecurity tools and practices.</p>
+                    </div>
+                    <div class="stats">
+                        <div class="stat">
+                            <div class="stat-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h3>3+</h3>
+                            <p>Projects Completed</p>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <h3>8.0</h3>
+                            <p>CGPA</p>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-icon">
+                                <i class="fas fa-certificate"></i>
+                            </div>
+                            <h3>4+</h3>
+                            <p>Certifications</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="project-filters">
+                <div class="filter-btn active" data-filter="all">All Projects</div>
+                <div class="filter-btn" data-filter="security">Security</div>
+                <div class="filter-btn" data-filter="ai">AI/ML</div>
+                <div class="filter-btn" data-filter="web">Web Dev</div>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card" data-category="security">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Sanitizable Access Control System</h3>
+                        <p>Developed a secure cloud storage system using AES algorithm for data encryption and access control. Implemented with Java and web technologies for enhanced security.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">HTML</span>
+                            <span class="tech-tag">CSS</span>
+                            <span class="tech-tag">Java</span>
+                            <span class="tech-tag">JSP</span>
+                            <span class="tech-tag">Servlet API</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/mirdujanah" class="project-link" target="_blank" aria-label="View project code"><i class="fab fa-github"></i> Code</a>
+                            <a href="#" class="project-link" aria-label="View project demo"><i class="fas fa-external-link-alt"></i> Demo</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="ai">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Handwritten Digits Classification with CNN</h3>
+                        <p>Developed a model for recognizing and classifying handwritten digits (0-9) using Convolutional Neural Network (CNN). Implemented with TensorFlow and achieved high accuracy in digit recognition.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">TensorFlow</span>
+                            <span class="tech-tag">OpenCV</span>
+                            <span class="tech-tag">NumPy</span>
+                            <span class="tech-tag">Pandas</span>
+                            <span class="tech-tag">Scikit-learn</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/mirdujanah" class="project-link" target="_blank" aria-label="View project code"><i class="fab fa-github"></i> Code</a>
+                            <a href="#" class="project-link" aria-label="View project demo"><i class="fas fa-external-link-alt"></i> Demo</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="ai">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>News Classification Using NLP</h3>
+                        <p>Developed an NLP-based model to classify news as fake or real using Kaggle datasets. Utilized advanced text processing techniques and machine learning algorithms for accurate classification.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">NLTK</span>
+                            <span class="tech-tag">SpaCy</span>
+                            <span class="tech-tag">Scikit-learn</span>
+                            <span class="tech-tag">NLP</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/mirdujanah" class="project-link" target="_blank" aria-label="View project code"><i class="fab fa-github"></i> Code</a>
+                            <a href="#" class="project-link" aria-label="View project demo"><i class="fas fa-external-link-alt"></i> Demo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">Skills & Technologies</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Programming Languages</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <span class="skill-name">Java (DSA)</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="90" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Python</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="85" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">C</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="80" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Web Technologies</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <span class="skill-name">HTML</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="90" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">CSS</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="85" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">JavaScript</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="80" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">React</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="75" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Node.js</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="70" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Databases & Tools</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <span class="skill-name">Oracle Database</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="85" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">DBMS</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="80" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Burp Suite</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="75" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Wireshark</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="75" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Metasploit</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="70" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="education">
+        <div class="container">
+            <h2 class="section-title">Education & Certifications</h2>
+            <div class="education-grid">
+                <div class="education-card">
+                    <div class="education-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="education-content">
+                        <h3>B.Tech Computer Science</h3>
+                        <p class="institution">Institute of Aeronautical Engineering</p>
+                        <p class="details">CGPA: 8.0 | Aug 2020 - Jun 2024</p>
+                        <p class="description">Developed strong foundation in programming languages Python, C, and Java</p>
+                    </div>
+                </div>
+
+                <div class="education-card">
+                    <div class="education-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <div class="education-content">
+                        <h3>Certified Ethical Hacker (CEH)</h3>
+                        <p class="institution">Career Guidance Council</p>
+                        <p class="details">Cybersecurity & Ethical Hacking</p>
+                        <p class="description">Demonstrated expertise in cybersecurity and ethical hacking techniques</p>
+                    </div>
+                </div>
+
+                <div class="education-card">
+                    <div class="education-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="education-content">
+                        <h3>Artificial Intelligence Certificate</h3>
+                        <p class="institution">Personifwy</p>
+                        <p class="details">AI Concepts & Applications</p>
+                        <p class="description">Gained proficiency in AI concepts and practical applications</p>
+                    </div>
+                </div>
+
+                <div class="education-card">
+                    <div class="education-icon">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <div class="education-content">
+                        <h3>IELTS English Proficiency</h3>
+                        <p class="institution">British Council</p>
+                        <p class="details">Overall Band: 7.0</p>
+                        <p class="description">Demonstrated strong English language proficiency</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Let's work together!</h3>
+                    <p>I'm always interested in new opportunities and exciting projects. 
+                       Feel free to reach out if you'd like to collaborate or just say hello.</p>
+                    
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>Email</h4>
+                                <p>dmir7186@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h4>Phone</h4>
+                                <p>(+91) 9347456647</p>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4>Location</h4>
+                                <p>Hyderabad, India</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/mirdujanah" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn profile"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/mirdujanah" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub profile"><i class="fab fa-github"></i></a>
+                        <a href="https://twitter.com/mir74799" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Twitter profile"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link" aria-label="Instagram profile"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <form class="contact-form" id="contactForm" action="https://formspree.io/f/manbpqba" method="POST" novalidate>
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="Your Name" required maxlength="100" pattern="[A-Za-z\s]+" aria-label="Your name">
+                        <div class="error-message" id="nameError"></div>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Your Email" required maxlength="254" aria-label="Your email address">
+                        <div class="error-message" id="emailError"></div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="subject" name="subject" placeholder="Subject" required maxlength="200" aria-label="Message subject">
+                        <div class="error-message" id="subjectError"></div>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" placeholder="Your Message" rows="5" required maxlength="1000" aria-label="Your message"></textarea>
+                        <div class="error-message" id="messageError"></div>
+                    </div>
+                    
+                    <!-- Honeypot field for bot detection (hidden from humans) -->
+                    <div style="position: absolute; left: -9999px; opacity: 0; pointer-events: none;" aria-hidden="true">
+                        <input type="text" name="website" tabindex="-1" autocomplete="off">
+                        <input type="email" name="email_confirm" tabindex="-1" autocomplete="off">
+                    </div>
+                    
+                    <!-- Hidden fields for better form handling -->
+                    <input type="hidden" name="_next" value="https://mirdujanah.github.io/portfolio-website/">
+                    <input type="hidden" name="_subject" value="New Contact Form Submission">
+                    <input type="hidden" name="_captcha" value="false">
+                    <button type="submit" class="btn btn-primary" aria-label="Send message">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Mir Dujanah Ali Hussaini. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9J7MJXMGGW"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-9J7MJXMGGW');
+    </script>
+    
+    <!-- Simple visitor counter -->
+    <script>
+        // Simple visitor counter using localStorage
+        let visits = localStorage.getItem('visitCount') || 0;
+        visits++;
+        localStorage.setItem('visitCount', visits);
+        console.log('Total visits:', visits);
+    </script>
+    
+    <script src="form-config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 

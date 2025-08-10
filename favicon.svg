@@ -1,0 +1,16 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Favicon version of the logo -->
+  <defs>
+    <linearGradient id="faviconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0071e3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e3a8a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Rounded rectangle background -->
+  <rect x="2" y="2" width="28" height="28" rx="6" fill="url(#faviconGradient)"/>
+  
+  <!-- Simplified MD letters for small size -->
+  <path d="M8 12L12 20L16 12L20 20L24 12" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M24 12V20" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+</svg> 

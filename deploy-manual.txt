@@ -1,0 +1,20 @@
+MANUAL DEPLOYMENT INSTRUCTIONS:
+
+1. Restart your command prompt/terminal to refresh PATH
+2. Run these commands one by one:
+
+git init
+git remote add origin https://github.com/mirdujanah/portfolio-website.git
+git add .
+git commit -m "Fix Safari dark mode compatibility"
+git push -u origin main
+
+OR
+
+Upload these files manually to GitHub:
+- script.js (updated with Safari fixes)
+- styles.css (updated with Safari fixes)
+- deploy.bat
+- .github/workflows/deploy.yml
+
+Your Safari dark mode fixes are ready in the local files.
