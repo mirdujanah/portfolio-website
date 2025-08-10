@@ -141,10 +141,27 @@ document.addEventListener('DOMContentLoaded', function() {
     const themeToggle = document.getElementById('themeToggle');
     const savedTheme = localStorage.getItem('theme') || 'light';
     
+    // Force Safari footer text color
+    function forceFooterColor(theme) {
+        const footer = document.getElementById('footer');
+        const footerText = document.getElementById('footerText');
+        
+        if (theme === 'dark') {
+            if (footer) footer.style.color = '#ffffff';
+            if (footerText) footerText.style.color = '#ffffff';
+        } else {
+            if (footer) footer.style.color = '#86868b';
+            if (footerText) footerText.style.color = '#86868b';
+        }
+    }
+    
     // Force Safari to apply theme immediately
     function applyTheme(theme) {
         document.documentElement.setAttribute('data-theme', theme);
         document.body.setAttribute('data-theme', theme);
+        
+        // Force footer color for Safari
+        forceFooterColor(theme);
         
         // Force Safari to recalculate styles
         if (window.safari) {
