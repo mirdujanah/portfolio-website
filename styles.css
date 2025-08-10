@@ -2253,8 +2253,21 @@ body[data-theme="dark"] .footer {
 }
 
 [data-theme="dark"] .footer p,
-body[data-theme="dark"] .footer p {
+[data-theme="dark"] .footer *,
+body[data-theme="dark"] .footer p,
+body[data-theme="dark"] .footer * {
     color: #ffffff !important;
+}
+
+/* Force footer text visibility in dark mode */
+[data-theme="dark"] footer,
+[data-theme="dark"] footer p,
+[data-theme="dark"] footer *,
+body[data-theme="dark"] footer,
+body[data-theme="dark"] footer p,
+body[data-theme="dark"] footer * {
+    color: #ffffff !important;
+    background: transparent !important;
 }
 
 /* Responsive Design - Apple Style */
