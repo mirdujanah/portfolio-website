@@ -205,59 +205,154 @@
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Ensure analytics is initialized
-            setTimeout(function() {
-                updateAnalyticsDisplay();
-            }, 100);
+            // Initialize analytics display with multiple attempts
+            let attempts = 0;
+            const maxAttempts = 5;
             
-            document.getElementById('exportData').addEventListener('click', () => {
-                window.portfolioAnalytics.exportData();
-            });
-            
-            document.getElementById('refreshData').addEventListener('click', function() {
-                // Force reload analytics data
-                if (window.portfolioAnalytics) {
-                    window.portfolioAnalytics.trackPageView();
-                }
-                updateAnalyticsDisplay();
+            function initializeDisplay() {
+                attempts++;
                 
-                // Visual feedback
-                const btn = document.getElementById('refreshData');
-                const originalText = btn.textContent;
-                btn.textContent = 'Refreshed!';
-                setTimeout(function() {
-                    btn.textContent = originalText;
-                }, 1000);
-            });
+                if (window.portfolioAnalytics && typeof window.portfolioAnalytics.generateReport === 'function') {
+                    updateAnalyticsDisplay();
+                    console.log('Analytics display initialized successfully');
+                } else if (attempts < maxAttempts) {
+                    setTimeout(initializeDisplay, 200 * attempts);
+                } else {
+                    console.warn('Analytics initialization failed after', maxAttempts, 'attempts');
+                    showFallbackData();
+                }
+            }
+            
+            initializeDisplay();
+            
+            // Setup event listeners after DOM is ready
+            setTimeout(() => {
+                const exportBtn = document.getElementById('exportData');
+                const refreshBtn = document.getElementById('refreshData');
+                
+                if (exportBtn) {
+                    exportBtn.addEventListener('click', function() {
+                        const btn = this;
+                        const originalText = btn.textContent;
+                        
+                        try {
+                            btn.textContent = 'Exporting...';
+                            btn.disabled = true;
+                            
+                            window.portfolioAnalytics.exportData();
+                            
+                            btn.textContent = 'Exported!';
+                            setTimeout(() => {
+                                btn.textContent = originalText;
+                                btn.disabled = false;
+                            }, 2000);
+                        } catch (error) {
+                            console.error('Export failed:', error);
+                            btn.textContent = 'Error';
+                            setTimeout(() => {
+                                btn.textContent = originalText;
+                                btn.disabled = false;
+                            }, 2000);
+                        }
+                    });
+                }
+                
+                if (refreshBtn) {
+                    refreshBtn.addEventListener('click', function() {
+                        const btn = this;
+                        const originalText = btn.textContent;
+                        
+                        try {
+                            btn.textContent = 'Refreshing...';
+                            btn.disabled = true;
+                            
+                            if (window.portfolioAnalytics) {
+                                const report = window.portfolioAnalytics.generateReport();
+                                console.log('Analytics refreshed:', report);
+                            }
+                            
+                            updateAnalyticsDisplay();
+                            
+                            btn.textContent = 'Refreshed!';
+                            setTimeout(() => {
+                                btn.textContent = originalText;
+                                btn.disabled = false;
+                            }, 1500);
+                        } catch (error) {
+                            console.error('Refresh failed:', error);
+                            btn.textContent = 'Error';
+                            setTimeout(() => {
+                                btn.textContent = originalText;
+                                btn.disabled = false;
+                            }, 2000);
+                        }
+                    });
+                }
+            }, 500);
         });
         
         function updateAnalyticsDisplay() {
-            const report = window.portfolioAnalytics.generateReport();
-            
-            document.getElementById('visitCount').textContent = report.totalVisits;
-            document.getElementById('resumeDownloads').textContent = report.resumeDownloads;
-            document.getElementById('portfolioDownloads').textContent = report.portfolioDownloads;
-            document.getElementById('contactSubmissions').textContent = report.contactSubmissions;
-            document.getElementById('avgTimeOnSite').textContent = formatTime(report.avgTimeOnSite);
-            document.getElementById('conversionRate').textContent = report.conversionRate + '%';
-            
-            updateTopProjects(report.topProjects);
-            updateDeviceBreakdown(report.deviceBreakdown);
-            updateTopReferrers(report.topReferrers);
-            updateDownloadStats();
+            try {
+                const report = window.portfolioAnalytics.generateReport();
+                
+                // Update main stats with precise formatting
+                updateElement('visitCount', report.totalVisits.toLocaleString());
+                updateElement('resumeDownloads', report.resumeDownloads.toLocaleString());
+                updateElement('portfolioDownloads', report.portfolioDownloads.toLocaleString());
+                updateElement('contactSubmissions', report.contactSubmissions.toLocaleString());
+                updateElement('avgTimeOnSite', formatTime(report.avgTimeOnSite));
+                updateElement('conversionRate', report.conversionRate + '%');
+                
+                // Update detailed sections
+                updateTopProjects(report.topProjects);
+                updateDeviceBreakdown(report.deviceBreakdown);
+                updateTopReferrers(report.topReferrers);
+                updateDownloadStats(report);
+                
+                // Show data quality info
+                if (report.dataQuality) {
+                    console.log('Analytics Data Quality:', report.dataQuality);
+                }
+            } catch (error) {
+                console.error('Analytics display update failed:', error);
+                showFallbackData();
+            }
         }
         
-        function updateDownloadStats() {
+        function updateElement(id, value) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.textContent = value;
+            }
+        }
+        
+        function showFallbackData() {
+            updateElement('visitCount', '0');
+            updateElement('resumeDownloads', '0');
+            updateElement('portfolioDownloads', '0');
+            updateElement('contactSubmissions', '0');
+            updateElement('avgTimeOnSite', '0:00');
+            updateElement('conversionRate', '0.00%');
+        }
+        
+        function updateDownloadStats(report) {
             try {
-                if (window.downloadTracker) {
-                    const downloadReport = window.downloadTracker.generateReport();
-                    const resumeCount = document.getElementById('resumeDownloadCount');
-                    const portfolioCount = document.getElementById('portfolioDownloadCount');
-                    const topSource = document.getElementById('topDownloadSource');
-                    
-                    if (resumeCount) resumeCount.textContent = downloadReport.resume.total;
-                    if (portfolioCount) portfolioCount.textContent = downloadReport.portfolio.total;
-                    if (topSource) topSource.textContent = downloadReport.resume.topSource || 'Hero Section';
+                updateElement('resumeDownloadCount', report.resumeDownloads.toLocaleString());
+                updateElement('portfolioDownloadCount', report.portfolioDownloads.toLocaleString());
+                
+                // Determine top download source based on data
+                let topSource = 'Direct Access';
+                if (report.topReferrers && report.topReferrers.length > 0) {
+                    const [referrer] = report.topReferrers[0];
+                    if (referrer !== 'direct') {
+                        topSource = referrer.charAt(0).toUpperCase() + referrer.slice(1);
+                    }
+                }
+                updateElement('topDownloadSource', topSource);
+                
+                // Add total downloads if element exists
+                if (document.getElementById('totalDownloads')) {
+                    updateElement('totalDownloads', report.totalDownloads.toLocaleString());
                 }
             } catch (error) {
                 console.log('Download stats update error:', error);
@@ -265,18 +360,29 @@
         }
         
         function formatTime(seconds) {
+            if (!seconds || seconds < 0) return '0:00';
+            
             const mins = Math.floor(seconds / 60);
-            const secs = seconds % 60;
+            const secs = Math.floor(seconds % 60);
+            
+            if (mins >= 60) {
+                const hours = Math.floor(mins / 60);
+                const remainingMins = mins % 60;
+                return `${hours}h ${remainingMins}m`;
+            }
+            
             return `${mins}:${secs.toString().padStart(2, '0')}`;
         }
         
         function updateTopProjects(projects) {
             const container = document.getElementById('topProjects');
-            if (projects.length === 0) {
+            if (!container) return;
+            
+            if (!projects || projects.length === 0) {
                 container.innerHTML = `
                     <div class="detail-item">
                         <span>Sanitizable Access Control System</span>
-                        <span class="detail-value">Featured Project</span>
+                        <span class="detail-value">Security Project</span>
                     </div>
                     <div class="detail-item">
                         <span>Handwritten Digits Classification</span>
@@ -293,68 +399,78 @@
             container.innerHTML = projects.map(([name, views]) => 
                 `<div class="detail-item">
                     <span>${name}</span>
-                    <span class="detail-value">${views} views</span>
+                    <span class="detail-value">${views.toLocaleString()} view${views !== 1 ? 's' : ''}</span>
                 </div>`
             ).join('');
         }
         
         function updateDeviceBreakdown(devices) {
             const container = document.getElementById('deviceBreakdown');
-            const entries = Object.entries(devices);
+            if (!container) return;
+            
+            const entries = Object.entries(devices || {}).filter(([,count]) => count > 0);
             
             if (entries.length === 0) {
                 container.innerHTML = `
                     <div class="detail-item">
                         <span>Desktop</span>
-                        <span class="detail-value">Primary</span>
+                        <span class="detail-value">Optimized</span>
                     </div>
                     <div class="detail-item">
                         <span>Mobile</span>
-                        <span class="detail-value">Growing</span>
+                        <span class="detail-value">Responsive</span>
                     </div>
                     <div class="detail-item">
                         <span>Tablet</span>
-                        <span class="detail-value">Supported</span>
+                        <span class="detail-value">Compatible</span>
                     </div>
                 `;
                 return;
             }
             
-            container.innerHTML = entries.map(([device, count]) => 
-                `<div class="detail-item">
+            // Sort by count and calculate percentages
+            const total = entries.reduce((sum, [,count]) => sum + count, 0);
+            const sortedEntries = entries.sort(([,a], [,b]) => b - a);
+            
+            container.innerHTML = sortedEntries.map(([device, count]) => {
+                const percentage = total > 0 ? Math.round((count / total) * 100) : 0;
+                return `<div class="detail-item">
                     <span>${device.charAt(0).toUpperCase() + device.slice(1)}</span>
-                    <span class="detail-value">${count} visits</span>
-                </div>`
-            ).join('');
+                    <span class="detail-value">${count.toLocaleString()} (${percentage}%)</span>
+                </div>`;
+            }).join('');
         }
         
         function updateTopReferrers(referrers) {
             const container = document.getElementById('topReferrers');
+            if (!container) return;
             
-            if (referrers.length === 0) {
+            if (!referrers || referrers.length === 0) {
                 container.innerHTML = `
                     <div class="detail-item">
-                        <span>GitHub</span>
-                        <span class="detail-value">Repository</span>
+                        <span>Direct Access</span>
+                        <span class="detail-value">Primary</span>
                     </div>
                     <div class="detail-item">
-                        <span>LinkedIn</span>
-                        <span class="detail-value">Professional</span>
+                        <span>Search Engines</span>
+                        <span class="detail-value">Discovery</span>
                     </div>
                     <div class="detail-item">
-                        <span>Direct</span>
-                        <span class="detail-value">Bookmark</span>
+                        <span>Social Media</span>
+                        <span class="detail-value">Sharing</span>
                     </div>
                 `;
                 return;
             }
             
-            container.innerHTML = referrers.map(([referrer, count]) => 
-                `<div class="detail-item">
-                    <span>${referrer}</span>
-                    <span class="detail-value">${count} visits</span>
-                </div>`
-            ).join('');
+            container.innerHTML = referrers.map(([referrer, count]) => {
+                const displayName = referrer === 'direct' ? 'Direct Access' : 
+                                  referrer.charAt(0).toUpperCase() + referrer.slice(1);
+                return `<div class="detail-item">
+                    <span>${displayName}</span>
+                    <span class="detail-value">${count.toLocaleString()} visit${count !== 1 ? 's' : ''}</span>
+                </div>`;
+            }).join('');
         }
     </script>
 </body>
