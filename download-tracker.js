@@ -78,19 +78,22 @@ class DownloadTracker {
 
     getDownloadSource(element) {
         // Determine where the download was initiated from
-        const section = element.closest('section');
-        if (section) {
-            return section.id || 'unknown-section';
+        let current = element;
+        while (current && current !== document) {
+            if (current.tagName === 'SECTION' && current.id) {
+                return current.id;
+            }
+            current = current.parentElement;
         }
         return 'direct-link';
     }
 
     getUserAgentInfo() {
-        const ua = navigator.userAgent;
-        if (ua.includes('Chrome')) return 'Chrome';
-        if (ua.includes('Firefox')) return 'Firefox';
-        if (ua.includes('Safari') && !ua.includes('Chrome')) return 'Safari';
-        if (ua.includes('Edge')) return 'Edge';
+        const ua = navigator.userAgent || '';
+        if (ua.indexOf('Chrome') > -1 && ua.indexOf('Safari') > -1) return 'Chrome';
+        if (ua.indexOf('Firefox') > -1) return 'Firefox';
+        if (ua.indexOf('Safari') > -1 && ua.indexOf('Chrome') === -1) return 'Safari';
+        if (ua.indexOf('Edge') > -1) return 'Edge';
         return 'Other';
     }
 

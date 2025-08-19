@@ -53,11 +53,12 @@ class AnalyticsDashboard {
     }
 
     trackDeviceType() {
-        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        const isTablet = /iPad|Android(?!.*Mobile)/i.test(navigator.userAgent);
+        const ua = navigator.userAgent || '';
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+        const isTablet = /iPad|Android(?!.*Mobile)/i.test(ua);
         
         let deviceType = 'desktop';
-        if (isMobile) deviceType = 'mobile';
+        if (isMobile && !isTablet) deviceType = 'mobile';
         else if (isTablet) deviceType = 'tablet';
         
         this.data.deviceTypes[deviceType] = (this.data.deviceTypes[deviceType] || 0) + 1;
@@ -66,7 +67,16 @@ class AnalyticsDashboard {
 
     trackReferrer() {
         const referrer = document.referrer || 'direct';
-        const domain = referrer ? new URL(referrer).hostname : 'direct';
+        let domain = 'direct';
+        
+        if (referrer && referrer !== '') {
+            try {
+                domain = new URL(referrer).hostname;
+            } catch (e) {
+                domain = 'unknown';
+            }
+        }
+        
         this.data.referrers[domain] = (this.data.referrers[domain] || 0) + 1;
         this.saveData();
     }
@@ -82,18 +92,29 @@ class AnalyticsDashboard {
             }
         });
 
-        // Track project views
+        // Track project views with Safari compatibility
         const projectCards = document.querySelectorAll('.project-card');
-        const projectObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const projectName = entry.target.querySelector('h3')?.textContent || 'Unknown';
-                    this.trackProjectView(projectName);
-                }
-            });
-        }, { threshold: 0.5 });
+        
+        if ('IntersectionObserver' in window) {
+            const projectObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const h3Element = entry.target.querySelector('h3');
+                        const projectName = h3Element ? h3Element.textContent : 'Unknown';
+                        this.trackProjectView(projectName);
+                    }
+                });
+            }, { threshold: 0.5 });
 
-        projectCards.forEach(card => projectObserver.observe(card));
+            projectCards.forEach(card => projectObserver.observe(card));
+        } else {
+            // Fallback for older Safari versions
+            projectCards.forEach(card => {
+                const h3Element = card.querySelector('h3');
+                const projectName = h3Element ? h3Element.textContent : 'Unknown';
+                this.trackProjectView(projectName);
+            });
+        }
 
         // Track contact form submissions
         const contactForm = document.getElementById('contactForm');

@@ -726,6 +726,58 @@ body {
     font-size: 0.875rem;
 }
 
+/* Placeholder content styles */
+.trend-placeholder {
+    text-align: center;
+    padding: 2rem;
+    color: var(--apple-gray);
+}
+
+.trend-placeholder p {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.trend-sample {
+    opacity: 0.6;
+    border: 2px dashed var(--apple-border);
+    border-radius: 8px;
+    padding: 1rem;
+    background: var(--apple-light-gray);
+}
+
+/* Safari compatibility fixes */
+@supports (-webkit-appearance: none) {
+    .detail-item,
+    .stat-item {
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+    }
+    
+    .trend-bar {
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+    }
+}
+
+/* Ensure content is visible in Safari */
+.detail-list p,
+.download-stats p {
+    color: var(--apple-gray);
+    font-style: italic;
+    text-align: center;
+    padding: 1rem;
+}
+
+[data-theme="dark"] .trend-placeholder {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .trend-sample {
+    background: #333333 !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
 /* Dark Mode */
 :root {
     --bg-color: #ffffff;

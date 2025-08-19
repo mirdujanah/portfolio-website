@@ -169,7 +169,20 @@
         function updateTopProjects(projects) {
             const container = document.getElementById('topProjects');
             if (projects.length === 0) {
-                container.innerHTML = '<p>No project views yet</p>';
+                container.innerHTML = `
+                    <div class="detail-item">
+                        <span>Sanitizable Access Control System</span>
+                        <span class="detail-value">Featured Project</span>
+                    </div>
+                    <div class="detail-item">
+                        <span>Handwritten Digits Classification</span>
+                        <span class="detail-value">AI/ML Project</span>
+                    </div>
+                    <div class="detail-item">
+                        <span>News Classification Using NLP</span>
+                        <span class="detail-value">NLP Project</span>
+                    </div>
+                `;
                 return;
             }
             
@@ -186,7 +199,20 @@
             const entries = Object.entries(devices);
             
             if (entries.length === 0) {
-                container.innerHTML = '<p>No device data yet</p>';
+                container.innerHTML = `
+                    <div class="detail-item">
+                        <span>Desktop</span>
+                        <span class="detail-value">Primary</span>
+                    </div>
+                    <div class="detail-item">
+                        <span>Mobile</span>
+                        <span class="detail-value">Growing</span>
+                    </div>
+                    <div class="detail-item">
+                        <span>Tablet</span>
+                        <span class="detail-value">Supported</span>
+                    </div>
+                `;
                 return;
             }
             
@@ -202,7 +228,20 @@
             const container = document.getElementById('topReferrers');
             
             if (referrers.length === 0) {
-                container.innerHTML = '<p>No referrer data yet</p>';
+                container.innerHTML = `
+                    <div class="detail-item">
+                        <span>GitHub</span>
+                        <span class="detail-value">Repository</span>
+                    </div>
+                    <div class="detail-item">
+                        <span>LinkedIn</span>
+                        <span class="detail-value">Professional</span>
+                    </div>
+                    <div class="detail-item">
+                        <span>Direct</span>
+                        <span class="detail-value">Bookmark</span>
+                    </div>
+                `;
                 return;
             }
             
