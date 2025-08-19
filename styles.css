@@ -517,8 +517,45 @@ body {
     color: var(--apple-black);
 }
 
+.analytics-hero p {
+    color: var(--apple-gray);
+    font-size: 1.2rem;
+}
+
 .analytics-stats {
     padding: 60px 0;
+}
+
+/* Analytics Dark Mode */
+[data-theme="dark"] .analytics-hero {
+    background: #1a1a1a !important;
+}
+
+[data-theme="dark"] .analytics-hero h1,
+[data-theme="dark"] .analytics-hero p {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .analytics-stats {
+    background: #1a1a1a !important;
+}
+
+[data-theme="dark"] .stat-card,
+[data-theme="dark"] .detail-section {
+    background: #2d2d2d !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme="dark"] .stat-content h3,
+[data-theme="dark"] .stat-content p,
+[data-theme="dark"] .detail-section h3,
+[data-theme="dark"] .detail-item span,
+[data-theme="dark"] .stat-item span {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .detail-value {
+    color: #667eea !important;
 }
 
 .analytics-controls {
@@ -1134,11 +1171,35 @@ body {
     appearance: none;
 }
 
-/* Cross-browser dark mode support */
+/* Safari-specific dark mode fixes */
 @supports (-webkit-appearance: none) {
     [data-theme="dark"] {
         -webkit-color-scheme: dark;
         color-scheme: dark;
+    }
+    
+    [data-theme="dark"] body {
+        background: #1a1a1a !important;
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
+    }
+    
+    [data-theme="dark"] .contact-form {
+        background: #2d2d2d !important;
+        -webkit-appearance: none !important;
+    }
+    
+    [data-theme="dark"] input,
+    [data-theme="dark"] textarea {
+        background: #1a1a1a !important;
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
+        -webkit-appearance: none !important;
+    }
+    
+    [data-theme="dark"] .footer {
+        background: #0d0d0d !important;
+        color: #ffffff !important;
     }
 }
 
@@ -1149,10 +1210,25 @@ body {
     }
 }
 
-/* Ensure dark mode works in all browsers */
+/* Force dark mode in all browsers */
 [data-theme="dark"] * {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+/* Safari mobile fixes */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+    [data-theme="dark"] body {
+        background: #1a1a1a !important;
+        color: #ffffff !important;
+    }
+    
+    [data-theme="dark"] .contact-form input,
+    [data-theme="dark"] .contact-form textarea {
+        background: #1a1a1a !important;
+        color: #ffffff !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    }
 }
 
 .theme-switch-mobile {

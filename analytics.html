@@ -32,8 +32,14 @@
             <ul class="nav-menu">
                 <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
                 <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-                <li class="nav-item"><a href="analytics.html" class="nav-link">Analytics</a></li>
+                <li class="nav-item"><a href="analytics.html" class="nav-link active">Analytics</a></li>
             </ul>
+            <div class="theme-switch desktop-theme">
+                <input type="checkbox" id="themeToggle" class="theme-checkbox">
+                <label for="themeToggle" class="theme-label">
+                    <span class="theme-slider"></span>
+                </label>
+            </div>
         </div>
     </nav>
 
@@ -152,6 +158,51 @@
 
     <script src="analytics-dashboard.js"></script>
     <script src="download-tracker.js"></script>
+    <script>
+        // Analytics page theme toggle
+        function updateAnalyticsTheme(isDark) {
+            document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+            document.body.setAttribute('data-theme', isDark ? 'dark' : 'light');
+            
+            // Safari-specific fixes for analytics page
+            let safariStyle = document.getElementById('safari-analytics-dark');
+            if (!safariStyle) {
+                safariStyle = document.createElement('style');
+                safariStyle.id = 'safari-analytics-dark';
+                document.head.appendChild(safariStyle);
+            }
+            
+            if (isDark) {
+                safariStyle.textContent = `
+                    body, html { background: #1a1a1a !important; color: #ffffff !important; }
+                    .analytics-hero, .analytics-stats { background: #1a1a1a !important; }
+                    .stat-card, .detail-section { background: #2d2d2d !important; border: 1px solid rgba(255,255,255,0.1) !important; }
+                    .navbar { background: rgba(26,26,26,0.95) !important; }
+                    h1, h2, h3, p, span { color: #ffffff !important; }
+                `;
+            } else {
+                safariStyle.textContent = '';
+            }
+            
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+        
+        // Initialize theme on analytics page
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const isDark = savedTheme === 'dark';
+            const themeToggle = document.getElementById('themeToggle');
+            
+            if (themeToggle) {
+                themeToggle.checked = isDark;
+                updateAnalyticsTheme(isDark);
+                
+                themeToggle.addEventListener('change', function() {
+                    updateAnalyticsTheme(this.checked);
+                });
+            }
+        });
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Ensure analytics is initialized

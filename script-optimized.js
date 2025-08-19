@@ -193,32 +193,35 @@ function stopTypingAnimation() {
     }
 }
 
-// Enhanced cross-browser theme toggle
+// Safari-compatible theme toggle
 function updateTheme(isDark, skipToggleUpdate = false) {
     const theme = isDark ? 'dark' : 'light';
     
-    // Set data attribute on html and body for maximum compatibility
+    // Safari requires immediate DOM manipulation
     document.documentElement.setAttribute('data-theme', theme);
     document.body.setAttribute('data-theme', theme);
+    document.documentElement.className = theme;
+    document.body.className = theme;
     
-    // Set CSS custom properties for older browsers
-    const root = document.documentElement;
-    if (isDark) {
-        root.style.setProperty('--bg-color', '#1a1a1a');
-        root.style.setProperty('--text-color', '#ffffff');
-        root.style.setProperty('--card-bg', '#2d2d2d');
-        root.style.setProperty('--border-color', 'rgba(255, 255, 255, 0.1)');
-    } else {
-        root.style.setProperty('--bg-color', '#ffffff');
-        root.style.setProperty('--text-color', '#333333');
-        root.style.setProperty('--card-bg', '#ffffff');
-        root.style.setProperty('--border-color', 'rgba(0, 0, 0, 0.1)');
+    // Safari-specific style injection
+    let safariStyle = document.getElementById('safari-dark-mode');
+    if (!safariStyle) {
+        safariStyle = document.createElement('style');
+        safariStyle.id = 'safari-dark-mode';
+        document.head.appendChild(safariStyle);
     }
     
-    // Force repaint for Safari
-    document.body.style.display = 'none';
-    document.body.offsetHeight; // Trigger reflow
-    document.body.style.display = '';
+    if (isDark) {
+        safariStyle.textContent = `
+            body, html { background: #1a1a1a !important; color: #ffffff !important; }
+            .contact-form { background: #2d2d2d !important; }
+            .contact-form input, .contact-form textarea { background: #1a1a1a !important; color: #ffffff !important; border: 1px solid rgba(255,255,255,0.2) !important; }
+            .footer { background: #0d0d0d !important; color: #ffffff !important; }
+            .navbar { background: rgba(26,26,26,0.95) !important; }
+        `;
+    } else {
+        safariStyle.textContent = '';
+    }
     
     localStorage.setItem('theme', theme);
     
@@ -226,6 +229,12 @@ function updateTheme(isDark, skipToggleUpdate = false) {
         if (cachedElements.themeToggleDesktop) cachedElements.themeToggleDesktop.checked = isDark;
         if (cachedElements.themeToggleMobile) cachedElements.themeToggleMobile.checked = isDark;
     }
+    
+    // Force Safari repaint
+    setTimeout(() => {
+        document.body.style.transform = 'translateZ(0)';
+        setTimeout(() => { document.body.style.transform = ''; }, 1);
+    }, 1);
 }
 
 function initializeTheme() {
