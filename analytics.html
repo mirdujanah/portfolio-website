@@ -6,6 +6,7 @@
     <title>Analytics - Mir Dujanah Ali Hussaini</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-9J7MJXMGGW"></script>
     <script>
@@ -53,7 +54,7 @@
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-icon">
-                        <i class="fas fa-eye"></i>
+                        <i class="fas fa-users"></i>
                     </div>
                     <div class="stat-content">
                         <h3 id="visitCount">Loading...</h3>
@@ -103,7 +104,7 @@
                 
                 <div class="stat-card">
                     <div class="stat-icon">
-                        <i class="fas fa-percentage"></i>
+                        <i class="fas fa-chart-line"></i>
                     </div>
                     <div class="stat-content">
                         <h3 id="conversionRate">Loading...</h3>
@@ -153,14 +154,29 @@
     <script src="download-tracker.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            updateAnalyticsDisplay();
+            // Ensure analytics is initialized
+            setTimeout(function() {
+                updateAnalyticsDisplay();
+            }, 100);
             
             document.getElementById('exportData').addEventListener('click', () => {
                 window.portfolioAnalytics.exportData();
             });
             
-            document.getElementById('refreshData').addEventListener('click', () => {
+            document.getElementById('refreshData').addEventListener('click', function() {
+                // Force reload analytics data
+                if (window.portfolioAnalytics) {
+                    window.portfolioAnalytics.trackPageView();
+                }
                 updateAnalyticsDisplay();
+                
+                // Visual feedback
+                const btn = document.getElementById('refreshData');
+                const originalText = btn.textContent;
+                btn.textContent = 'Refreshed!';
+                setTimeout(function() {
+                    btn.textContent = originalText;
+                }, 1000);
             });
         });
         
@@ -181,11 +197,19 @@
         }
         
         function updateDownloadStats() {
-            if (window.downloadTracker) {
-                const downloadReport = window.downloadTracker.generateReport();
-                document.getElementById('resumeDownloadCount').textContent = downloadReport.resume.total;
-                document.getElementById('portfolioDownloadCount').textContent = downloadReport.portfolio.total;
-                document.getElementById('topDownloadSource').textContent = downloadReport.resume.topSource || 'Hero Section';
+            try {
+                if (window.downloadTracker) {
+                    const downloadReport = window.downloadTracker.generateReport();
+                    const resumeCount = document.getElementById('resumeDownloadCount');
+                    const portfolioCount = document.getElementById('portfolioDownloadCount');
+                    const topSource = document.getElementById('topDownloadSource');
+                    
+                    if (resumeCount) resumeCount.textContent = downloadReport.resume.total;
+                    if (portfolioCount) portfolioCount.textContent = downloadReport.portfolio.total;
+                    if (topSource) topSource.textContent = downloadReport.resume.topSource || 'Hero Section';
+                }
+            } catch (error) {
+                console.log('Download stats update error:', error);
             }
         }
         

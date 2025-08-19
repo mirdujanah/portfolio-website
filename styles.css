@@ -512,6 +512,20 @@ body {
     margin-bottom: 3rem;
 }
 
+/* Safari fallback */
+@supports not (display: grid) {
+    .stats-grid {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+    }
+}
+
 .stat-card {
     background: white;
     border-radius: 12px;
@@ -569,6 +583,20 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
+}
+
+/* Safari fallback */
+@supports not (display: grid) {
+    .analytics-details {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+    }
 }
 
 .detail-section {
@@ -747,16 +775,75 @@ body {
 }
 
 /* Safari compatibility fixes */
+.analytics-controls {
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+}
+
+.stats-grid {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.stat-card {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 1 300px;
+    -ms-flex: 0 1 300px;
+    flex: 0 1 300px;
+    min-width: 280px;
+    max-width: 350px;
+}
+
+.analytics-details {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.detail-section {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 1 300px;
+    -ms-flex: 0 1 300px;
+    flex: 0 1 300px;
+    min-width: 280px;
+    max-width: 350px;
+}
+
 @supports (-webkit-appearance: none) {
     .detail-item,
     .stat-item {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
         -webkit-box-align: center;
         -webkit-align-items: center;
+        -webkit-box-pack: justify;
+        -webkit-justify-content: space-between;
     }
     
-    .trend-bar {
+    .stat-icon {
         -webkit-box-align: center;
         -webkit-align-items: center;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
     }
 }
 

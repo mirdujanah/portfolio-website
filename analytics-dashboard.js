@@ -38,7 +38,16 @@ class AnalyticsDashboard {
     }
 
     trackPageView() {
-        this.data.visits++;
+        // Use consistent visitor counting across all browsers
+        const today = new Date().toDateString();
+        const visitKey = 'lastVisit_' + today;
+        const lastVisit = localStorage.getItem(visitKey);
+        
+        if (!lastVisit) {
+            this.data.visits++;
+            localStorage.setItem(visitKey, Date.now().toString());
+        }
+        
         const page = window.location.pathname || '/';
         this.data.popularPages[page] = (this.data.popularPages[page] || 0) + 1;
         this.saveData();
