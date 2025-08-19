@@ -693,6 +693,35 @@ body {
     appearance: none;
 }
 
+.theme-switch-mobile {
+    display: none;
+}
+
+.desktop-theme {
+    display: inline-block;
+}
+
+@media (max-width: 768px) {
+    .desktop-theme {
+        display: none;
+    }
+    
+    .theme-switch-mobile {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        width: 100%;
+        justify-content: space-between;
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    
+    .theme-label-text {
+        font-size: 1.1rem;
+        color: var(--apple-black);
+    }
+}
+
 .theme-checkbox {
     position: absolute;
     opacity: 0;
