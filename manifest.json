@@ -1,16 +1,61 @@
 {
   "name": "Mir Dujanah Ali Hussaini - Portfolio",
   "short_name": "Mir Portfolio",
-  "description": "Software Development Engineer Portfolio",
+  "description": "Software Development Engineer specializing in Java, Python, and Cybersecurity",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#2563eb",
+  "orientation": "portrait-primary",
+  "categories": ["portfolio", "developer", "cybersecurity"],
+  "lang": "en",
   "icons": [
     {
       "src": "favicon.svg",
       "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo-modern.svg",
+      "sizes": "192x192",
       "type": "image/svg+xml"
+    },
+    {
+      "src": "logo.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "images/profile-professional.jpg",
+      "sizes": "1280x720",
+      "type": "image/jpeg",
+      "form_factor": "wide"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "View Projects",
+      "short_name": "Projects",
+      "description": "Browse my portfolio projects",
+      "url": "/#projects",
+      "icons": [{ "src": "favicon.svg", "sizes": "96x96" }]
+    },
+    {
+      "name": "Download Resume",
+      "short_name": "Resume",
+      "description": "Download my resume PDF",
+      "url": "/Mir_Dujanah_Resume.pdf",
+      "icons": [{ "src": "favicon.svg", "sizes": "96x96" }]
+    },
+    {
+      "name": "Contact Me",
+      "short_name": "Contact",
+      "description": "Get in touch",
+      "url": "/#contact",
+      "icons": [{ "src": "favicon.svg", "sizes": "96x96" }]
     }
   ]
 }

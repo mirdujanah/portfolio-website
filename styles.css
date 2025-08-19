@@ -498,10 +498,18 @@ body {
     padding: 60px 0;
 }
 
+.analytics-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+}
+
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
+    margin-bottom: 3rem;
 }
 
 .stat-card {
@@ -554,6 +562,168 @@ body {
 
 .stat-content a:hover {
     text-decoration: underline;
+}
+
+/* Analytics Details */
+.analytics-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.detail-section {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px var(--apple-shadow);
+}
+
+.detail-section h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--apple-black);
+}
+
+.detail-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--apple-border);
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+}
+
+.detail-value {
+    font-weight: 600;
+    color: var(--apple-blue);
+}
+
+/* Download Statistics */
+.download-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.download-section {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px var(--apple-shadow);
+}
+
+.download-section h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--apple-black);
+}
+
+.download-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--apple-border);
+}
+
+.stat-item:last-child {
+    border-bottom: none;
+}
+
+.stat-item span:last-child {
+    font-weight: 600;
+    color: var(--apple-blue);
+}
+
+/* Trend Chart */
+.trend-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.trend-item {
+    display: grid;
+    grid-template-columns: 60px 1fr 40px;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.5rem 0;
+}
+
+.trend-date {
+    font-size: 0.875rem;
+    color: var(--apple-gray);
+}
+
+.trend-bar {
+    display: flex;
+    gap: 2px;
+    height: 20px;
+    align-items: center;
+}
+
+.trend-resume {
+    background: var(--apple-blue);
+    height: 8px;
+    border-radius: 4px;
+    min-width: 2px;
+}
+
+.trend-portfolio {
+    background: var(--apple-success);
+    height: 8px;
+    border-radius: 4px;
+    min-width: 2px;
+}
+
+.trend-total {
+    font-weight: 600;
+    color: var(--apple-black);
+    text-align: right;
+}
+
+/* PWA Install Button */
+.pwa-install-btn {
+    background: var(--apple-success);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 980px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    letter-spacing: -0.01em;
+}
+
+.pwa-install-btn:hover {
+    background: #2d8f47;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(52, 199, 89, 0.3);
+}
+
+.pwa-install-btn i {
+    font-size: 0.875rem;
 }
 
 /* Dark Mode */

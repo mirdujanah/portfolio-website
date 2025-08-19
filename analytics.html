@@ -45,30 +45,25 @@
 
     <section class="analytics-stats">
         <div class="container">
+            <div class="analytics-controls">
+                <button id="exportData" class="btn btn-primary">Export Data</button>
+                <button id="refreshData" class="btn btn-secondary">Refresh</button>
+            </div>
+            
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-icon">
-                        <i class="fas fa-users"></i>
+                        <i class="fas fa-eye"></i>
                     </div>
                     <div class="stat-content">
-                        <h3 id="totalVisits">Loading...</h3>
+                        <h3 id="visitCount">Loading...</h3>
                         <p>Total Visits</p>
                     </div>
                 </div>
                 
                 <div class="stat-card">
                     <div class="stat-icon">
-                        <i class="fas fa-eye"></i>
-                    </div>
-                    <div class="stat-content">
-                        <h3 id="todayVisits">Loading...</h3>
-                        <p>Today's Visits</p>
-                    </div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-download"></i>
+                        <i class="fas fa-file-pdf"></i>
                     </div>
                     <div class="stat-content">
                         <h3 id="resumeDownloads">Loading...</h3>
@@ -78,33 +73,146 @@
                 
                 <div class="stat-card">
                     <div class="stat-icon">
-                        <i class="fas fa-chart-line"></i>
+                        <i class="fas fa-folder-open"></i>
                     </div>
                     <div class="stat-content">
-                        <h3>Google Analytics</h3>
-                        <p><a href="https://analytics.google.com" target="_blank">View Full Report</a></p>
+                        <h3 id="portfolioDownloads">Loading...</h3>
+                        <p>Portfolio Downloads</p>
                     </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="contactSubmissions">Loading...</h3>
+                        <p>Contact Submissions</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="avgTimeOnSite">Loading...</h3>
+                        <p>Avg. Time on Site</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="conversionRate">Loading...</h3>
+                        <p>Conversion Rate</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="analytics-details">
+                <div class="detail-section">
+                    <h3>Top Projects</h3>
+                    <div id="topProjects" class="detail-list">Loading...</div>
+                </div>
+                
+                <div class="detail-section">
+                    <h3>Device Breakdown</h3>
+                    <div id="deviceBreakdown" class="detail-list">Loading...</div>
+                </div>
+                
+                <div class="detail-section">
+                    <h3>Top Referrers</h3>
+                    <div id="topReferrers" class="detail-list">Loading...</div>
                 </div>
             </div>
         </div>
     </section>
 
+    <script src="analytics-dashboard.js"></script>
     <script>
-        // Display visitor statistics
         document.addEventListener('DOMContentLoaded', function() {
-            const totalVisits = localStorage.getItem('visitCount') || 0;
-            const resumeDownloads = localStorage.getItem('resumeDownloads') || 0;
-            const today = new Date().toDateString();
-            const todayKey = 'visits_' + today;
-            const todayVisits = localStorage.getItem(todayKey) || 0;
+            updateAnalyticsDisplay();
             
-            document.getElementById('totalVisits').textContent = totalVisits;
-            document.getElementById('todayVisits').textContent = todayVisits;
-            document.getElementById('resumeDownloads').textContent = resumeDownloads;
+            document.getElementById('exportData').addEventListener('click', () => {
+                window.portfolioAnalytics.exportData();
+            });
             
-            // Increment today's visits
-            localStorage.setItem(todayKey, parseInt(todayVisits) + 1);
+            document.getElementById('refreshData').addEventListener('click', () => {
+                updateAnalyticsDisplay();
+            });
         });
+        
+        function updateAnalyticsDisplay() {
+            const report = window.portfolioAnalytics.generateReport();
+            
+            document.getElementById('visitCount').textContent = report.totalVisits;
+            document.getElementById('resumeDownloads').textContent = report.resumeDownloads;
+            document.getElementById('portfolioDownloads').textContent = report.portfolioDownloads;
+            document.getElementById('contactSubmissions').textContent = report.contactSubmissions;
+            document.getElementById('avgTimeOnSite').textContent = formatTime(report.avgTimeOnSite);
+            document.getElementById('conversionRate').textContent = report.conversionRate + '%';
+            
+            updateTopProjects(report.topProjects);
+            updateDeviceBreakdown(report.deviceBreakdown);
+            updateTopReferrers(report.topReferrers);
+        }
+        
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+        
+        function updateTopProjects(projects) {
+            const container = document.getElementById('topProjects');
+            if (projects.length === 0) {
+                container.innerHTML = '<p>No project views yet</p>';
+                return;
+            }
+            
+            container.innerHTML = projects.map(([name, views]) => 
+                `<div class="detail-item">
+                    <span>${name}</span>
+                    <span class="detail-value">${views} views</span>
+                </div>`
+            ).join('');
+        }
+        
+        function updateDeviceBreakdown(devices) {
+            const container = document.getElementById('deviceBreakdown');
+            const entries = Object.entries(devices);
+            
+            if (entries.length === 0) {
+                container.innerHTML = '<p>No device data yet</p>';
+                return;
+            }
+            
+            container.innerHTML = entries.map(([device, count]) => 
+                `<div class="detail-item">
+                    <span>${device.charAt(0).toUpperCase() + device.slice(1)}</span>
+                    <span class="detail-value">${count} visits</span>
+                </div>`
+            ).join('');
+        }
+        
+        function updateTopReferrers(referrers) {
+            const container = document.getElementById('topReferrers');
+            
+            if (referrers.length === 0) {
+                container.innerHTML = '<p>No referrer data yet</p>';
+                return;
+            }
+            
+            container.innerHTML = referrers.map(([referrer, count]) => 
+                `<div class="detail-item">
+                    <span>${referrer}</span>
+                    <span class="detail-value">${count} visits</span>
+                </div>`
+            ).join('');
+        }
     </script>
 </body>
 </html>
