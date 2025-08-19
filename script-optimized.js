@@ -196,78 +196,80 @@ function stopTypingAnimation() {
 // Safari-compatible theme toggle
 function updateTheme(isDark, skipToggleUpdate = false) {
     const theme = isDark ? 'dark' : 'light';
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     
-    // Safari requires immediate DOM manipulation
     document.documentElement.setAttribute('data-theme', theme);
     document.body.setAttribute('data-theme', theme);
-    document.documentElement.className = theme;
-    document.body.className = theme;
-    
-    // Safari-specific style injection
-    let safariStyle = document.getElementById('safari-dark-mode');
-    if (!safariStyle) {
-        safariStyle = document.createElement('style');
-        safariStyle.id = 'safari-dark-mode';
-        document.head.appendChild(safariStyle);
-    }
-    
-    if (isDark) {
-        safariStyle.textContent = `
-            body, html { background: #1a1a1a !important; color: #ffffff !important; }
-            section.contact { background: #1a1a1a !important; }
-            .contact-form { background: #2d2d2d !important; border: 1px solid rgba(255,255,255,0.1) !important; }
-            .contact-form input, .contact-form textarea { background: #1a1a1a !important; color: #ffffff !important; border: 1px solid rgba(255,255,255,0.2) !important; }
-            .contact-form input::placeholder, .contact-form textarea::placeholder { color: #888888 !important; }
-            footer.footer { background: #0d0d0d !important; }
-            .footer p { color: #ffffff !important; }
-            .navbar { background: rgba(26,26,26,0.95) !important; }
-            .contact-info h3, .contact-info p, .contact-method h4, .contact-method p { color: #ffffff !important; }
-        `;
-    } else {
-        safariStyle.textContent = '';
-    }
-    
     localStorage.setItem('theme', theme);
+    
+    if (isSafari) {
+        applySafariDarkMode(isDark);
+    }
     
     if (!skipToggleUpdate) {
         if (cachedElements.themeToggleDesktop) cachedElements.themeToggleDesktop.checked = isDark;
         if (cachedElements.themeToggleMobile) cachedElements.themeToggleMobile.checked = isDark;
     }
+}
+
+function applySafariDarkMode(isDark) {
+    // Direct style manipulation for Safari
+    const contactForm = document.querySelector('.contact-form');
+    const footer = document.querySelector('.footer');
+    const contactSection = document.querySelector('.contact');
+    const inputs = document.querySelectorAll('.contact-form input, .contact-form textarea');
+    const contactTexts = document.querySelectorAll('.contact-info h3, .contact-info p, .contact-method h4, .contact-method p');
     
-    // Force Safari repaint with multiple methods
-    setTimeout(() => {
-        const elements = [document.querySelector('.contact-form'), document.querySelector('.footer')];
-        elements.forEach(el => {
-            if (el) {
-                el.style.transform = 'translateZ(0)';
-                el.offsetHeight; // Force reflow
-                el.style.transform = '';
-            }
+    if (isDark) {
+        document.body.style.background = '#1a1a1a';
+        document.body.style.color = '#ffffff';
+        
+        if (contactSection) contactSection.style.background = '#1a1a1a';
+        if (contactForm) {
+            contactForm.style.background = '#2d2d2d';
+            contactForm.style.border = '1px solid rgba(255,255,255,0.1)';
+        }
+        if (footer) {
+            footer.style.background = '#0d0d0d';
+            footer.style.color = '#ffffff';
+        }
+        inputs.forEach(input => {
+            input.style.background = '#1a1a1a';
+            input.style.color = '#ffffff';
+            input.style.border = '1px solid rgba(255,255,255,0.2)';
         });
-        document.body.style.display = 'none';
-        document.body.offsetHeight;
-        document.body.style.display = '';
-    }, 10);
+        contactTexts.forEach(text => {
+            text.style.color = '#ffffff';
+        });
+    } else {
+        document.body.style.background = '';
+        document.body.style.color = '';
+        
+        if (contactSection) contactSection.style.background = '';
+        if (contactForm) {
+            contactForm.style.background = '';
+            contactForm.style.border = '';
+        }
+        if (footer) {
+            footer.style.background = '';
+            footer.style.color = '';
+        }
+        inputs.forEach(input => {
+            input.style.background = '';
+            input.style.color = '';
+            input.style.border = '';
+        });
+        contactTexts.forEach(text => {
+            text.style.color = '';
+        });
+    }
 }
 
 function initializeTheme() {
-    // Check system preference first, then saved preference
-    const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const savedTheme = localStorage.getItem('theme');
-    const isDarkMode = savedTheme ? savedTheme === 'dark' : systemPrefersDark;
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    const isDarkMode = savedTheme === 'dark';
     
-    // Apply theme immediately to prevent flash
     updateTheme(isDarkMode);
-    
-    // Listen for system theme changes
-    if (window.matchMedia) {
-        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-        mediaQuery.addEventListener('change', (e) => {
-            if (!localStorage.getItem('theme')) {
-                updateTheme(e.matches);
-            }
-        });
-    }
     
     if (cachedElements.themeToggleDesktop) {
         cachedElements.themeToggleDesktop.addEventListener('change', function() {
@@ -433,6 +435,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize all components
     initCachedElements();
     initializeTheme();
+    
+    // Safari-specific post-load fix
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    if (isSafari && localStorage.getItem('theme') === 'dark') {
+        setTimeout(() => applySafariDarkMode(true), 100);
+    }
+    
     startTypingAnimation();
     initProjectFilters();
     initMobileMenu();
