@@ -85,54 +85,55 @@
     <link rel="preload" href="script-optimized.js" as="script">
     <link rel="preload" href="images/profile-professional.jpg" as="image">
 </head>
-<body onload="setTimeout(() => { if('scrollBehavior' in document.documentElement.style) { window.scrollTo({top:0,behavior:'smooth'}); } else { window.scrollTo(0,0); } }, 50)">
+<body onload="setTimeout(() => { if('scrollBehavior' in document.documentElement.style) { window.scrollTo({top:0,behavior:'smooth'}); } else { window.scrollTo(0,0); } }, 50)" class="page-transition">
+    <a href="#home" class="skip-link">Skip to main content</a>
     <!-- Scroll Progress Indicator -->
     <div class="scroll-progress">
         <div class="scroll-progress-bar" id="scrollProgress"></div>
     </div>
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="nav-container">
             <div class="nav-logo">
-                <a href="#home" aria-label="Home">
-                    <svg class="nav-logo-img" width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <a href="#home" aria-label="Mir Dujanah Ali Hussaini - Home">
+                    <svg class="nav-logo-img" width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logo">
                         <circle cx="50" cy="50" r="45" fill="#2563eb" opacity="0.9"/>
                         <text x="50" y="65" text-anchor="middle" fill="white" font-size="40" font-family="Inter, sans-serif" font-weight="bold">MD</text>
                     </svg>
                     <span class="nav-logo-text">Mir Dujanah</span>
                 </a>
             </div>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#home" class="nav-link" aria-label="Home section">Home</a>
+            <ul class="nav-menu" role="menubar">
+                <li class="nav-item" role="none">
+                    <a href="#home" class="nav-link" role="menuitem" aria-label="Navigate to Home section">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a href="#about" class="nav-link" aria-label="About section">About</a>
+                <li class="nav-item" role="none">
+                    <a href="#about" class="nav-link" role="menuitem" aria-label="Navigate to About section">About</a>
                 </li>
-                <li class="nav-item">
-                    <a href="#projects" class="nav-link" aria-label="Projects section">Projects</a>
+                <li class="nav-item" role="none">
+                    <a href="#projects" class="nav-link" role="menuitem" aria-label="Navigate to Projects section">Projects</a>
                 </li>
-                <li class="nav-item">
-                    <a href="#skills" class="nav-link" aria-label="Skills section">Skills</a>
+                <li class="nav-item" role="none">
+                    <a href="#skills" class="nav-link" role="menuitem" aria-label="Navigate to Skills section">Skills</a>
                 </li>
-                <li class="nav-item">
-                    <a href="#education" class="nav-link" aria-label="Education section">Education</a>
+                <li class="nav-item" role="none">
+                    <a href="#education" class="nav-link" role="menuitem" aria-label="Navigate to Education section">Education</a>
                 </li>
-                <li class="nav-item">
-                    <a href="#contact" class="nav-link" aria-label="Contact section">Contact</a>
+                <li class="nav-item" role="none">
+                    <a href="#contact" class="nav-link" role="menuitem" aria-label="Navigate to Contact section">Contact</a>
                 </li>
-                <li class="nav-item">
-                    <a href="blog.html" class="nav-link" aria-label="Blog section">Blog</a>
+                <li class="nav-item" role="none">
+                    <a href="blog.html" class="nav-link" role="menuitem" aria-label="Navigate to Blog page">Blog</a>
                 </li>
-                <li class="nav-item">
-                    <a href="analytics.html" class="nav-link" aria-label="Analytics section">Analytics</a>
+                <li class="nav-item" role="none">
+                    <a href="analytics.html" class="nav-link" role="menuitem" aria-label="Navigate to Analytics page">Analytics</a>
                 </li>
-                <li class="nav-item theme-item">
+                <li class="nav-item theme-item" role="none">
                     <div class="theme-switch-mobile">
-                        <span class="theme-label-text">Dark Mode</span>
+                        <span class="theme-label-text" id="mobile-theme-label">Dark Mode</span>
                         <div class="theme-switch">
-                            <input type="checkbox" id="themeToggleMobile" class="theme-checkbox">
-                            <label for="themeToggleMobile" class="theme-label">
+                            <input type="checkbox" id="themeToggleMobile" class="theme-checkbox" aria-labelledby="mobile-theme-label">
+                            <label for="themeToggleMobile" class="theme-label" aria-label="Toggle dark mode">
                                 <span class="theme-slider"></span>
                             </label>
                         </div>
@@ -140,46 +141,47 @@
                 </li>
             </ul>
             <div class="theme-switch desktop-theme">
-                <input type="checkbox" id="themeToggle" class="theme-checkbox">
-                <label for="themeToggle" class="theme-label">
+                <input type="checkbox" id="themeToggle" class="theme-checkbox" aria-label="Toggle dark mode">
+                <label for="themeToggle" class="theme-label" aria-label="Dark mode toggle">
                     <span class="theme-slider"></span>
                 </label>
             </div>
-            <div class="hamburger" aria-label="Menu" role="button" tabindex="0" id="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-            <div class="mobile-menu-overlay" id="mobileOverlay"></div>
+            <button class="hamburger" aria-label="Toggle mobile menu" aria-expanded="false" id="hamburger">
+                <span class="bar" aria-hidden="true"></span>
+                <span class="bar" aria-hidden="true"></span>
+                <span class="bar" aria-hidden="true"></span>
+            </button>
+            <div class="mobile-menu-overlay" id="mobileOverlay" aria-hidden="true"></div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero">
+    <section id="home" class="hero" role="banner">
         <div class="hero-container">
             <div class="hero-content">
                 <h1 class="hero-title">Hi, I'm <span class="highlight">Mir Dujanah Ali Hussaini</span></h1>
                 <p class="hero-subtitle">
-                    <span class="typing-text" id="typingText">Software Development Engineer</span>
-                    <span class="cursor">|</span>
+                    <span class="typing-text" id="typingText" aria-live="polite">Software Development Engineer</span>
+                    <span class="cursor" aria-hidden="true">|</span>
                 </p>
                 <p class="hero-description">
                     Fresh graduate with expertise in Java, Python, and cybersecurity. 
                     Passionate about creating secure, innovative solutions and eager to apply my skills in a dynamic team environment.
                 </p>
-                <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary" aria-label="View my projects">View My Work</a>
-                    <a href="#contact" class="btn btn-secondary" aria-label="Get in touch">Get In Touch</a>
-                    <a href="https://github.com/mirdujanah" class="btn btn-outline" target="_blank" aria-label="View GitHub profile"><i class="fab fa-github"></i> GitHub</a>
-                    <a href="https://mirdujanah.github.io/portfolio-website/Mir_Dujanah_Resume.pdf" class="btn btn-outline" target="_blank" aria-label="Download resume" onclick="trackResumeDownload()"><i class="fas fa-download"></i> Resume</a>
-                    <a href="Mir_Dujanah_Portfolio.zip" class="btn btn-outline" download aria-label="Download portfolio"><i class="fas fa-folder-open"></i> Portfolio</a>
+                <div class="hero-buttons" role="group" aria-label="Action buttons">
+                    <a href="#projects" class="btn btn-primary animate-btn" aria-label="View my projects">View My Work</a>
+                    <a href="#contact" class="btn btn-secondary animate-btn" aria-label="Get in touch">Get In Touch</a>
+                    <a href="https://github.com/mirdujanah" class="btn btn-outline animate-btn" target="_blank" rel="noopener" aria-label="View GitHub profile (opens in new tab)"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a>
+                    <a href="https://mirdujanah.github.io/portfolio-website/Mir_Dujanah_Resume.pdf" class="btn btn-outline animate-btn" target="_blank" rel="noopener" aria-label="Download resume PDF (opens in new tab)" onclick="trackResumeDownload()"><i class="fas fa-download" aria-hidden="true"></i> Resume</a>
+                    <a href="Mir_Dujanah_Portfolio.zip" class="btn btn-outline animate-btn" download aria-label="Download portfolio ZIP file"><i class="fas fa-folder-open" aria-hidden="true"></i> Portfolio</a>
                 </div>
             </div>
             <div class="hero-image">
                 <div class="profile-image-simple">
-                    <img data-src="images/profile-professional.jpg" alt="Mir Dujanah Ali Hussaini" class="profile-img-static" loading="lazy">
+                    <img data-src="images/profile-professional.jpg" alt="Professional photo of Mir Dujanah Ali Hussaini" class="profile-img-static" loading="lazy">
                 </div>
             </div>
+        </div>
     </section>
 
     <!-- About Section -->
@@ -595,6 +597,8 @@
     <script src="analytics-dashboard.js"></script>
     <script src="download-tracker.js"></script>
     <script src="pwa-install.js"></script>
+    <script src="accessibility.js"></script>
+    <script src="animations.js"></script>
     <script src="script-optimized.js"></script>
 </body>
 </html> 

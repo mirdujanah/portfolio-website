@@ -2160,6 +2160,139 @@ section {
     }
 }
 
+/* Enhanced Animations and Micro-interactions */
+.page-transition {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: pageEnter 0.6s ease-out forwards;
+}
+
+@keyframes pageEnter {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Button animations */
+.animate-btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animate-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.animate-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.animate-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Enhanced keyboard navigation */
+.nav-link:focus,
+.btn:focus,
+.social-link:focus,
+.hamburger:focus,
+.theme-label:focus {
+    outline: 3px solid var(--apple-blue);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+.nav-link:focus,
+.btn:focus {
+    animation: focusPulse 0.6s ease-out;
+}
+
+@keyframes focusPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Skip to main content */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: var(--apple-blue);
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 4px;
+    z-index: 10000;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.skip-link:focus {
+    top: 6px;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+/* Card animations */
+.project-card,
+.education-card,
+.stat-card {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card:hover,
+.education-card:hover,
+.stat-card:hover {
+    transform: translateY(-8px) scale(1.02);
+}
+
+/* Micro-interactions */
+.social-link i,
+.project-link i {
+    transition: transform 0.3s ease;
+}
+
+.social-link:hover i,
+.project-link:hover i {
+    transform: scale(1.2) rotate(5deg);
+}
+
+/* Stagger animations */
+.projects-grid .project-card {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+.projects-grid .project-card:nth-child(1) { animation-delay: 0.1s; }
+.projects-grid .project-card:nth-child(2) { animation-delay: 0.2s; }
+.projects-grid .project-card:nth-child(3) { animation-delay: 0.3s; }
+.projects-grid .project-card:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* Reduce motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
@@ -2171,6 +2304,10 @@ section {
     
     .reveal-element {
         opacity: 1 !important;
+        transform: none !important;
+    }
+    
+    .animate-btn:hover {
         transform: none !important;
     }
 }

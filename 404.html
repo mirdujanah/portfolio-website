@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | Mir Dujanah Ali Hussaini</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+<body>
+    <div class="error-page">
+        <div class="error-container">
+            <div class="error-animation">
+                <div class="error-number">404</div>
+                <div class="error-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+            
+            <div class="error-content">
+                <h1>Oops! Page Not Found</h1>
+                <p>The page you're looking for seems to have wandered off into the digital void. Don't worry, even the best developers encounter 404s!</p>
+                
+                <div class="error-suggestions">
+                    <h3>Here's what you can do:</h3>
+                    <ul>
+                        <li><i class="fas fa-home"></i> Go back to the <a href="index.html">homepage</a></li>
+                        <li><i class="fas fa-code"></i> Check out my <a href="index.html#projects">projects</a></li>
+                        <li><i class="fas fa-envelope"></i> <a href="index.html#contact">Contact me</a> if you think this is a mistake</li>
+                        <li><i class="fas fa-chart-bar"></i> View <a href="analytics.html">analytics</a></li>
+                    </ul>
+                </div>
+                
+                <div class="error-actions">
+                    <a href="index.html" class="btn btn-primary">
+                        <i class="fas fa-home"></i> Back to Home
+                    </a>
+                    <button onclick="history.back()" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Go Back
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .error-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem;
+        }
+
+        .error-container {
+            max-width: 600px;
+            text-align: center;
+            background: white;
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .error-animation {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .error-number {
+            font-size: 8rem;
+            font-weight: 800;
+            color: #667eea;
+            line-height: 1;
+            margin-bottom: 1rem;
+            animation: bounce 2s infinite;
+        }
+
+        .error-icon {
+            font-size: 3rem;
+            color: #764ba2;
+            animation: pulse 2s infinite;
+        }
+
+        .error-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1d1d1f;
+            margin-bottom: 1rem;
+        }
+
+        .error-content p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .error-suggestions {
+            text-align: left;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .error-suggestions h3 {
+            color: #1d1d1f;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .error-suggestions ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .error-suggestions li {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .error-suggestions i {
+            color: #667eea;
+            width: 16px;
+        }
+
+        .error-suggestions a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .error-suggestions a:hover {
+            text-decoration: underline;
+        }
+
+        .error-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 60%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            80% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .error-container {
+                padding: 2rem;
+            }
+            
+            .error-number {
+                font-size: 6rem;
+            }
+            
+            .error-content h1 {
+                font-size: 2rem;
+            }
+            
+            .error-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</body>
+</html>
