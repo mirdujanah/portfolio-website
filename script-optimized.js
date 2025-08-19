@@ -214,10 +214,14 @@ function updateTheme(isDark, skipToggleUpdate = false) {
     if (isDark) {
         safariStyle.textContent = `
             body, html { background: #1a1a1a !important; color: #ffffff !important; }
-            .contact-form { background: #2d2d2d !important; }
+            section.contact { background: #1a1a1a !important; }
+            .contact-form { background: #2d2d2d !important; border: 1px solid rgba(255,255,255,0.1) !important; }
             .contact-form input, .contact-form textarea { background: #1a1a1a !important; color: #ffffff !important; border: 1px solid rgba(255,255,255,0.2) !important; }
-            .footer { background: #0d0d0d !important; color: #ffffff !important; }
+            .contact-form input::placeholder, .contact-form textarea::placeholder { color: #888888 !important; }
+            footer.footer { background: #0d0d0d !important; }
+            .footer p { color: #ffffff !important; }
             .navbar { background: rgba(26,26,26,0.95) !important; }
+            .contact-info h3, .contact-info p, .contact-method h4, .contact-method p { color: #ffffff !important; }
         `;
     } else {
         safariStyle.textContent = '';
@@ -230,11 +234,20 @@ function updateTheme(isDark, skipToggleUpdate = false) {
         if (cachedElements.themeToggleMobile) cachedElements.themeToggleMobile.checked = isDark;
     }
     
-    // Force Safari repaint
+    // Force Safari repaint with multiple methods
     setTimeout(() => {
-        document.body.style.transform = 'translateZ(0)';
-        setTimeout(() => { document.body.style.transform = ''; }, 1);
-    }, 1);
+        const elements = [document.querySelector('.contact-form'), document.querySelector('.footer')];
+        elements.forEach(el => {
+            if (el) {
+                el.style.transform = 'translateZ(0)';
+                el.offsetHeight; // Force reflow
+                el.style.transform = '';
+            }
+        });
+        document.body.style.display = 'none';
+        document.body.offsetHeight;
+        document.body.style.display = '';
+    }, 10);
 }
 
 function initializeTheme() {

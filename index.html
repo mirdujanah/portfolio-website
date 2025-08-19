@@ -86,6 +86,27 @@
     <link rel="preload" href="images/profile-professional.jpg" as="image">
 </head>
 <body onload="setTimeout(() => { if('scrollBehavior' in document.documentElement.style) { window.scrollTo({top:0,behavior:'smooth'}); } else { window.scrollTo(0,0); } }, 50)" class="page-transition">
+    <!-- Safari Dark Mode Immediate Fix -->
+    <script>
+        (function() {
+            const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+            if (isSafari) {
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    document.body.setAttribute('data-theme', 'dark');
+                    const style = document.createElement('style');
+                    style.innerHTML = `
+                        body { background: #1a1a1a !important; color: #ffffff !important; }
+                        .contact-form { background: #2d2d2d !important; }
+                        .contact-form input, .contact-form textarea { background: #1a1a1a !important; color: #ffffff !important; }
+                        .footer { background: #0d0d0d !important; color: #ffffff !important; }
+                    `;
+                    document.head.appendChild(style);
+                }
+            }
+        })();
+    </script>
     <a href="#home" class="skip-link">Skip to main content</a>
     <!-- Scroll Progress Indicator -->
     <div class="scroll-progress">
@@ -600,5 +621,32 @@
     <script src="accessibility.js"></script>
     <script src="animations.js"></script>
     <script src="script-optimized.js"></script>
+    
+    <!-- Safari Dark Mode Post-Load Fix -->
+    <script>
+        window.addEventListener('load', function() {
+            const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+            if (isSafari && localStorage.getItem('theme') === 'dark') {
+                setTimeout(function() {
+                    const contactForm = document.querySelector('.contact-form');
+                    const footer = document.querySelector('.footer');
+                    if (contactForm) {
+                        contactForm.style.background = '#2d2d2d';
+                        contactForm.style.border = '1px solid rgba(255,255,255,0.1)';
+                    }
+                    if (footer) {
+                        footer.style.background = '#0d0d0d';
+                        footer.style.color = '#ffffff';
+                    }
+                    const inputs = document.querySelectorAll('.contact-form input, .contact-form textarea');
+                    inputs.forEach(input => {
+                        input.style.background = '#1a1a1a';
+                        input.style.color = '#ffffff';
+                        input.style.border = '1px solid rgba(255,255,255,0.2)';
+                    });
+                }, 100);
+            }
+        });
+    </script>
 </body>
 </html> 
