@@ -127,11 +127,30 @@
                     <h3>Top Referrers</h3>
                     <div id="topReferrers" class="detail-list">Loading...</div>
                 </div>
+                
+                <div class="detail-section">
+                    <h3>Download Statistics</h3>
+                    <div class="download-stats">
+                        <div class="stat-item">
+                            <span>Resume Downloads:</span>
+                            <span id="resumeDownloadCount">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>Portfolio Downloads:</span>
+                            <span id="portfolioDownloadCount">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>Top Download Source:</span>
+                            <span id="topDownloadSource">Hero Section</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <script src="analytics-dashboard.js"></script>
+    <script src="download-tracker.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             updateAnalyticsDisplay();
@@ -158,6 +177,16 @@
             updateTopProjects(report.topProjects);
             updateDeviceBreakdown(report.deviceBreakdown);
             updateTopReferrers(report.topReferrers);
+            updateDownloadStats();
+        }
+        
+        function updateDownloadStats() {
+            if (window.downloadTracker) {
+                const downloadReport = window.downloadTracker.generateReport();
+                document.getElementById('resumeDownloadCount').textContent = downloadReport.resume.total;
+                document.getElementById('portfolioDownloadCount').textContent = downloadReport.portfolio.total;
+                document.getElementById('topDownloadSource').textContent = downloadReport.resume.topSource || 'Hero Section';
+            }
         }
         
         function formatTime(seconds) {
