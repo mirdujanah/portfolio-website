@@ -2943,20 +2943,54 @@ section {
 
     .nav-menu {
         position: fixed;
-        left: -100%;
-        top: 70px;
-        flex-direction: column;
-        background-color: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(20px);
-        width: 100%;
-        text-align: center;
-        transition: 0.3s;
-        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
-        padding: 2rem 0;
+        top: 80px;
+        right: -100%;
+        width: 100vw;
+        height: calc(100vh - 80px);
+        background: white;
+        z-index: 999;
+        transition: right 0.3s ease;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+        padding: 0;
     }
 
     .nav-menu.active {
-        left: 0;
+        right: 0;
+    }
+    
+    .nav-item {
+        display: block;
+        width: 100%;
+    }
+    
+    .nav-link {
+        display: block;
+        padding: 20px 30px;
+        font-size: 18px;
+        color: #333;
+        text-decoration: none;
+        border-bottom: 1px solid #eee;
+        min-height: 60px;
+        box-sizing: border-box;
+    }
+    
+    .theme-switch-mobile {
+        padding: 20px 30px;
+        border-bottom: 1px solid #eee;
+    }
+    
+    [data-theme="dark"] .nav-menu {
+        background: #1a1a1a !important;
+    }
+    
+    [data-theme="dark"] .nav-link {
+        color: #ffffff !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+    
+    [data-theme="dark"] .theme-label-text {
+        color: #ffffff !important;
     }
 
     .hero-container {
