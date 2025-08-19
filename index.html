@@ -77,7 +77,8 @@
 
     <!-- Preload critical resources -->
     <link rel="preload" href="styles.css" as="style">
-    <link rel="preload" href="script.js" as="script">
+    <link rel="preload" href="script-optimized.js" as="script">
+    <link rel="preload" href="images/profile-professional.jpg" as="image">
 </head>
 <body onload="setTimeout(() => { if('scrollBehavior' in document.documentElement.style) { window.scrollTo({top:0,behavior:'smooth'}); } else { window.scrollTo(0,0); } }, 50)">
     <!-- Scroll Progress Indicator -->
@@ -171,7 +172,7 @@
             </div>
             <div class="hero-image">
                 <div class="profile-image-simple">
-                    <img src="images/profile-professional.jpg" alt="Mir Dujanah Ali Hussaini" class="profile-img-static">
+                    <img data-src="images/profile-professional.jpg" alt="Mir Dujanah Ali Hussaini" class="profile-img-static" loading="lazy">
                 </div>
             </div>
     </section>
@@ -584,6 +585,8 @@
     </script>
     
     <script src="form-config.js"></script>
-    <script src="script.js"></script>
+    <script src="lazy-loading.js"></script>
+    <script src="performance-monitor.js"></script>
+    <script src="script-optimized.js"></script>
 </body>
 </html> 
