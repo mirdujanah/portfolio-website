@@ -1515,6 +1515,8 @@ body {
 
 .menu-open {
     overflow: hidden;
+    position: fixed;
+    width: 100%;
 }
 
 /* Mobile Navigation Improvements */
@@ -1534,9 +1536,10 @@ body {
         transition: right 0.3s ease;
         box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
         z-index: 999;
-        overflow-y: auto;
+        overflow-y: scroll;
         -webkit-overflow-scrolling: touch;
         overscroll-behavior: contain;
+        scrollbar-width: thin;
     }
     
     /* Dark mode mobile menu */
