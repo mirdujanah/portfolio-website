@@ -221,6 +221,29 @@ body {
     display: none;
     flex-direction: column;
     cursor: pointer;
+    background: none;
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.hamburger:focus {
+    outline: 3px solid var(--apple-blue);
+    outline-offset: 2px;
+    background: rgba(37, 99, 235, 0.1);
+}
+
+.hamburger:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] .hamburger:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .hamburger:focus {
+    background: rgba(102, 126, 234, 0.2);
 }
 
 .bar {
@@ -914,32 +937,137 @@ body {
     background: rgba(26, 26, 26, 0.95) !important;
 }
 
-/* ULTIMATE DARK MODE SOLUTION - OVERRIDES EVERYTHING */
-[data-theme="dark"] *:not(input):not(textarea):not(.btn):not(.tech-tag) {
+/* COMPREHENSIVE DARK MODE SOLUTION */
+[data-theme="dark"] body,
+[data-theme="dark"] html {
+    background-color: #1a1a1a !important;
     color: #ffffff !important;
 }
 
-/* Specific overrides for problematic sections */
-[data-theme="dark"] .about-text p,
-[data-theme="dark"] .stat h3,
-[data-theme="dark"] .stat p,
-[data-theme="dark"] .filter-btn,
-[data-theme="dark"] .skill-name,
-[data-theme="dark"] .skill-category h3,
+/* Text elements */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6,
+[data-theme="dark"] p,
+[data-theme="dark"] span,
+[data-theme="dark"] div:not(.btn):not(.tech-tag),
+[data-theme="dark"] li {
+    color: #ffffff !important;
+}
+
+/* Navigation */
+[data-theme="dark"] .navbar {
+    background: rgba(26, 26, 26, 0.95) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme="dark"] .nav-link {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .nav-link:hover {
+    color: #667eea !important;
+}
+
+[data-theme="dark"] .nav-logo a {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .hamburger .bar {
+    background-color: #ffffff !important;
+}
+
+/* Contact section specific fixes */
+[data-theme="dark"] .contact {
+    background: #1a1a1a !important;
+}
+
 [data-theme="dark"] .contact-info h3,
 [data-theme="dark"] .contact-info p,
 [data-theme="dark"] .contact-method h4,
-[data-theme="dark"] .contact-method p,
-[data-theme="dark"] .contact-method div h4,
-[data-theme="dark"] .contact-method div p {
+[data-theme="dark"] .contact-method p {
     color: #ffffff !important;
 }
 
-/* Form elements */
+[data-theme="dark"] .contact-method i {
+    color: #667eea !important;
+}
+
+/* Project and other cards */
+[data-theme="dark"] .project-card,
+[data-theme="dark"] .education-card,
+[data-theme="dark"] .stat-card,
+[data-theme="dark"] .skill-items,
+[data-theme="dark"] .contact-form {
+    background: #2d2d2d !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme="dark"] .project-content h3,
+[data-theme="dark"] .project-content p,
+[data-theme="dark"] .education-content h3,
+[data-theme="dark"] .education-content p,
+[data-theme="dark"] .education-content .institution,
+[data-theme="dark"] .education-content .details,
+[data-theme="dark"] .education-content .description {
+    color: #ffffff !important;
+}
+
+/* Skills section */
+[data-theme="dark"] .skill-category h3,
+[data-theme="dark"] .skill-name {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .skill-bar {
+    background-color: #333333 !important;
+}
+
+/* About section */
+[data-theme="dark"] .about-text p,
+[data-theme="dark"] .stat h3,
+[data-theme="dark"] .stat p {
+    color: #ffffff !important;
+}
+
+/* Filter buttons */
+[data-theme="dark"] .filter-btn {
+    background: #333333 !important;
+    color: #ffffff !important;
+    border-color: #555555 !important;
+}
+
+[data-theme="dark"] .filter-btn.active {
+    background: #667eea !important;
+    color: #ffffff !important;
+    border-color: #667eea !important;
+}
+
+/* Form elements - Fixed for all browsers */
+[data-theme="dark"] .contact-form {
+    background: #2d2d2d !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
 [data-theme="dark"] input,
 [data-theme="dark"] textarea {
-    color: #333333 !important;
-    background: #f0f0f0 !important;
+    background: #1a1a1a !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder {
+    color: #888888 !important;
+}
+
+[data-theme="dark"] input:focus,
+[data-theme="dark"] textarea:focus {
+    border-color: #667eea !important;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2) !important;
 }
 
 /* Buttons */
@@ -976,12 +1104,15 @@ body {
 }
 
 [data-theme="dark"] .tech-tag {
-    color: #333333 !important;
+    color: #1a1a1a !important;
     background: #cccccc !important;
 }
 
 [data-theme="dark"] .hero-title .highlight {
-    color: #667eea !important;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
 }
 
 [data-theme="dark"] .nav-link:hover {
@@ -992,14 +1123,36 @@ body {
     color: #ffffff !important;
 }
 
-/* Safari-Compatible Theme Toggle Switch */
+/* Cross-browser Theme Toggle Switch */
 .theme-switch {
     position: relative;
     display: inline-block;
     width: 50px;
     height: 24px;
     -webkit-appearance: none;
+    -moz-appearance: none;
     appearance: none;
+}
+
+/* Cross-browser dark mode support */
+@supports (-webkit-appearance: none) {
+    [data-theme="dark"] {
+        -webkit-color-scheme: dark;
+        color-scheme: dark;
+    }
+}
+
+@supports (-moz-appearance: none) {
+    [data-theme="dark"] {
+        -moz-color-scheme: dark;
+        color-scheme: dark;
+    }
+}
+
+/* Ensure dark mode works in all browsers */
+[data-theme="dark"] * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .theme-switch-mobile {
@@ -1076,7 +1229,18 @@ body {
 
 .theme-checkbox:checked + .theme-label:before {
     -webkit-transform: translateX(26px);
+    -moz-transform: translateX(26px);
+    -ms-transform: translateX(26px);
     transform: translateX(26px);
+}
+
+/* Dark mode theme toggle colors */
+[data-theme="dark"] .theme-label {
+    background-color: #555555 !important;
+}
+
+[data-theme="dark"] .theme-checkbox:checked + .theme-label {
+    background-color: #667eea !important;
 }
 
 /* Typing Animation */
@@ -1241,6 +1405,7 @@ body {
         height: calc(100vh - 80px);
         background: rgba(255, 255, 255, 0.95);
         backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start;
@@ -1248,6 +1413,21 @@ body {
         transition: right 0.3s ease;
         box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
         z-index: 999;
+    }
+    
+    /* Dark mode mobile menu */
+    [data-theme="dark"] .nav-menu {
+        background: rgba(26, 26, 26, 0.95) !important;
+        box-shadow: -5px 0 20px rgba(255, 255, 255, 0.1) !important;
+    }
+    
+    [data-theme="dark"] .nav-link {
+        color: #ffffff !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+    
+    [data-theme="dark"] .theme-label-text {
+        color: #ffffff !important;
     }
     
     .nav-menu.active {
@@ -1291,6 +1471,11 @@ body {
     .theme-switch {
         order: -1;
         margin-right: 1rem;
+    }
+    
+    /* Mobile dark mode fixes */
+    [data-theme="dark"] .mobile-menu-overlay {
+        background: rgba(0, 0, 0, 0.8) !important;
     }
 }
 
@@ -2293,6 +2478,36 @@ section {
     }
 }
 
+/* Comprehensive dark mode fixes */
+[data-theme="dark"] .section-title {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .hero-title,
+[data-theme="dark"] .hero-subtitle,
+[data-theme="dark"] .hero-description {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .project-link {
+    color: #667eea !important;
+}
+
+[data-theme="dark"] .project-link:hover {
+    color: #4facfe !important;
+}
+
+[data-theme="dark"] .error-message {
+    color: #ff6b6b !important;
+}
+
+/* Mobile menu dark mode */
+@media (max-width: 768px) {
+    [data-theme="dark"] .nav-item {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+}
+
 /* Reduce motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
@@ -2574,6 +2789,15 @@ section {
     text-align: center;
     padding: 3rem 0;
     font-size: 0.9rem;
+}
+
+[data-theme="dark"] .footer {
+    background: #0d0d0d !important;
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .footer p {
+    color: #ffffff !important;
 }
 
 /* Responsive Design - Apple Style */

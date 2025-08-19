@@ -193,10 +193,34 @@ function stopTypingAnimation() {
     }
 }
 
-// Optimized theme toggle
+// Enhanced cross-browser theme toggle
 function updateTheme(isDark, skipToggleUpdate = false) {
-    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    const theme = isDark ? 'dark' : 'light';
+    
+    // Set data attribute on html and body for maximum compatibility
+    document.documentElement.setAttribute('data-theme', theme);
+    document.body.setAttribute('data-theme', theme);
+    
+    // Set CSS custom properties for older browsers
+    const root = document.documentElement;
+    if (isDark) {
+        root.style.setProperty('--bg-color', '#1a1a1a');
+        root.style.setProperty('--text-color', '#ffffff');
+        root.style.setProperty('--card-bg', '#2d2d2d');
+        root.style.setProperty('--border-color', 'rgba(255, 255, 255, 0.1)');
+    } else {
+        root.style.setProperty('--bg-color', '#ffffff');
+        root.style.setProperty('--text-color', '#333333');
+        root.style.setProperty('--card-bg', '#ffffff');
+        root.style.setProperty('--border-color', 'rgba(0, 0, 0, 0.1)');
+    }
+    
+    // Force repaint for Safari
+    document.body.style.display = 'none';
+    document.body.offsetHeight; // Trigger reflow
+    document.body.style.display = '';
+    
+    localStorage.setItem('theme', theme);
     
     if (!skipToggleUpdate) {
         if (cachedElements.themeToggleDesktop) cachedElements.themeToggleDesktop.checked = isDark;
@@ -205,9 +229,23 @@ function updateTheme(isDark, skipToggleUpdate = false) {
 }
 
 function initializeTheme() {
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    const isDarkMode = savedTheme === 'dark';
+    // Check system preference first, then saved preference
+    const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme = localStorage.getItem('theme');
+    const isDarkMode = savedTheme ? savedTheme === 'dark' : systemPrefersDark;
+    
+    // Apply theme immediately to prevent flash
     updateTheme(isDarkMode);
+    
+    // Listen for system theme changes
+    if (window.matchMedia) {
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        mediaQuery.addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                updateTheme(e.matches);
+            }
+        });
+    }
     
     if (cachedElements.themeToggleDesktop) {
         cachedElements.themeToggleDesktop.addEventListener('change', function() {

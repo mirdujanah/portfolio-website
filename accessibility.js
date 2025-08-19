@@ -14,12 +14,42 @@ class AccessibilityManager {
     addKeyboardNavigation() {
         // Hamburger menu keyboard support
         const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        
         if (hamburger) {
+            // Make hamburger focusable and add keyboard support
+            hamburger.setAttribute('tabindex', '0');
+            
             hamburger.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
-                    hamburger.click();
+                    this.toggleMobileMenu();
                 }
+                // Arrow keys navigation when menu is open
+                if (e.key === 'ArrowDown' && navMenu && navMenu.classList.contains('active')) {
+                    e.preventDefault();
+                    const firstLink = navMenu.querySelector('.nav-link');
+                    if (firstLink) firstLink.focus();
+                }
+            });
+        }
+        
+        // Navigation menu keyboard support
+        if (navMenu) {
+            const navLinks = navMenu.querySelectorAll('.nav-link');
+            navLinks.forEach((link, index) => {
+                link.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        const nextIndex = (index + 1) % navLinks.length;
+                        navLinks[nextIndex].focus();
+                    }
+                    if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        const prevIndex = (index - 1 + navLinks.length) % navLinks.length;
+                        navLinks[prevIndex].focus();
+                    }
+                });
             });
         }
 
@@ -117,15 +147,47 @@ class AccessibilityManager {
         }
     }
 
+    toggleMobileMenu() {
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        const overlay = document.getElementById('mobileOverlay');
+        
+        if (hamburger && navMenu) {
+            const isActive = navMenu.classList.contains('active');
+            
+            if (isActive) {
+                this.closeMobileMenu();
+            } else {
+                hamburger.classList.add('active');
+                navMenu.classList.add('active');
+                if (overlay) overlay.classList.add('active');
+                document.body.classList.add('menu-open');
+                
+                // Update ARIA attributes
+                hamburger.setAttribute('aria-expanded', 'true');
+                navMenu.setAttribute('aria-hidden', 'false');
+            }
+        }
+    }
+    
     closeMobileMenu() {
         const hamburger = document.getElementById('hamburger');
-        const navMenu = document.querySelector('.nav-menu');
+        const navMenu = document.getElementById('nav-menu');
         const overlay = document.getElementById('mobileOverlay');
 
-        if (hamburger) hamburger.classList.remove('active');
-        if (navMenu) navMenu.classList.remove('active');
+        if (hamburger) {
+            hamburger.classList.remove('active');
+            hamburger.setAttribute('aria-expanded', 'false');
+        }
+        if (navMenu) {
+            navMenu.classList.remove('active');
+            navMenu.setAttribute('aria-hidden', 'true');
+        }
         if (overlay) overlay.classList.remove('active');
         document.body.classList.remove('menu-open');
+        
+        // Return focus to hamburger button
+        if (hamburger) hamburger.focus();
     }
 }
 
