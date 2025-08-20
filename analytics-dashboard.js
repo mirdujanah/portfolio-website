@@ -371,11 +371,11 @@ try {
     
     // Debug info for development
     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        console.log('Portfolio Analytics initialized:', analytics.generateReport());
+        console.log('Portfolio Analytics initialized');
         window.resetAnalytics = () => analytics.resetAnalytics();
     }
 } catch (error) {
-    console.error('Analytics initialization failed:', error);
+    console.error('Analytics initialization failed');
     // Fallback analytics object
     window.portfolioAnalytics = {
         generateReport: () => ({

@@ -13,18 +13,9 @@ const FORM_CONFIG = {
         enabled: true
     },
     
-    // EmailJS Configuration (Fallback method)
+    // EmailJS Configuration (Disabled - no credentials stored)
     emailjs: {
-        enabled: false, // Set to true when configured
-        serviceID: 'service_portfolio',
-        templateID: 'template_contact',
-        publicKey: 'YOUR_EMAILJS_PUBLIC_KEY',
-        // To set up EmailJS:
-        // 1. Go to https://www.emailjs.com/
-        // 2. Create an account and service
-        // 3. Create an email template
-        // 4. Get your public key
-        // 5. Update the values above
+        enabled: false
     },
     
     // Notification messages

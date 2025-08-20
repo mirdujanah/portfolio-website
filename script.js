@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let downloads = localStorage.getItem('resumeDownloads') || 0;
         downloads++;
         localStorage.setItem('resumeDownloads', downloads);
-        console.log('Resume downloaded:', downloads, 'times');
+        console.log('Resume downloaded:', encodeURIComponent(downloads), 'times');
     };
     
     window.addEventListener('scroll', updateScrollProgress, { passive: true });
@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function typeText() {
         if (typingElement && charIndex < texts[textIndex].length) {
-            typingElement.innerHTML = texts[textIndex].substring(0, charIndex + 1);
+            typingElement.textContent = texts[textIndex].substring(0, charIndex + 1);
             charIndex++;
             setTimeout(typeText, 100);
         } else {
@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function eraseText() {
         if (typingElement && charIndex > 0) {
-            typingElement.innerHTML = texts[textIndex].substring(0, charIndex - 1);
+            typingElement.textContent = texts[textIndex].substring(0, charIndex - 1);
             charIndex--;
             setTimeout(eraseText, 50);
         } else {
@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     if (typingElement) {
-        typingElement.innerHTML = '';
+        typingElement.textContent = '';
         setTimeout(function() {
             typeText();
         }, 1000);

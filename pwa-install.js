@@ -74,7 +74,7 @@ class PWAInstaller {
             self.deferredPrompt = null;
             self.hideInstallButton();
         }).catch(function(error) {
-            console.log('Install prompt error:', error);
+            console.log('Install prompt error:', encodeURIComponent(error.message));
         });
     }
 

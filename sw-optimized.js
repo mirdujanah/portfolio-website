@@ -25,7 +25,7 @@ self.addEventListener('install', event => {
                 return cache.addAll(STATIC_FILES);
             })
             .catch(error => {
-                console.error('Failed to cache static files:', error);
+                console.error('Failed to cache static files:', encodeURIComponent(error.message));
             })
     );
     self.skipWaiting();
@@ -45,7 +45,7 @@ self.addEventListener('activate', event => {
                 );
             })
             .catch(error => {
-                console.error('Failed to clean up caches:', error);
+                console.error('Failed to clean up caches:', encodeURIComponent(error.message));
             })
     );
     self.clients.claim();
@@ -88,13 +88,13 @@ self.addEventListener('fetch', event => {
                                     cache.put(request, responseClone);
                                 })
                                 .catch(error => {
-                                    console.error('Failed to cache dynamic resource:', error);
+                                    console.error('Failed to cache dynamic resource:', encodeURIComponent(error.message));
                                 });
                         }
                         return networkResponse;
                     })
                     .catch(error => {
-                        console.error('Network request failed:', error);
+                        console.error('Network request failed:', encodeURIComponent(error.message));
                         // Return offline fallback if available
                         return caches.match('/index.html');
                     });
@@ -113,12 +113,12 @@ function updateCache(request) {
                         cache.put(request, responseClone);
                     })
                     .catch(error => {
-                        console.error('Failed to update cache:', error);
+                        console.error('Failed to update cache:', encodeURIComponent(error.message));
                     });
             }
         })
         .catch(error => {
-            console.error('Background update failed:', error);
+            console.error('Background update failed:', encodeURIComponent(error.message));
         });
 }
 
