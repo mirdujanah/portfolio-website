@@ -99,15 +99,21 @@ class AnalyticsDashboard {
                 visitors = JSON.parse(localStorage.getItem(visitorsKey) || '[]');
             } catch (e) {}
             
+            let needsVisitorUpdate = false;
             if (!visitors.includes(visitorId)) {
                 visitors.push(visitorId);
                 this.data.uniqueVisitors = visitors.length;
-                localStorage.setItem(visitorsKey, JSON.stringify(visitors));
+                needsVisitorUpdate = true;
             }
             
             // Track daily visits
             const today = new Date().toISOString().split('T')[0];
             this.data.dailyVisits[today] = (this.data.dailyVisits[today] || 0) + 1;
+            
+            // Batch localStorage operations
+            if (needsVisitorUpdate) {
+                localStorage.setItem(visitorsKey, JSON.stringify(visitors));
+            }
         }
         
         this.session.pageViews++;

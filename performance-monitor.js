@@ -2,6 +2,7 @@
 class PerformanceMonitor {
     constructor() {
         this.metrics = {};
+        this.observers = [];
         this.init();
     }
 
@@ -45,6 +46,7 @@ class PerformanceMonitor {
                 console.log('LCP:', this.metrics.lcp);
             });
             lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
+            this.observers.push(lcpObserver);
 
             // First Input Delay (FID)
             const fidObserver = new PerformanceObserver((list) => {
@@ -55,6 +57,7 @@ class PerformanceMonitor {
                 });
             });
             fidObserver.observe({ entryTypes: ['first-input'] });
+            this.observers.push(fidObserver);
 
             // Cumulative Layout Shift (CLS)
             let clsValue = 0;
@@ -69,6 +72,7 @@ class PerformanceMonitor {
                 console.log('CLS:', this.metrics.cls);
             });
             clsObserver.observe({ entryTypes: ['layout-shift'] });
+            this.observers.push(clsObserver);
         }
     }
 
@@ -78,16 +82,22 @@ class PerformanceMonitor {
                 const entries = list.getEntries();
                 entries.forEach(entry => {
                     if (entry.duration > 1000) { // Resources taking more than 1 second
-                        console.warn('Slow resource:', entry.name, 'Duration:', entry.duration);
+                        console.warn('Slow resource:', encodeURIComponent(entry.name), 'Duration:', entry.duration);
                     }
                 });
             });
             resourceObserver.observe({ entryTypes: ['resource'] });
+            this.observers.push(resourceObserver);
         }
     }
 
     getMetrics() {
         return this.metrics;
+    }
+
+    cleanup() {
+        this.observers.forEach(observer => observer.disconnect());
+        this.observers = [];
     }
 
     // Send metrics to analytics (if needed)
@@ -112,4 +122,9 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         monitor.sendMetrics();
     }, 5000);
+    
+    // Cleanup on page unload
+    window.addEventListener('beforeunload', () => {
+        monitor.cleanup();
+    });
 });

@@ -78,23 +78,14 @@ function smoothScrollToTop() {
     }
 }
 
-// Multiple event listeners for cross-browser compatibility
-window.addEventListener('beforeunload', () => {
-    window.scrollTo(0, 0);
-});
-
-window.addEventListener('pageshow', (event) => {
-    setTimeout(smoothScrollToTop, 100);
-});
-
-window.addEventListener('load', () => {
-    setTimeout(smoothScrollToTop, 200);
-});
-
-// Performance optimized JavaScript
+// Single scroll initialization
 document.addEventListener('DOMContentLoaded', function() {
-    window.scrollTo(0, 0);
-    setTimeout(smoothScrollToTop, 50);
+    // Single consolidated scroll to top
+    if ('scrollBehavior' in document.documentElement.style) {
+        window.scrollTo({ top: 0, behavior: 'auto' });
+    } else {
+        window.scrollTo(0, 0);
+    }
     
     // Auto-click home button on page reload
     const homeLink = document.querySelector('a[href="#home"]');
