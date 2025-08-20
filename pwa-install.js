@@ -86,7 +86,11 @@ class PWAInstaller {
             });
         }
         
-        localStorage.setItem('pwaInstalled', 'true');
+        try {
+            localStorage.setItem('pwaInstalled', 'true');
+        } catch (e) {
+            console.log('Storage not available');
+        }
     }
 }
 

@@ -24,7 +24,7 @@ class AnimationManager {
         // Button ripple effect
         const buttons = document.querySelectorAll('.animate-btn');
         buttons.forEach(button => {
-            button.addEventListener('click', this.createRipple);
+            button.addEventListener('click', (e) => this.createRipple(e));
         });
     }
 
@@ -35,6 +35,7 @@ class AnimationManager {
             rootMargin: '0px 0px -50px 0px'
         };
 
+        if (!('IntersectionObserver' in window)) return;
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {

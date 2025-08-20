@@ -418,7 +418,7 @@ function trackResumeDownload() {
         });
     }
     
-    let downloads = localStorage.getItem('resumeDownloads') || 0;
+    let downloads = parseInt(localStorage.getItem('resumeDownloads'), 10) || 0;
     downloads++;
     localStorage.setItem('resumeDownloads', downloads);
 }

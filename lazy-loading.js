@@ -29,6 +29,7 @@ class LazyLoader {
     }
 
     observeImages() {
+        if (!this.imageObserver) return;
         const images = document.querySelectorAll('img[data-src]');
         images.forEach(img => {
             this.imageObserver.observe(img);
@@ -52,7 +53,7 @@ class LazyLoader {
             img.classList.add('error');
         };
 
-        imageLoader.src = src;
+        imageLoader.src = encodeURI(src);
     }
 
     loadAllImages() {

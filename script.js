@@ -108,10 +108,16 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Resume download tracking
     window.trackResumeDownload = function() {
-        gtag('event', 'download', {
-            'event_category': 'Resume',
-            'event_label': 'Mir_Dujanah_Resume.pdf'
-        });
+        if (typeof gtag !== 'undefined') {
+            try {
+                gtag('event', 'download', {
+                    'event_category': 'Resume',
+                    'event_label': 'Mir_Dujanah_Resume.pdf'
+                });
+            } catch (e) {
+                console.log('Analytics not available');
+            }
+        }
         
         let downloads = localStorage.getItem('resumeDownloads') || 0;
         downloads++;
@@ -332,19 +338,25 @@ document.addEventListener('DOMContentLoaded', function() {
     // Cookie consent handling
     showCookieConsent();
     
-    document.getElementById('acceptCookies').addEventListener('click', () => {
-        setCookie('cookieConsent', 'accepted', 365);
-        const banner = document.getElementById('cookieConsent');
-        banner.style.display = 'none';
-    });
+    const acceptBtn = document.getElementById('acceptCookies');
+    const declineBtn = document.getElementById('declineCookies');
     
-    document.getElementById('declineCookies').addEventListener('click', () => {
-        setCookie('cookieConsent', 'declined', 365);
-        const banner = document.getElementById('cookieConsent');
-        banner.style.display = 'none';
-        // Disable Google Analytics if declined
-        window['ga-disable-G-9J7MJXMGGW'] = true;
-    });
+    if (acceptBtn) {
+        acceptBtn.addEventListener('click', () => {
+            setCookie('cookieConsent', 'accepted', 365);
+            const banner = document.getElementById('cookieConsent');
+            if (banner) banner.style.display = 'none';
+        });
+    }
+    
+    if (declineBtn) {
+        declineBtn.addEventListener('click', () => {
+            setCookie('cookieConsent', 'declined', 365);
+            const banner = document.getElementById('cookieConsent');
+            if (banner) banner.style.display = 'none';
+            window['ga-disable-G-9J7MJXMGGW'] = true;
+        });
+    }
 });
 
 window.addEventListener('scroll', () => {
